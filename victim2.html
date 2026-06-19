@@ -1,1 +1,496 @@
-//
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>معرفة مجهول الهوية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: #0a0a0f;
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        /* ========== البطاقة ========== */
+        .main-card {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 32px 24px 28px;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ========== زوايا متوهجة ========== */
+        .glow-corner {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        .glow-corner.top-right {
+            top: -80px;
+            right: -80px;
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        .glow-corner.bottom-left {
+            bottom: -80px;
+            left: -80px;
+            background: rgba(236, 72, 153, 0.12);
+        }
+
+        /* ========== الأيقونة ========== */
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 38px;
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.35);
+            position: relative;
+        }
+
+        .icon-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #a855f7, #6366f1);
+            background-size: 300% 300%;
+            z-index: -1;
+            animation: border-glow 3s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes border-glow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ========== النصوص ========== */
+        .main-title {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .main-title span {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-text {
+            color: rgba(255,255,255,0.45);
+            font-size: 14px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* ========== زر الدخول ========== */
+        .enter-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #6366f1, #7c3aed);
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.45);
+        }
+
+        .enter-btn:active {
+            transform: scale(0.97);
+        }
+
+        .enter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ========== شريط التحميل ========== */
+        .loading-container {
+            display: none;
+            margin: 16px 0 8px;
+        }
+
+        .loading-container.active {
+            display: block;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #6366f1, #a855f7, #6366f1);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            transition: width 0.15s linear;
+            animation: shimmer 1.5s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .loading-text {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .loading-text .percent {
+            color: #a855f7;
+            font-weight: 700;
+        }
+
+        /* ========== رسالة النتيجة ========== */
+        .result-box {
+            display: none;
+            margin-top: 20px;
+            padding: 16px 20px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .result-box.show {
+            display: block;
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box .icon-result {
+            font-size: 42px;
+            margin-bottom: 6px;
+        }
+
+        .result-box .result-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .result-box .result-sub {
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        /* ========== تذييل ========== */
+        .footer-note {
+            margin-top: 20px;
+            color: rgba(255,255,255,0.2);
+            font-size: 11px;
+        }
+
+        /* ========== رسالة الخطأ ========== */
+        .error-toast {
+            display: none;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .error-toast.show {
+            display: block;
+            animation: fadeUp 0.3s ease forwards;
+        }
+
+        /* ========== رموز تحميل ========== */
+        .dots-loader {
+            display: inline-block;
+            width: 18px;
+            text-align: left;
+        }
+
+        .dots-loader span {
+            display: inline-block;
+            animation: dot-bounce 1.2s infinite;
+            font-size: 20px;
+            line-height: 0;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .dots-loader span:nth-child(2) { animation-delay: 0.2s; }
+        .dots-loader span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dot-bounce {
+            0%, 80%, 100% { opacity: 0.2; transform: translateY(0); }
+            40% { opacity: 1; transform: translateY(-4px); }
+        }
+
+        /* ========== عداد ========== */
+        .counter-text {
+            color: rgba(255,255,255,0.15);
+            font-size: 11px;
+            margin-top: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <!-- زوايا متوهجة -->
+    <div class="glow-corner top-right"></div>
+    <div class="glow-corner bottom-left"></div>
+
+    <!-- أيقونة -->
+    <div class="icon-wrapper">🕵️</div>
+
+    <!-- العنوان -->
+    <h1 class="main-title">كشف <span>مجهول الهوية</span></h1>
+    <p class="sub-text">ادخل الرابط الخاص بالبوست لمعرفة من قام بإرساله</p>
+
+    <!-- حقل الرابط -->
+    <div style="margin-bottom: 16px;">
+        <input type="text" id="postLink" 
+               placeholder="https://www.facebook.com/..." 
+               style="
+                   width: 100%;
+                   padding: 16px 18px;
+                   background: rgba(255,255,255,0.04);
+                   border: 1px solid rgba(255,255,255,0.08);
+                   border-radius: 60px;
+                   color: white;
+                   font-size: 15px;
+                   font-family: 'Cairo', sans-serif;
+                   outline: none;
+                   transition: border-color 0.3s;
+                   direction: ltr;
+                   text-align: center;
+               "
+               onfocus="this.style.borderColor='rgba(99,102,241,0.4)'"
+               onblur="this.style.borderColor='rgba(255,255,255,0.08)'"
+        >
+        <div style="color: rgba(255,255,255,0.2); font-size: 11px; margin-top: 6px;">📎 الصق رابط البوست هنا</div>
+    </div>
+
+    <!-- زر الدخول -->
+    <button class="enter-btn" id="checkBtn">🔍 كشف الهوية</button>
+
+    <!-- شريط التحميل -->
+    <div class="loading-container" id="loadingContainer">
+        <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="loading-text">
+            <span>جاري التحليل <span class="dots-loader"><span>.</span><span>.</span><span>.</span></span></span>
+            <span class="percent" id="percentText">0%</span>
+        </div>
+        <div class="counter-text" id="counterText">⏳ 0 ثانية</div>
+    </div>
+
+    <!-- رسالة الخطأ -->
+    <div class="error-toast" id="errorToast">⚠️ الرجاء إدخال رابط صحيح</div>
+
+    <!-- النتيجة -->
+    <div class="result-box" id="resultBox">
+        <div class="icon-result">👤</div>
+        <div class="result-title" id="resultName">أحمد محمد</div>
+        <div class="result-sub" id="resultSub">تم كشف هوية المرسل بنجاح</div>
+    </div>
+
+    <!-- تذييل -->
+    <div class="footer-note">🔒 معلوماتك آمنة • لا يتم تخزين أي بيانات</div>
+</div>
+
+<script>
+    (function() {
+        const checkBtn = document.getElementById('checkBtn');
+        const postLink = document.getElementById('postLink');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const progressFill = document.getElementById('progressFill');
+        const percentText = document.getElementById('percentText');
+        const counterText = document.getElementById('counterText');
+        const resultBox = document.getElementById('resultBox');
+        const resultName = document.getElementById('resultName');
+        const resultSub = document.getElementById('resultSub');
+        const errorToast = document.getElementById('errorToast');
+
+        // أسماء وهمية للنتائج
+        const fakeNames = [
+            'أحمد محمد', 'سارة علي', 'محمد حسن', 'نورا خالد', 'يوسف عمر',
+            'فاطمة أحمد', 'علي رضا', 'منى ياسر', 'حسام مصطفى', 'ريهام سامي',
+            'محمود طارق', 'هدى عبدالله', 'كريم السيد', 'ليلى محمود', 'أمير عادل'
+        ];
+
+        let isRunning = false;
+        let progressInterval = null;
+        let counterInterval = null;
+        let seconds = 0;
+
+        function showError(msg) {
+            errorToast.textContent = msg || '⚠️ الرجاء إدخال رابط صحيح';
+            errorToast.classList.add('show');
+            setTimeout(() => errorToast.classList.remove('show'), 3000);
+        }
+
+        function getRandomName() {
+            return fakeNames[Math.floor(Math.random() * fakeNames.length)];
+        }
+
+        function startProgress() {
+            let progress = 0;
+            seconds = 0;
+            loadingContainer.classList.add('active');
+            resultBox.classList.remove('show');
+            errorToast.classList.remove('show');
+
+            // شريط التحميل
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                // زيادة عشوائية تجعل التحميل يبدو طبيعياً
+                const increment = Math.random() * 4 + 0.5;
+                progress = Math.min(progress + increment, 100);
+                progressFill.style.width = progress + '%';
+                percentText.textContent = Math.round(progress) + '%';
+
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    finishProcess();
+                }
+            }, 200);
+
+            // عداد الثواني
+            clearInterval(counterInterval);
+            counterInterval = setInterval(() => {
+                seconds++;
+                counterText.textContent = `⏳ ${seconds} ثانية`;
+            }, 1000);
+        }
+
+        function finishProcess() {
+            // اختيار اسم عشوائي
+            const name = getRandomName();
+            const names = ['أحمد محمد', 'سارة علي', 'محمد حسن', 'نورا خالد', 'يوسف عمر', 
+                          'فاطمة أحمد', 'علي رضا', 'منى ياسر', 'حسام مصطفى', 'ريهام سامي'];
+            const finalName = names[Math.floor(Math.random() * names.length)];
+            
+            resultName.textContent = finalName;
+            resultSub.textContent = '✅ تم كشف هوية المرسل بنجاح';
+            resultBox.classList.add('show');
+
+            // إخفاء شريط التحميل بعد ثانية
+            setTimeout(() => {
+                loadingContainer.classList.remove('active');
+                clearInterval(counterInterval);
+            }, 600);
+
+            // إعادة تفعيل الزر
+            isRunning = false;
+            checkBtn.disabled = false;
+            checkBtn.textContent = '🔍 كشف الهوية';
+        }
+
+        // ========== الحدث الرئيسي ==========
+        checkBtn.onclick = function() {
+            if (isRunning) return;
+
+            const link = postLink.value.trim();
+
+            // تحقق من وجود رابط
+            if (!link || link.length < 5) {
+                showError('⚠️ الرجاء إدخال رابط صحيح');
+                return;
+            }
+
+            // تحقق بسيط من صيغة الرابط
+            if (!link.includes('http') && !link.includes('www') && !link.includes('facebook') && !link.includes('.com')) {
+                showError('⚠️ الرابط غير صالح، حاول مرة أخرى');
+                return;
+            }
+
+            isRunning = true;
+            checkBtn.disabled = true;
+            checkBtn.textContent = '⏳ جاري التحليل...';
+
+            // بدء التحميل
+            startProgress();
+        };
+
+        // ========== إدخال الرابط بضغط Enter ==========
+        postLink.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                checkBtn.click();
+            }
+        });
+
+        // ========== عند لصق الرابط ==========
+        postLink.addEventListener('paste', function() {
+            setTimeout(() => {
+                const val = this.value.trim();
+                if (val.length > 0) {
+                    this.style.borderColor = 'rgba(99,102,241,0.3)';
+                }
+            }, 100);
+        });
+
+    })();
+</script>
+
+</body>
+</html>
